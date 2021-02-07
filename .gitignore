@@ -1,11 +1,20 @@
-# Ignore Gradle
+# Gradle
 .gradle
 build
 /.settings
 
-#Ignore eclipse files
+# Eclipse
 .project
 .classpath
+
+# MacOS
+._*
+.DS_Store
+
+# IntelliJ
+.idea/
+*.iml
+*.ipr
 
 # Other
 /bin
