@@ -11,11 +11,11 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+//TODO: Split some of this off into seperate classes to avoid this main class being a giant monstrosity!
 public class RailroadIDE extends Application {
 
 	private Scene mainScene;
@@ -24,6 +24,8 @@ public class RailroadIDE extends Application {
 		launch(args);
 	}
 
+	// TODO: Add some validation for these logo files to avoid crashes.
+	// TODO: Create a file that it reads the path of the logo files from.
 	@Override
 	public void start(Stage mainWindow) throws Exception {
 		this.createComponents(mainWindow);
@@ -41,6 +43,7 @@ public class RailroadIDE extends Application {
 		});
 	}
 
+	// TODO: Start filling out some of these other menus.
 	public void createComponents(Stage window) {
 		BorderPane borderPane = new BorderPane();
 
@@ -66,76 +69,49 @@ public class RailroadIDE extends Application {
 		this.mainScene = new Scene(borderPane);
 	}
 
+	// TODO: Make proper textures for all these icons. Currently all just programmer art! ;)
+	// TODO: Find a way that allows us to fit an image larger than 20x20 pixels into the space this image is drawn.
 	public Menu createNewMenu() {
-		Menu newMenu = new Menu("New");
+		Menu menu = new Menu("New");
 
-		MenuItem newJavaProject = new MenuItem("Java Project");
-		ImageView javaProjectImg = new ImageView("/assets/img/java_project.png");
-		javaProjectImg.setFitWidth(20);
-		javaProjectImg.setPreserveRatio(true);
-		javaProjectImg.setSmooth(true);
-		javaProjectImg.setCache(true);
-		newJavaProject.setGraphic(javaProjectImg);
+		MenuItem javaProject = RailroadMenuItem.Builder.create("Java Project")
+				.setGraphic(Utils.createMenuGraphics("/assets/img/java_project.png")).build();
 
-		MenuItem newProject = new MenuItem("Project");
-		ImageView projectImg = new ImageView("/assets/img/folder.png");
-		projectImg.setFitWidth(20);
-		projectImg.setPreserveRatio(true);
-		projectImg.setSmooth(true);
-		projectImg.setCache(true);
-		newProject.setGraphic(projectImg);
+		MenuItem project = RailroadMenuItem.Builder.create("Project")
+				.setGraphic(Utils.createMenuGraphics("/assets/img/project.png")).build();
 
-		MenuItem newPackage = new MenuItem("Package");
-		ImageView packageImg = new ImageView("/assets/img/package.png");
-		packageImg.setFitWidth(20);
-		packageImg.setPreserveRatio(true);
-		packageImg.setSmooth(true);
-		packageImg.setCache(true);
-		newPackage.setGraphic(packageImg);
+		// TODO: Once added texture at "/assets/img/working_set.png" un-comment
+		// setGraphic
+		MenuItem javaWorkingSet = RailroadMenuItem.Builder.create("Java Working Set")
+				/* .setGraphic(Utils.createMenuGraphics("/assets/img/working_set.png") */.build();
 
-		MenuItem newClass = new MenuItem("Class");
-		ImageView classImg = new ImageView("/assets/img/class.png");
-		classImg.setFitWidth(20);
-		classImg.setPreserveRatio(true);
-		classImg.setSmooth(true);
-		classImg.setCache(true);
-		newClass.setGraphic(classImg);
+		MenuItem packagE = RailroadMenuItem.Builder.create("Package")
+				.setGraphic(Utils.createMenuGraphics("/assets/img/package.png")).build();
 
-		MenuItem newInterface = new MenuItem("Interface");
-		ImageView interfaceImg = new ImageView("/assets/img/interface.png");
-		interfaceImg.setFitWidth(20);
-		interfaceImg.setPreserveRatio(true);
-		interfaceImg.setSmooth(true);
-		interfaceImg.setCache(true);
-		newInterface.setGraphic(interfaceImg);
+		MenuItem sourceFolder = RailroadMenuItem.Builder.create("Source Folder")
+				.setGraphic(Utils.createMenuGraphics("/assets/img/source_folder.png")).build();
 
-		MenuItem newSourceFolder = new MenuItem("Source Folder");
-		ImageView sourceFolderImg = new ImageView("/assets/img/source_folder.png");
-		sourceFolderImg.setFitWidth(20);
-		sourceFolderImg.setPreserveRatio(true);
-		sourceFolderImg.setSmooth(true);
-		sourceFolderImg.setCache(true);
-		newSourceFolder.setGraphic(sourceFolderImg);
+		MenuItem file = RailroadMenuItem.Builder.create("File").setGraphic(Utils.createMenuGraphics("/assets/img/file.png"))
+				.build();
 
-		MenuItem newEnum = new MenuItem("Enum");
-		ImageView enumImg = new ImageView("/assets/img/enum.png");
-		enumImg.setFitWidth(20);
-		enumImg.setPreserveRatio(true);
-		enumImg.setSmooth(true);
-		enumImg.setCache(true);
-		newEnum.setGraphic(enumImg);
+		MenuItem folder = RailroadMenuItem.Builder.create("Folder")
+				.setGraphic(Utils.createMenuGraphics("/assets/img/folder.png")).build();
 
-		MenuItem newAnnotation = new MenuItem("Annotation");
-		ImageView annotationImg = new ImageView("/assets/img/annotation.png");
-		annotationImg.setFitWidth(20);
-		annotationImg.setPreserveRatio(true);
-		annotationImg.setSmooth(true);
-		annotationImg.setCache(true);
-		newAnnotation.setGraphic(annotationImg);
+		MenuItem clazz = RailroadMenuItem.Builder.create("Class")
+				.setGraphic(Utils.createMenuGraphics("/assets/img/class.png")).build();
 
-		newMenu.getItems().addAll(newJavaProject, newProject, new SeparatorMenuItem(), newSourceFolder, newPackage, newClass,
-				newInterface, newEnum, newAnnotation);
-		return newMenu;
+		MenuItem interfacE = RailroadMenuItem.Builder.create("Interface")
+				.setGraphic(Utils.createMenuGraphics("/assets/img/interface.png")).build();
+
+		MenuItem enuM = RailroadMenuItem.Builder.create("Enum").setGraphic(Utils.createMenuGraphics("/assets/img/enum.png"))
+				.build();
+
+		MenuItem annotation = RailroadMenuItem.Builder.create("Annotation")
+				.setGraphic(Utils.createMenuGraphics("/assets/img/annotation.png")).build();
+
+		menu.getItems().addAll(javaProject, project, javaWorkingSet, new SeparatorMenuItem(), sourceFolder, packagE, file,
+				folder, new SeparatorMenuItem(), clazz, interfacE, enuM, annotation);
+		return menu;
 	}
 
 	private void onClose(Stage window) {
