@@ -97,17 +97,6 @@ public class RailroadIDE extends Application {
 		MenuItem packagE = RailroadMenuItem.Builder.create(this.config.lang.get("menu.file.new.package"))
 				.setGraphic(Utils.createMenuGraphics("/assets/img/package.png")).build();
 
-		/* Temprorary function
-		 * delete this after testing
-		 */
-		MenuItem test = RailroadMenuItem.Builder.create("Gimme Forge / Fabric").setActionEvent(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				MinecraftForgeVersion latest = VersionHandler.getForgeLatest();
-				new MDKFetcher().fetch(latest.getDownloadURL(false));
-			}
-		}).build();
-
 		MenuItem sourceFolder = RailroadMenuItem.Builder.create(this.config.lang.get("menu.file.new.sourcefolder"))
 				.setGraphic(Utils.createMenuGraphics("/assets/img/source_folder.png")).build();
 
@@ -130,7 +119,7 @@ public class RailroadIDE extends Application {
 				.setGraphic(Utils.createMenuGraphics("/assets/img/annotation.png")).build();
 
 		menu.getItems().addAll(javaProject, project, javaWorkingSet, new SeparatorMenuItem(), sourceFolder, packagE,
-				file, folder, new SeparatorMenuItem(), clazz, interfacE, enuM, annotation, test);
+				file, folder, new SeparatorMenuItem(), clazz, interfacE, enuM, annotation);
 		return menu;
 	}
 
