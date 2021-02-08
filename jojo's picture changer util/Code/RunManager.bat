@@ -1,2 +1,0 @@
-javac ColorSeparation.java RecolorerManager.java
-java RecolorerManager
