@@ -3,6 +3,8 @@ package com.turtywurty.railroad;
 import java.io.InputStream;
 
 import com.turtywurty.railroad.util.Utils;
+import com.turtywurty.railroad.window.ConfirmWindow;
+import com.turtywurty.railroad.window.RailroadMenuItem;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -36,7 +38,7 @@ public class RailroadIDE extends Application {
 		logos[1] = new Image(logo32);
 		logo16.close();
 		logo32.close();
-		Stage window = Utils.setupWindow(mainWindow, "JavaFX Testing", this.mainScene, logos);
+		Stage window = Utils.setupWindow(mainWindow, "RailRoad IDE", this.mainScene, logos);
 		window.setOnCloseRequest(event -> {
 			event.consume();
 			this.onClose(window);

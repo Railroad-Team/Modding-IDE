@@ -1,4 +1,4 @@
-package com.turtywurty.railroad;
+package com.turtywurty.railroad.window;
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;
