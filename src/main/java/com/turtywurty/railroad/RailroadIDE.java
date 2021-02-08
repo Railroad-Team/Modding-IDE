@@ -4,6 +4,8 @@ import java.io.InputStream;
 
 import com.turtywurty.railroad.config.Config;
 import com.turtywurty.railroad.util.Utils;
+import com.turtywurty.railroad.window.ConfirmWindow;
+import com.turtywurty.railroad.window.CreateNewFileWindow;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -103,7 +105,7 @@ public class RailroadIDE extends Application {
 		file.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				OpenNewFileWindow.displayWindow(config.lang.get("dialog.newfile.title"), config.lang.get("dialog.newfile.idk"));
+				CreateNewFileWindow.displayWindow(config.lang.get("dialog.newfile.title"), config.lang.get("dialog.newfile.idk"));
 				
 			}
 	});
@@ -113,6 +115,14 @@ public class RailroadIDE extends Application {
 
 		MenuItem clazz = RailroadMenuItem.Builder.create(this.config.lang.get("menu.file.new.class"))
 				.setGraphic(Utils.createMenuGraphics("/assets/img/class.png")).build();
+		
+		clazz.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 
 		MenuItem interfacE = RailroadMenuItem.Builder.create(this.config.lang.get("menu.file.new.interface"))
 				.setGraphic(Utils.createMenuGraphics("/assets/img/interface.png")).build();

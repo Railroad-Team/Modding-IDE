@@ -33,6 +33,7 @@ public class FileUtils {
 	 public static File openFile(String  name) {
 	        FileChooser fileChooser = new FileChooser();
 	        fileChooser.setTitle(name);
+	        
 	        return fileChooser.showOpenDialog(null);
 	    }
 	 

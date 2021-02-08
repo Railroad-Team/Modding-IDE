@@ -1,5 +1,6 @@
-package com.turtywurty.railroad;
+package com.turtywurty.railroad.window;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,12 +13,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 //TODO: make chosing file path have a filedialog screen 
-public class OpenNewFileWindow {
+public class CreateNewFileWindow {
 	public static Map<Stage, Boolean> ANSWER = new HashMap<Stage, Boolean>();
+	public static String filePath;
 
 	public static void displayWindow(String title, String message) {
 		Stage window = new Stage();
@@ -27,14 +30,30 @@ public class OpenNewFileWindow {
 		window.setMinWidth(250);
 		window.setMinHeight(100);
 		window.setResizable(false);
+		DirectoryChooser directoryChooser = new DirectoryChooser();
 
 		Label label = new Label(message);
 		
-		TextField fileName = new TextField("File Name");
-		TextField filePath = new TextField("File Path");
+		TextField fileName = new TextField("");
+		TextField pathName = new TextField("File Path");
+		pathName.setEditable(false);
+		Button choseFilePath = Utils.createButton("Chose Path", event -> {
+			
+			File file = directoryChooser.showDialog(window);
+			if(file!= null) {
+				filePath = file.getAbsolutePath();
+				pathName.setText(filePath);
+			}
+			directoryChooser.setInitialDirectory(new File(""));
+			
+		});
+		
+		
 		
 		Button yesBtn = Utils.createButton("Create File", event -> {
-			FileUtils.createNewFile(filePath.getText() + "\\" + fileName.getText());
+			
+			System.out.println(filePath);
+			FileUtils.createNewFile(filePath + "\\" + fileName.getText());
 			window.close();
 		});
 
@@ -44,7 +63,7 @@ public class OpenNewFileWindow {
 		});
 
 		VBox layout = new VBox(10);
-		layout.getChildren().addAll(label, yesBtn, noBtn, fileName, filePath);
+		layout.getChildren().addAll(label,fileName, choseFilePath, pathName,  yesBtn, noBtn);
 		layout.setAlignment(Pos.CENTER);
 
 		Scene scene = new Scene(layout);
