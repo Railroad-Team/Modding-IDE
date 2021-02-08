@@ -1,5 +1,5 @@
 {
-	"window.title": "RailRoad IDE",
+	"window.title": "Railroad IDE",
 	
 	"menu.file": "File",
 	"menu.file.new": "New",
@@ -25,7 +25,7 @@
 	"menu.search": "Search",
 	"menu.project": "Project",
 	"menu.run": "Run",
-	"menu.window": "Window",
+	"menu.view": "View",
 	"menu.help": "Help",
 	
 	"dialog.quit": "Quit",
