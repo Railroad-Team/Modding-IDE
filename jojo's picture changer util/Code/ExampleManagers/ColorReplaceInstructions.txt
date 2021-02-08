@@ -1,0 +1,2 @@
+Format: 
+targetR targetG targetB changeR changeG changeB changeA
