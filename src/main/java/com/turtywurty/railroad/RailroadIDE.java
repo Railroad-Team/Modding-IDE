@@ -31,7 +31,7 @@ public class RailroadIDE extends Application {
 		logos[1] = new Image(logo32);
 		logo16.close();
 		logo32.close();
-		Stage window = Utils.setupWindow(mainWindow, "JavaFX Testing", this.mainScene, logos);
+		Stage window = Utils.setupWindow(mainWindow, "JavaFX Testing", RailroadIDE.mainScene, logos);
 		window.setOnCloseRequest(event -> {
 			event.consume();
 			this.onClose(window);
