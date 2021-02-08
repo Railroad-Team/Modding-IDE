@@ -29,19 +29,11 @@ public class SemVer implements Comparable<SemVer> {
 
 	@Override
 	public int compareTo(SemVer other) {
-		if (this.major > other.major) {
-			return 1;
-		}
-		if (this.major < other.major) {
-			return -1;
-		}
+		if (Integer.compare(this.major, other.major) != 0)
+			return Integer.compare(this.major, other.major);
 
-		if (this.minor > other.minor) {
-			return 1;
-		}
-		if (this.minor < other.minor) {
-			return -1;
-		}
+		if (Integer.compare(this.minor, other.minor) != 0)
+			return Integer.compare(this.minor, other.minor);
 
 		if (this.patch == null && other.patch != null) {
 			return -1;
@@ -50,14 +42,7 @@ public class SemVer implements Comparable<SemVer> {
 			return 1;
 		}
 
-		if (this.patch > other.patch) {
-			return 1;
-		}
-		if (this.patch < other.patch) {
-			return -1;
-		}
-
-		return 0;
+		return Integer.compare(this.patch, other.patch);
 	}
 
 	@Override
