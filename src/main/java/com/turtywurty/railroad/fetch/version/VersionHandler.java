@@ -4,6 +4,7 @@ import com.turtywurty.railroad.fetch.version.forge.ForgeVersion;
 import com.turtywurty.railroad.fetch.version.forge.ForgeVersionHelper;
 import com.turtywurty.railroad.fetch.version.forge.MinecraftForgeVersion;
 
+//Author: MMD. Taken and changed on 08/02/21
 public class VersionHandler {
 
 	public static MinecraftForgeVersion getForgeLatest() {

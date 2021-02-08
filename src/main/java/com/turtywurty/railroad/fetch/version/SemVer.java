@@ -1,5 +1,6 @@
 package com.turtywurty.railroad.fetch.version;
 
+//Author: MMD. Taken and changed on 08/02/21
 public class SemVer implements Comparable<SemVer> {
 
 	private final Integer major;

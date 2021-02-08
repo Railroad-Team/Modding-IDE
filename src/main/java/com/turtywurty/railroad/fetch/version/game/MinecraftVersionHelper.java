@@ -8,6 +8,7 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+//Author: MMD. Taken and changed on 08/02/21
 public class MinecraftVersionHelper {
 
 	private static final String API_URL = "https://meta.fabricmc.net/v2/versions/game";

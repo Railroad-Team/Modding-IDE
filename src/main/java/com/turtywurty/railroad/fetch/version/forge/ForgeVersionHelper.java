@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.turtywurty.railroad.fetch.version.SemVer;
 import com.turtywurty.railroad.fetch.version.VersionMeta;
 
+//Author: MMD. Taken and changed on 08/02/21
 public class ForgeVersionHelper {
 
 	private static final String VERSION_URL = "https://files.minecraftforge.net/maven/net/minecraftforge/forge/promotions_slim.json";

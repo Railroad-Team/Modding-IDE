@@ -1,5 +1,6 @@
 package com.turtywurty.railroad.fetch.version.forge;
 
+//Author: MMD. Taken and changed on 08/02/21
 public class ForgeVersion {
 	private String recommended;
     private String latest;

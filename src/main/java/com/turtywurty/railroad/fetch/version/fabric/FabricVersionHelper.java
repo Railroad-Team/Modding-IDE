@@ -23,6 +23,7 @@ import org.xml.sax.SAXException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+//Author: MMD. Taken and changed on 08/02/21
 public class FabricVersionHelper {
 	private static final String YARN_URL = "https://meta.fabricmc.net/v2/versions/yarn";
 	private static final String LOADER_URL = "https://meta.fabricmc.net/v2/versions/loader";
