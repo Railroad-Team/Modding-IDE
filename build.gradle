@@ -17,4 +17,5 @@ repositories {
 
 dependencies {
 	compile group: 'org.json', name: 'json', version: '20201115'
+	compile group: 'org.fxmisc.richtext', name: 'richtextfx', version: '0.10.5'
 }

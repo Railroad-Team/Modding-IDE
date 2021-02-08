@@ -22,7 +22,7 @@ public class RailroadIDE extends Application {
 	private Scene mainScene;
 	private Config config;
 
-	// TODO create an instance variable 
+	// TODO create an instance variable
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -73,7 +73,8 @@ public class RailroadIDE extends Application {
 		this.mainScene = new Scene(borderPane);
 	}
 
-	// TODO: Make proper textures for all these icons. Currently all just programmer art! ;)
+	// TODO: Make proper textures for all these icons. Currently all just programmer
+	// art! ;)
 	public Menu createNewMenu() {
 		Menu menu = new Menu(this.config.lang.get("menu.file.new"));
 
@@ -94,31 +95,32 @@ public class RailroadIDE extends Application {
 		MenuItem sourceFolder = RailroadMenuItem.Builder.create(this.config.lang.get("menu.file.new.sourcefolder"))
 				.setGraphic(Utils.createMenuGraphics("/assets/img/source_folder.png")).build();
 
-		MenuItem file = RailroadMenuItem.Builder.create(this.config.lang.get("menu.file.new.file")).setGraphic(Utils.createMenuGraphics("/assets/img/file.png"))
-				.build();
+		MenuItem file = RailroadMenuItem.Builder.create(this.config.lang.get("menu.file.new.file"))
+				.setGraphic(Utils.createMenuGraphics("/assets/img/file.png")).build();
 
 		MenuItem folder = RailroadMenuItem.Builder.create(this.config.lang.get("menu.file.new.folder"))
 				.setGraphic(Utils.createMenuGraphics("/assets/img/folder.png")).build();
 
 		MenuItem clazz = RailroadMenuItem.Builder.create(this.config.lang.get("menu.file.new.class"))
-				.setGraphic(Utils.createMenuGraphics("/assets/img/large_icon_test.png")).build();
+				.setGraphic(Utils.createMenuGraphics("/assets/img/class.png")).build();
 
 		MenuItem interfacE = RailroadMenuItem.Builder.create(this.config.lang.get("menu.file.new.interface"))
 				.setGraphic(Utils.createMenuGraphics("/assets/img/interface.png")).build();
 
-		MenuItem enuM = RailroadMenuItem.Builder.create(this.config.lang.get("menu.file.new.enum")).setGraphic(Utils.createMenuGraphics("/assets/img/enum.png"))
-				.build();
+		MenuItem enuM = RailroadMenuItem.Builder.create(this.config.lang.get("menu.file.new.enum"))
+				.setGraphic(Utils.createMenuGraphics("/assets/img/enum.png")).build();
 
 		MenuItem annotation = RailroadMenuItem.Builder.create(this.config.lang.get("menu.file.new.annotation"))
 				.setGraphic(Utils.createMenuGraphics("/assets/img/annotation.png")).build();
 
-		menu.getItems().addAll(javaProject, project, javaWorkingSet, new SeparatorMenuItem(), sourceFolder, packagE, file,
-				folder, new SeparatorMenuItem(), clazz, interfacE, enuM, annotation);
+		menu.getItems().addAll(javaProject, project, javaWorkingSet, new SeparatorMenuItem(), sourceFolder, packagE,
+				file, folder, new SeparatorMenuItem(), clazz, interfacE, enuM, annotation);
 		return menu;
 	}
 
 	private void onClose(Stage window) {
-		boolean shouldClose = ConfirmWindow.displayWindow(this.config.lang.get("dialog.quit"), this.config.lang.get("dialog.quit.prompt"));
+		boolean shouldClose = ConfirmWindow.displayWindow(this.config.lang.get("dialog.quit"),
+				this.config.lang.get("dialog.quit.prompt"));
 		if (shouldClose)
 			window.close();
 	}
