@@ -8,7 +8,7 @@ import org.json.JSONTokener;
 
 import com.turtywurty.railroad.RailroadIDE;
 
-public class LanguageConfig { // This should probably extend something at some point, but it is ok for now.
+public class LanguageConfig extends Config {
 
 	private Map<String, String> languageTranslator;
 
