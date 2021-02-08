@@ -22,6 +22,7 @@ public class RailroadIDE extends Application {
 	private Scene mainScene;
 	private Config config;
 
+	// TODO create an instance variable 
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -73,7 +74,6 @@ public class RailroadIDE extends Application {
 	}
 
 	// TODO: Make proper textures for all these icons. Currently all just programmer art! ;)
-	// TODO: Find a way that allows us to fit an image larger than 20x20 pixels into the space this image is drawn.
 	public Menu createNewMenu() {
 		Menu menu = new Menu(this.config.lang.get("menu.file.new"));
 
@@ -101,7 +101,7 @@ public class RailroadIDE extends Application {
 				.setGraphic(Utils.createMenuGraphics("/assets/img/folder.png")).build();
 
 		MenuItem clazz = RailroadMenuItem.Builder.create(this.config.lang.get("menu.file.new.class"))
-				.setGraphic(Utils.createMenuGraphics("/assets/img/class.png")).build();
+				.setGraphic(Utils.createMenuGraphics("/assets/img/large_icon_test.png")).build();
 
 		MenuItem interfacE = RailroadMenuItem.Builder.create(this.config.lang.get("menu.file.new.interface"))
 				.setGraphic(Utils.createMenuGraphics("/assets/img/interface.png")).build();

@@ -27,13 +27,9 @@ public class Utils {
 		return btn;
 	}
 
-	//TODO: Add some sort of validation for that image path because that is extremely prone to errors! lmao.
+	// TODO: Add some sort of validation for that image path because that is
+	// extremely prone to errors! lmao.
 	public static ImageView createMenuGraphics(String imagePath) {
-		ImageView view = new ImageView(imagePath);
-		view.setFitWidth(20);
-		view.setPreserveRatio(true);
-		view.setSmooth(true);
-		view.setCache(true);
-		return view;
+		return new ImageView(new Image(imagePath, 20, 20, true, true, true));
 	}
 }
