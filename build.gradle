@@ -2,7 +2,9 @@ repositories {
     mavenCentral()
 }
 
+apply plugin: 'java'
+
 dependencies {
-	compile group: 'org.json', name: 'json', version: '20201115'
-	compile group: 'org.fxmisc.richtext', name: 'richtextfx', version: '0.10.5'
+    compile group: 'org.json', name: 'json', version: '20201115'
+    compile group: 'org.fxmisc.richtext', name: 'richtextfx', version: '0.10.5'
 }
