@@ -1,0 +1,30 @@
+{
+  "window.title": "RailRoad IDE",
+
+  "menu.file": "檔案",
+  "menu.file.new": "新增檔案",
+  "menu.file.new.javaproject": "Java專案",
+  "menu.file.new.project": "專案",
+  "menu.file.new.javaworkingset": "Java工作包",
+  "menu.file.new.package": "套件",
+  "menu.file.new.sourcefolder": "源代碼資料夾",
+  "menu.file.new.file": "檔案",
+  "menu.file.new.folder": "資料夾",
+  "menu.file.new.class": "類別",
+  "menu.file.new.interface": "介面",
+  "menu.file.new.enum": "枚舉",
+  "menu.file.new.annotation": "註解",
+
+  "menu.edit": "編輯",
+  "menu.source": "源代碼",
+  "menu.refactor": "重構",
+  "menu.navigate": "移至",
+  "menu.search": "搜尋",
+  "menu.project": "專案",
+  "menu.run": "啟動",
+  "menu.window": "視窗",
+  "menu.help": "說明",
+
+  "dialog.quit": "離開",
+  "dialog.quit.prompt": "您確定要離開？"
+}
