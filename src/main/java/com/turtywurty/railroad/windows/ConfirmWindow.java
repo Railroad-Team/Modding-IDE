@@ -1,9 +1,9 @@
-package com.turtywurty.railroad;
+package com.turtywurty.railroad.windows;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.turtywurty.railroad.util.Utils;
+import com.turtywurty.railroad.util.UIUtils;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -14,10 +14,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 // TODO: Come up with a cleaner way of doing this. This code was rushed.
-// TODO: Find a better place for this class to be in.
 public class ConfirmWindow {
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static Map<Stage, Boolean> ANSWER = new HashMap();
 
 	public static boolean displayWindow(String title, String message) {
@@ -32,12 +30,12 @@ public class ConfirmWindow {
 
 		Label label = new Label(message);
 
-		Button yesBtn = Utils.createButton("Yes", event -> {
+		Button yesBtn = UIUtils.createButton("Yes", event -> {
 			ANSWER.put(window, true);
 			window.close();
 		});
 
-		Button noBtn = Utils.createButton("No", event -> {
+		Button noBtn = UIUtils.createButton("No", event -> {
 			ANSWER.put(window, false);
 			window.close();
 		});

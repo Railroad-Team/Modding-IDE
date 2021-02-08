@@ -1,4 +1,4 @@
-package com.turtywurty.railroad;
+package com.turtywurty.railroad.components;
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -9,7 +9,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 
-// TODO: Find a better place for this class to be.
 public class RailroadMenuItem extends MenuItem {
 	private Builder properties;
 

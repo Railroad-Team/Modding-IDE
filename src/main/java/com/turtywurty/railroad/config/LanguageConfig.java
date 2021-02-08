@@ -6,15 +6,15 @@ import java.util.Map;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import com.turtywurty.railroad.RailroadIDE;
+import com.turtywurty.railroad.Railroad;
 
-public class LanguageConfig { // This should probably extend something at some point, but it is ok for now.
+public class LanguageConfig extends AbstractConfig {
 
 	private Map<String, String> languageTranslator;
 
 	public LanguageConfig(String file) {
 		languageTranslator = new HashMap<String, String>();
-		JSONTokener tokener = new JSONTokener(RailroadIDE.class.getResourceAsStream(file));
+		JSONTokener tokener = new JSONTokener(Railroad.class.getResourceAsStream(file));
 		JSONObject obj = new JSONObject(tokener);
 		for (String key : obj.keySet()) {
 			languageTranslator.put(key, obj.getString(key));

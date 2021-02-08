@@ -1,4 +1,4 @@
-package com.turtywurty.railroad.model;
+package com.turtywurty.railroad.modeleditor;
 
 import javafx.scene.shape.Box;
 import javafx.scene.transform.Rotate;
