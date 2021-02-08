@@ -19,11 +19,6 @@ public class RailroadMenu {
 			MenuItem project = RailroadMenuItem.Builder.create("Project")
 					.setGraphic(Utils.createMenuGraphics("/assets/img/project.png")).build();
 
-			// TODO: Once added texture at "/assets/img/working_set.png" un-comment
-			// setGraphic
-			MenuItem javaWorkingSet = RailroadMenuItem.Builder.create("Java Working Set")
-					/*.setGraphic(Utils.createMenuGraphics("/assets/img/working_set.png"))*/.build();
-
 			MenuItem packagE = RailroadMenuItem.Builder.create("Package")
 					.setGraphic(Utils.createMenuGraphics("/assets/img/package.png")).build();
 
@@ -48,7 +43,7 @@ public class RailroadMenu {
 			MenuItem annotation = RailroadMenuItem.Builder.create("Annotation")
 					.setGraphic(Utils.createMenuGraphics("/assets/img/annotation.png")).build();
 
-			menu.getItems().addAll(javaProject, project, javaWorkingSet, new SeparatorMenuItem(), sourceFolder, packagE, file,
+			menu.getItems().addAll(javaProject, project, new SeparatorMenuItem(), sourceFolder, packagE, file,
 					folder, new SeparatorMenuItem(), clazz, interfacE, enuM, annotation);
 			return menu;
 		}
