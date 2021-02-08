@@ -6,6 +6,8 @@ import com.turtywurty.railroad.config.Config;
 import com.turtywurty.railroad.util.Utils;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -54,7 +56,8 @@ public class RailroadIDE extends Application {
 		MenuBar menuBar = new MenuBar();
 
 		Menu fileMenu = new Menu(this.config.lang.get("menu.file"));
-		fileMenu.getItems().add(this.createNewMenu());
+		Menu open = new Menu(this.config.lang.get("menu.file.open"));
+		fileMenu.getItems().addAll(this.createNewMenu(), open);
 
 		Menu editMenu = new Menu(this.config.lang.get("menu.edit"));
 		Menu sourceMenu = new Menu(this.config.lang.get("menu.source"));
@@ -97,6 +100,13 @@ public class RailroadIDE extends Application {
 
 		MenuItem file = RailroadMenuItem.Builder.create(this.config.lang.get("menu.file.new.file"))
 				.setGraphic(Utils.createMenuGraphics("/assets/img/file.png")).build();
+		file.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				OpenNewFileWindow.displayWindow(config.lang.get("dialog.newfile.title"), config.lang.get("dialog.newfile.idk"));
+				
+			}
+	});
 
 		MenuItem folder = RailroadMenuItem.Builder.create(this.config.lang.get("menu.file.new.folder"))
 				.setGraphic(Utils.createMenuGraphics("/assets/img/folder.png")).build();
