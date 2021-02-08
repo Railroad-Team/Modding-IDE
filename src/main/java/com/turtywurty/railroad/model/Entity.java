@@ -7,16 +7,14 @@ public class Entity {
 
 	private String name;
 	private Box object;
+	
+	public Rotate rotateX = new Rotate(0, Rotate.X_AXIS);
+	public Rotate rotateY = new Rotate(0, Rotate.Y_AXIS);
 
 	public Entity(String n, Box o) {
 		this.name = n;
 		this.object = o;
-	}
-	
-	public void tick() {
-		Rotate xRotation = new Rotate(1, Rotate.X_AXIS);
-		Rotate yRotation = new Rotate(2, Rotate.Y_AXIS);
-		object.getTransforms().addAll(xRotation, yRotation);
+		this.getObject().getTransforms().addAll(rotateX, rotateY);
 	}
 
 	public String getName() {

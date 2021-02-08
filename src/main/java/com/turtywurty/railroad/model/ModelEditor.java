@@ -14,6 +14,8 @@ import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
@@ -30,52 +32,75 @@ public class ModelEditor extends Application {
 	public static List<Entity> entities = new ArrayList<Entity>();
 	public static int loop;
 
+	private double mousePosX, mousePosY = 0;
+
 	@Override
 	public void start(Stage primaryStage) {
 
 		// Add all entities
 		entities.add(new Entity("Example1", createCube()));
-		entities.add(new Entity("Example2", createCube()));
 
-		Group root = new Group(); // layout
+		// Create group
+		Group root = new Group();
+		AmbientLight light = new AmbientLight();
+		PerspectiveCamera camera = new PerspectiveCamera();
 
+		// Register entities
+		for (Entity e : entities)
+			root.getChildren().add(e.getObject());
+
+		// Add buttons
 		Button button = new Button("Add cube lol");
 		ToggleButton toggleButton = new ToggleButton("Lighting");
 		HBox hbox = new HBox(button, toggleButton);
 		root.getChildren().add(hbox);
-		
-		AmbientLight light = new AmbientLight();
-
 		button.setOnAction(value -> {
 			addEntity(root, new Entity(String.valueOf(loop), createCube()));
 		});
 
-		for (Entity e : entities)
-			root.getChildren().add(e.getObject());
-
-		PerspectiveCamera camera = new PerspectiveCamera();
-
-		Scene scene = new Scene(root, 850, 650); // show scene
+		// Scene
+		Scene scene = new Scene(root, 850, 650);
 		scene.setCamera(camera);
 
-		primaryStage.setTitle("Hello World!");
+		// ROTATING STUFF
+		// TODO 15 is a strength, make this configurable
+		scene.addEventHandler(MouseEvent.MOUSE_DRAGGED, me -> {
+			if (me.getButton() == MouseButton.PRIMARY) {
+				double dx = (mousePosX - me.getSceneX());
+				double dy = (mousePosY - me.getSceneY());
+
+				for (Entity e : entities) {
+					e.rotateX.setAngle(
+							e.rotateX.getAngle() - (dy / e.getObject().getHeight() * 360) * (Math.PI / 180) * 15);
+					e.rotateY.setAngle(
+							e.rotateY.getAngle() - (dx / e.getObject().getWidth() * -360) * (Math.PI / 180) * 15);
+				}
+
+				mousePosX = me.getSceneX();
+				mousePosY = me.getSceneY();
+			}
+		});
+
+		scene.addEventHandler(MouseEvent.MOUSE_PRESSED, me -> {
+			mousePosX = me.getSceneX();
+			mousePosY = me.getSceneY();
+		});
+
+		primaryStage.setTitle("Model Editor? POG");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
-		Timeline tick = new Timeline(new KeyFrame(new Duration(10), // This is how often it updates in milliseconds
-				new EventHandler<ActionEvent>() {
-					public void handle(ActionEvent t) {
-						for (Entity e : entities)
-							e.tick();
-						loop++;
-						if (root.getChildren().contains(light) && toggleButton.isSelected()) {
-							root.getChildren().remove(light);
-						}
-						else if (!root.getChildren().contains(light) && !toggleButton.isSelected()) {
-							root.getChildren().add(light);
-						}
-					}
-				}));
+		// Timeline
+		Timeline tick = new Timeline(new KeyFrame(new Duration(10), new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent t) {
+				loop++;
+				if (root.getChildren().contains(light) && toggleButton.isSelected()) {
+					root.getChildren().remove(light);
+				} else if (!root.getChildren().contains(light) && !toggleButton.isSelected()) {
+					root.getChildren().add(light);
+				}
+			}
+		}));
 		tick.setCycleCount(Timeline.INDEFINITE);
 		tick.play();// Starts the timeline
 	}
@@ -87,23 +112,25 @@ public class ModelEditor extends Application {
 
 	Box createCube() {
 		Box box = new Box();
+		
+		// Transform
 		box.setWidth(300); // x size
 		box.setHeight(300); // y size
 		box.setDepth(300);// z size
+		box.setTranslateX(400); // X pos
+		box.setTranslateY(300); // Y pos
+		box.setTranslateZ(0); // Z pos
 
-		box.setTranslateX(300);
-		box.setTranslateY(300);
-		box.setTranslateZ(0);
-
+		// Material
 		PhongMaterial mat = new PhongMaterial();
 		mat.setSpecularColor(Color.BLACK);
 		mat.setDiffuseColor(Color.RED);
-
 		box.setMaterial(mat);
 
 		return box;
 	}
 
+	// TODO remove this and integrate into main IDE
 	public static void main(String[] args) {
 		launch(args);
 	}
