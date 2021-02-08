@@ -32,5 +32,4 @@ public class LanguageConfig { // This should probably extend something at some p
 	public String get(String key) {
 		return languageTranslator.getOrDefault(key, "Null");
 	}
-
 }
