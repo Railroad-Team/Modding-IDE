@@ -19,25 +19,22 @@ public class RailroadTopMenu extends MenuBar {
 
 	public void createMenu() {
 		Menu fileMenu = new Menu(this.langConfig.get("menu.file"));
-		fileMenu.getItems().add(this.createNewMenu());
+		fileMenu.getItems().add(this.createFileNewMenu());
 
 		Menu editMenu = new Menu(this.langConfig.get("menu.edit"));
-		Menu sourceMenu = new Menu(this.langConfig.get("menu.source"));
-		Menu refactorMenu = new Menu(this.langConfig.get("menu.refactor"));
-		Menu navigateMenu = new Menu(this.langConfig.get("menu.navigate"));
+		editMenu.getItems().add(this.createEditMenu());
+		
 		Menu searchMenu = new Menu(this.langConfig.get("menu.search"));
-		Menu projectMenu = new Menu(this.langConfig.get("menu.project"));
 		Menu runMenu = new Menu(this.langConfig.get("menu.run"));
 		Menu windowMenu = new Menu(this.langConfig.get("menu.window"));
 		Menu helpMenu = new Menu(this.langConfig.get("menu.help"));
-		this.getMenus().addAll(fileMenu, editMenu, sourceMenu, refactorMenu, navigateMenu, searchMenu, projectMenu, runMenu,
-				windowMenu, helpMenu);
+		this.getMenus().addAll(fileMenu, editMenu, searchMenu, runMenu,windowMenu, helpMenu);
 	}
 
 	// TODO: Make proper textures for all these icons. Currently all just programmer
 	// art! ;)
-	public Menu createNewMenu() {
-		Menu menu = new Menu(this.langConfig.get("menu.file.new"));
+	public Menu createFileNewMenu() {
+		Menu fileMenu = new Menu(this.langConfig.get("menu.file.new"));
 
 		MenuItem javaProject = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.javaproject"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
@@ -72,8 +69,21 @@ public class RailroadTopMenu extends MenuBar {
 		MenuItem annotation = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.annotation"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/annotation.png")).build();
 
-		menu.getItems().addAll(javaProject, project, javaWorkingSet, new SeparatorMenuItem(), sourceFolder, packagE, file,
+		fileMenu.getItems().addAll(javaProject, project, javaWorkingSet, new SeparatorMenuItem(), sourceFolder, packagE, file,
 				folder, new SeparatorMenuItem(), clazz, interfacE, enuM, annotation);
-		return menu;
+		return fileMenu;
+	}
+	
+	//TODO: Remove the -> Edit part
+	//TODO: pls can someone do assets
+	public Menu createEditMenu() {
+		Menu editMenu = new Menu(this.langConfig.get("menu.edit"));
+		
+		MenuItem undo = RailroadMenuItem.Builder.create(this.langConfig.get("menu.edit.undo"))
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
+		MenuItem redo = RailroadMenuItem.Builder.create(this.langConfig.get("menu.edit.redo"))
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
+		editMenu.getItems().addAll(undo, redo);
+		return editMenu;
 	}
 }

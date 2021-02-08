@@ -16,6 +16,9 @@
 	"menu.file.new.annotation": "Annotation",
 	
 	"menu.edit": "Edit",
+	"menu.edit.undo": "Undo",
+	"menu.edit.redo": "Redo",
+	
 	"menu.source": "Source",
 	"menu.refactor": "Refactor",
 	"menu.navigate": "Navigate",
