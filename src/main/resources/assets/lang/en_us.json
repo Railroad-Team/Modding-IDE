@@ -1,0 +1,30 @@
+{
+	"window.title": "Java FX Testing",
+	
+	"menu.file": "File",
+	"menu.file.new": "New",
+	"menu.file.new.javaproject": "Java Project",
+	"menu.file.new.project": "Project",
+	"menu.file.new.javaworkingset": "Java Working Set",
+	"menu.file.new.package": "Package",
+	"menu.file.new.sourcefolder": "Source Folder",
+	"menu.file.new.file": "File",
+	"menu.file.new.folder": "Folder",
+	"menu.file.new.class": "Class",
+	"menu.file.new.interface": "Interface",
+	"menu.file.new.enum": "Enum",
+	"menu.file.new.annotation": "Annotation",
+	
+	"menu.edit": "Edit",
+	"menu.source": "Source",
+	"menu.refactor": "Refactor",
+	"menu.navigate": "Navigate",
+	"menu.search": "Search",
+	"menu.project": "Project",
+	"menu.run": "Run",
+	"menu.window": "Window",
+	"menu.help": "Help",
+	
+	"dialog.quit": "Quit",
+	"dialog.quit.prompt": "Are you sure you want to quit?"
+}
