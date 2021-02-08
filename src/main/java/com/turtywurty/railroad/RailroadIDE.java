@@ -3,14 +3,9 @@ package com.turtywurty.railroad;
 import java.io.InputStream;
 
 import com.turtywurty.railroad.config.Config;
-import com.turtywurty.railroad.fetch.MDKFetcher;
-import com.turtywurty.railroad.fetch.version.VersionHandler;
-import com.turtywurty.railroad.fetch.version.forge.MinecraftForgeVersion;
 import com.turtywurty.railroad.util.Utils;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
