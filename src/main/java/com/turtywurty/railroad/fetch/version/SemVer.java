@@ -35,12 +35,8 @@ public class SemVer implements Comparable<SemVer> {
 		if (Integer.compare(this.minor, other.minor) != 0)
 			return Integer.compare(this.minor, other.minor);
 
-		if (this.patch == null && other.patch != null) {
-			return -1;
-		}
-		if (this.patch != null && other.patch == null) {
-			return 1;
-		}
+		if (this.patch == null ^ other.patch == null)
+			return this.patch == null ? -1 : 1;
 
 		return Integer.compare(this.patch, other.patch);
 	}
