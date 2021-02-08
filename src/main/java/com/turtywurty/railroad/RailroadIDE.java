@@ -24,6 +24,8 @@ public class RailroadIDE extends Application {
 
 	// TODO create an instance variable
 	public static void main(String[] args) {
+		// TODO a good logger for debugging and other stuff rather than just sysout
+		System.out.println("Running on " + Utils.getOSName());
 		launch(args);
 	}
 
