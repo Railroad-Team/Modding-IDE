@@ -21,6 +21,10 @@
     -fx-fill: blue;
 }
 
+.literal {
+    -fx-fill: orange;
+}
+
 .comment {
 	-fx-fill: cadetblue;
 }

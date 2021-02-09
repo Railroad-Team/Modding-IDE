@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Collections;
 
 import com.sun.istack.internal.NotNull;
@@ -22,6 +23,11 @@ public class FileUtils {
 
 	public static void deleteFile(File file) {
 		file.deleteOnExit();
+	}
+	
+	public static Optional<String> getExtention(String filename) {
+		return Optional.ofNullable(filename).filter(f -> f.contains("."))
+				.map(f -> f.substring(filename.lastIndexOf(".") + 1));
 	}
 
 	public static File createNewFile(String pathIn) {
