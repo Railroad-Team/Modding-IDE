@@ -19,6 +19,11 @@ public class FileUtils {
 	public static void deleteFile(File file) {
 		file.deleteOnExit();
 	}
+	
+	public static Optional<String> getExtention(String filename) {
+		return Optional.ofNullable(filename).filter(f -> f.contains("."))
+				.map(f -> f.substring(filename.lastIndexOf(".") + 1));
+	}
 
 	public static File createNewFile(String pathIn) {
 		try {
