@@ -1,6 +1,6 @@
 package com.turtywurty.railroad.config;
 
-public class Configs extends AbstractConfig {
+public class Configs {
 
 	public LanguageConfig lang;
 
