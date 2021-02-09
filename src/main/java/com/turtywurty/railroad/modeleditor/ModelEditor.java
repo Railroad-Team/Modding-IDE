@@ -1,4 +1,4 @@
-package com.turtywurty.railroad.model;
+package com.turtywurty.railroad.modeleditor;
 
 import java.util.ArrayList;
 import java.util.List;
