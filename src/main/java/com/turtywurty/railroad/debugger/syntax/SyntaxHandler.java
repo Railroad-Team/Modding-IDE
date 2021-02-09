@@ -1,4 +1,4 @@
-package com.turtywurty.railroad.debugger.syntax.type;
+package com.turtywurty.railroad.debugger.syntax;
 
 import java.time.Duration;
 import java.util.Collection;
@@ -7,7 +7,6 @@ import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.fxmisc.flowless.VirtualizedScrollPane;
 import org.fxmisc.richtext.CodeArea;
@@ -17,8 +16,6 @@ import org.fxmisc.richtext.model.StyleSpansBuilder;
 import org.reactfx.Subscription;
 
 import com.turtywurty.railroad.config.Configs;
-import com.turtywurty.railroad.debugger.syntax.EnumSyntaxType;
-import com.turtywurty.railroad.debugger.syntax.SyntaxObject;
 
 import javafx.application.Application;
 import javafx.concurrent.Task;
@@ -26,30 +23,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public class JavaSyntaxRule extends Application {
-
-//	private static final String[] KEYWORDS = new String[] { "abstract", "assert", "boolean", "break", "byte", "case",
-//			"catch", "char", "class", "const", "continue", "default", "do", "double", "else", "enum", "extends",
-//			"final", "finally", "float", "for", "goto", "if", "implements", "import", "instanceof", "int", "interface",
-//			"long", "native", "new", "package", "private", "protected", "public", "return", "short", "static",
-//			"strictfp", "super", "switch", "synchronized", "this", "throw", "throws", "transient", "try", "void",
-//			"volatile", "while", "true", "false", "null" };
-//
-//	private static final String KEYWORD_PATTERN = "\\b(" + String.join("|", KEYWORDS) + ")\\b";
-//	private static final String PAREN_PATTERN = "\\(|\\)";
-//	private static final String BRACE_PATTERN = "\\{|\\}";
-//	private static final String BRACKET_PATTERN = "\\[|\\]";
-//	private static final String SEMICOLON_PATTERN = "\\;";
-//	private static final String STRING_PATTERN = "\"([^\"\\\\]|\\\\.)*\"";
-//	private static final String COMMENT_PATTERN = "//[^\n]*" + "|" + "/\\*(.|\\R)*?\\*/";
-
-//	private static final Pattern PATTERN = Pattern.compile(
-//			"(?<KEYWORD>" + KEYWORD_PATTERN + ")" + "|(?<PAREN>" + PAREN_PATTERN + ")" + "|(?<BRACE>" + BRACE_PATTERN
-//					+ ")" + "|(?<BRACKET>" + BRACKET_PATTERN + ")" + "|(?<SEMICOLON>" + SEMICOLON_PATTERN + ")"
-//					+ "|(?<STRING>" + STRING_PATTERN + ")" + "|(?<COMMENT>" + COMMENT_PATTERN + ")");
-
+public class SyntaxHandler extends Application {
 	public static void main(String[] args) {
-		launch(args);
+		launch(args); // TODO Remove this later
 	}
 
 	private CodeArea codeArea;
@@ -104,15 +80,21 @@ public class JavaSyntaxRule extends Application {
 	}
 
 	private static StyleSpans<Collection<String>> computeHighlighting(String text) {
+		
+		// TODO reference the main class
 		SyntaxObject syntax = new Configs().syntax.getByExt("java");
+		
 		Matcher matcher = syntax.getCompiled().matcher(text);
 		int lastKwEnd = 0;
 		StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
 		while (matcher.find()) {
+			
+			// TODO make this automatic
 			String styleClass = matcher.group("KEYWORD") != null ? "keyword"
 					: matcher.group("LITERAL") != null ? "literal"
 							: matcher.group("COMMENT") != null ? "comment" : null;
 			/* never happens */ assert styleClass != null;
+			
 			spansBuilder.add(Collections.emptyList(), matcher.start() - lastKwEnd);
 			spansBuilder.add(Collections.singleton(styleClass), matcher.end() - matcher.start());
 			lastKwEnd = matcher.end();
