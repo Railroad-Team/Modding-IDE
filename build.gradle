@@ -23,4 +23,4 @@ javafx {
 
 mainClassName = 'io.github.railroad.Railroad'
 
-sourceCompatibility = 15
+sourceCompatibility = JavaVersion.VERSION_15
