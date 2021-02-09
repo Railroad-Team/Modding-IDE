@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Collections;
 
-import com.sun.istack.internal.NotNull;
 import javafx.stage.FileChooser;
+import org.jetbrains.annotations.NotNull;
 
 public class FileUtils {
 
@@ -53,7 +53,7 @@ public class FileUtils {
 	}
 
 	public static List<File> getSubfolders(@NotNull File file){
-		return Arrays.asList(Objects.requireNonNull(file.listFiles(File::isDirectory)));
+		return Arrays.asList(file.listFiles(File::isDirectory));
 	}
 
 	public static class Folder {
