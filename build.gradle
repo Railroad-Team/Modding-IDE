@@ -22,3 +22,4 @@ javafx {
 }
 
 mainClassName = 'io.github.railroad.Railroad'
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '15' // Need this here so eclipse works correctly.
