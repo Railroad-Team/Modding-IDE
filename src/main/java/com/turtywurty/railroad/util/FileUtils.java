@@ -3,7 +3,13 @@ package com.turtywurty.railroad.util;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.Collections;
 
+import com.sun.istack.internal.NotNull;
 import javafx.stage.FileChooser;
 
 public class FileUtils {
@@ -43,6 +49,33 @@ public class FileUtils {
 			fileWriter.close();
 		} catch (IOException iox) {
 			System.err.println("Error: File does not exist");
+		}
+	}
+
+	public static List<File> getSubfolders(@NotNull File file){
+		return Arrays.asList(Objects.requireNonNull(file.listFiles(File::isDirectory)));
+	}
+
+	public static class Folder {
+		private List<Folder> subfolders;
+		private List<File> files;
+
+		private File root;
+
+		private int depth;
+
+		public Folder(File rootDirectory, int depth){
+			this.root = rootDirectory;
+			this.depth = depth;
+			refresh();
+		}
+
+		public void refresh(){
+			subfolders = new ArrayList<Folder>();
+			files = new ArrayList<File>();
+			for (File subfolder : FileUtils.getSubfolders(this.root))
+				subfolders.add(new Folder(subfolder, this.depth + 1));
+			Collections.addAll(files, Objects.requireNonNull(root.listFiles((file) -> !file.isDirectory())));
 		}
 	}
 }

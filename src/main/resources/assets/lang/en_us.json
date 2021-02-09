@@ -1,5 +1,5 @@
 {
-	"window.title": "RailRoad IDE",
+	"window.title": "Railroad IDE",
 	
 	"menu.file": "File",
 	"menu.file.new": "New",
@@ -16,13 +16,16 @@
 	"menu.file.new.annotation": "Annotation",
 	
 	"menu.edit": "Edit",
+	"menu.edit.undo": "Undo",
+	"menu.edit.redo": "Redo",
+	
 	"menu.source": "Source",
 	"menu.refactor": "Refactor",
 	"menu.navigate": "Navigate",
 	"menu.search": "Search",
 	"menu.project": "Project",
 	"menu.run": "Run",
-	"menu.window": "Window",
+	"menu.view": "View",
 	"menu.help": "Help",
 	
 	"dialog.quit": "Quit",
