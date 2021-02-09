@@ -36,4 +36,9 @@ public class LanguageConfig extends AbstractConfig {
 	public String getName() {
 		return "lang";
 	}
+
+	@Override
+	public String getName() {
+		return "lang";
+	}
 }
