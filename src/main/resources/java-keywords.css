@@ -9,7 +9,7 @@
     -fx-fill: firebrick;
     -fx-font-weight: bold;
 }
-.bracket {
+.function {
     -fx-fill: darkgreen;
     -fx-font-weight: bold;
 }
@@ -18,7 +18,12 @@
     -fx-font-weight: bold;
 }
 .string {
-    -fx-fill: blue;
+   
+    -fx-fill: teal;
+}
+
+.number {
+    -fx-fill: cadetblue;
 }
 
 .literal {
@@ -26,7 +31,7 @@
 }
 
 .comment {
-	-fx-fill: cadetblue;
+	-fx-fill: orange;
 }
 
 .paragraph-box:has-caret {
