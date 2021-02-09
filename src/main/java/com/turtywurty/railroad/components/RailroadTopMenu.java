@@ -2,7 +2,11 @@ package com.turtywurty.railroad.components;
 
 import com.turtywurty.railroad.config.LanguageConfig;
 import com.turtywurty.railroad.util.UIUtils;
+import com.turtywurty.railroad.windows.CreateNewJavaFile;
+import com.turtywurty.railroad.windows.CreateNewFileWindow;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -52,22 +56,47 @@ public class RailroadTopMenu extends MenuBar {
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/source_folder.png")).build();
 
 		MenuItem file = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.file"))
-				.setGraphic(UIUtils.createMenuGraphics("/assets/img/file.png")).build();
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/file.png")).setActionEvent(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						new CreateNewFileWindow("Create New File", "Done");
+					}
+				}).build();
 
 		MenuItem folder = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.folder"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/folder.png")).build();
 
 		MenuItem clazz = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.class"))
-				.setGraphic(UIUtils.createMenuGraphics("/assets/img/class.png")).build();
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/class.png")).setActionEvent(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						new CreateNewJavaFile("Create New Class", "Done", 1);
+					}
+				}).build();
 
 		MenuItem interfacE = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.interface"))
-				.setGraphic(UIUtils.createMenuGraphics("/assets/img/interface.png")).build();
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/interface.png")).setActionEvent(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						new CreateNewJavaFile("Create New Interface", "Done", 2);
+					}
+				}).build();
 
 		MenuItem enuM = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.enum"))
-				.setGraphic(UIUtils.createMenuGraphics("/assets/img/enum.png")).build();
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/enum.png")).setActionEvent(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						new CreateNewJavaFile("Create New Enum", "Done", 3);
+					}
+				}).build();
 
 		MenuItem annotation = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.annotation"))
-				.setGraphic(UIUtils.createMenuGraphics("/assets/img/annotation.png")).build();
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/annotation.png")).setActionEvent(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						new CreateNewJavaFile("Create New Annotation", "Done", 4 	);
+					}
+				}).build();
 
 		newMenu.getItems().addAll(javaProject, project, javaWorkingSet, new SeparatorMenuItem(), sourceFolder, packagE, file,
 				folder, new SeparatorMenuItem(), clazz, interfacE, enuM, annotation);
