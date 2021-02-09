@@ -1,5 +1,15 @@
 package com.turtywurty.railroad.fetch.version.fabric;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -10,18 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
-
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 //Author: MMD. Taken and changed on 08/02/21
 public class FabricVersionHelper {
@@ -72,7 +70,7 @@ public class FabricVersionHelper {
 		InputStreamReader reader = getReader(YARN_URL);
 		if (reader == null)
 			return;
-		TypeToken<List<YarnVersionInfo>> token = new TypeToken<List<YarnVersionInfo>>() {
+		TypeToken<List<YarnVersionInfo>> token = new TypeToken<>() {
 		};
 		List<YarnVersionInfo> versions = new Gson().fromJson(reader, token.getType());
 
@@ -86,7 +84,7 @@ public class FabricVersionHelper {
 		InputStreamReader reader = getReader(LOADER_URL);
 		if (reader == null)
 			return;
-		TypeToken<List<LoaderVersionInfo>> token = new TypeToken<List<LoaderVersionInfo>>() {
+		TypeToken<List<LoaderVersionInfo>> token = new TypeToken<>() {
 		};
 		List<LoaderVersionInfo> versions = new Gson().fromJson(reader, token.getType());
 
@@ -102,7 +100,7 @@ public class FabricVersionHelper {
 			XPathExpression expr = XPathFactory.newInstance().newXPath().compile("/metadata/versioning/latest/text()");
 			latestApi = expr.evaluate(doc);
 		} catch (SAXException | XPathExpressionException | ParserConfigurationException | IOException e) {
-			System.out.println("Failed to resolve latest loader version" + e.toString());
+			System.out.println("Failed to resolve latest loader version" + e);
 		}
 	}
 
@@ -120,7 +118,7 @@ public class FabricVersionHelper {
 			URL url = new URL(urlString);
 			return url.openStream();
 		} catch (IOException e) {
-			System.out.println("Failed to get minecraft version" + e.toString());
+			System.out.println("Failed to get minecraft version" + e);
 			return null;
 		}
 	}

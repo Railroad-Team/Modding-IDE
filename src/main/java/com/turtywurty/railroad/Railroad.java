@@ -4,7 +4,6 @@ import com.turtywurty.railroad.components.RailroadTopMenu;
 import com.turtywurty.railroad.config.Configs;
 import com.turtywurty.railroad.util.UIUtils;
 import com.turtywurty.railroad.windows.ConfirmWindow;
-
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -25,8 +24,7 @@ public class Railroad extends Application {
 	public void start(Stage mainWindow) throws Exception {
 		this.config = new Configs();
 		this.createComponents(new RailroadTopMenu(this.config.lang), mainWindow);
-		Image[] icons = new Image[2];
-		icons = UIUtils.getIcons(icons);
+		Image[] icons = UIUtils.getIcons(new Image[2]);
 		Stage window = UIUtils.setupWindow(mainWindow, this.config.lang.get("window.title"), this.mainScene, icons);
 		window.setOnCloseRequest(event -> {
 			event.consume();

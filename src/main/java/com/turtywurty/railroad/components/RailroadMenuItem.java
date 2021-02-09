@@ -10,7 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 
 public class RailroadMenuItem extends MenuItem {
-	private Builder properties;
+	private final Builder properties;
 
 	private RailroadMenuItem(Builder propertiesIn) {
 		this.properties = propertiesIn;
@@ -33,7 +33,7 @@ public class RailroadMenuItem extends MenuItem {
 		private KeyCombination acceleratorKey;
 		private boolean defaultDisabled, shouldParseText = true, defaultVisible = true;
 		private ImageView graphic;
-		private String id, style, text = "";
+		private String id, style, text;
 		private EventHandler<ActionEvent> action;
 		private EventHandler<Event> menuValidation;
 		private Menu parent;

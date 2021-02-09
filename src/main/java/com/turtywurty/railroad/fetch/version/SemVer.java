@@ -30,17 +30,17 @@ public class SemVer implements Comparable<SemVer> {
 
 	@Override
 	public int compareTo(SemVer other) {
-		if (Integer.compare(this.major, other.major) != 0)
-			return Integer.compare(this.major, other.major);
+        if (!this.major.equals(other.major))
+            return Integer.compare(this.major, other.major);
 
-		if (Integer.compare(this.minor, other.minor) != 0)
-			return Integer.compare(this.minor, other.minor);
+        if (!this.minor.equals(other.minor))
+            return Integer.compare(this.minor, other.minor);
 
-		if (this.patch == null ^ other.patch == null)
-			return this.patch == null ? -1 : 1;
+        if (this.patch == null ^ other.patch == null)
+            return this.patch == null ? -1 : 1;
 
-		return Integer.compare(this.patch, other.patch);
-	}
+        return Integer.compare(this.patch, other.patch);
+    }
 
 	@Override
 	public String toString() {

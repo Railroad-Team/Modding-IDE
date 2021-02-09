@@ -1,12 +1,7 @@
 package com.turtywurty.railroad.windows;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.turtywurty.railroad.util.FileUtils;
 import com.turtywurty.railroad.util.UIUtils;
-
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,9 +12,13 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-//TODO: make chosing file path have a filedialog screen 
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
+//TODO: make choosing file path have a filedialog screen
 public class CreateNewFileWindow {
-	public static Map<Stage, Boolean> ANSWER = new HashMap<Stage, Boolean>();
+	public static Map<Stage, Boolean> ANSWER = new HashMap<>();
 	public static String filePath;
 
 	public static void displayWindow(String title, String message) {

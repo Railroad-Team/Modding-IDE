@@ -1,16 +1,12 @@
 package com.turtywurty.railroad.util;
 
+import javafx.stage.FileChooser;
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.Collections;
-
-import com.sun.istack.internal.NotNull;
-import javafx.stage.FileChooser;
+import java.util.*;
 
 public class FileUtils {
 
@@ -59,20 +55,18 @@ public class FileUtils {
 	public static class Folder {
 		private List<Folder> subfolders;
 		private List<File> files;
+		private final File root;
+		private final int depth;
 
-		private File root;
-
-		private int depth;
-
-		public Folder(File rootDirectory, int depth){
+		public Folder(File rootDirectory, int depth) {
 			this.root = rootDirectory;
 			this.depth = depth;
 			refresh();
 		}
 
-		public void refresh(){
-			subfolders = new ArrayList<Folder>();
-			files = new ArrayList<File>();
+		public void refresh() {
+			subfolders = new ArrayList<>();
+			files = new ArrayList<>();
 			for (File subfolder : FileUtils.getSubfolders(this.root))
 				subfolders.add(new Folder(subfolder, this.depth + 1));
 			Collections.addAll(files, Objects.requireNonNull(root.listFiles((file) -> !file.isDirectory())));

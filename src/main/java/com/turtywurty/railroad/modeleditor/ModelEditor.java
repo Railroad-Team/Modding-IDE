@@ -1,13 +1,8 @@
 package com.turtywurty.railroad.modeleditor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.AmbientLight;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
@@ -23,13 +18,16 @@ import javafx.scene.shape.Box;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // TODO make this actually part of the IDE, not a stand alone run thingy
 // TODO make editor
 // TODO make exporter.
 // TODO a lot of things.
 public class ModelEditor extends Application {
 
-	public static List<Entity> entities = new ArrayList<Entity>();
+	public static List<Entity> entities = new ArrayList<>();
 	public static int loop;
 
 	private double mousePosX, mousePosY = 0;
@@ -54,9 +52,7 @@ public class ModelEditor extends Application {
 		ToggleButton toggleButton = new ToggleButton("Lighting");
 		HBox hbox = new HBox(button, toggleButton);
 		root.getChildren().add(hbox);
-		button.setOnAction(value -> {
-			addEntity(root, new Entity(String.valueOf(loop), createCube()));
-		});
+		button.setOnAction(value -> addEntity(root, new Entity(String.valueOf(loop), createCube())));
 
 		// Scene
 		Scene scene = new Scene(root, 850, 650);
@@ -91,14 +87,12 @@ public class ModelEditor extends Application {
 		primaryStage.show();
 
 		// Timeline
-		Timeline tick = new Timeline(new KeyFrame(new Duration(10), new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent t) {
-				loop++;
-				if (root.getChildren().contains(light) && toggleButton.isSelected()) {
-					root.getChildren().remove(light);
-				} else if (!root.getChildren().contains(light) && !toggleButton.isSelected()) {
-					root.getChildren().add(light);
-				}
+		Timeline tick = new Timeline(new KeyFrame(new Duration(10), event -> {
+			loop++;
+			if (root.getChildren().contains(light) && toggleButton.isSelected()) {
+				root.getChildren().remove(light);
+			} else if (!root.getChildren().contains(light) && !toggleButton.isSelected()) {
+				root.getChildren().add(light);
 			}
 		}));
 		tick.setCycleCount(Timeline.INDEFINITE);

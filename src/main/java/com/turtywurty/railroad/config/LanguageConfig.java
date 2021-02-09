@@ -1,19 +1,18 @@
 package com.turtywurty.railroad.config;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import com.turtywurty.railroad.Railroad;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import com.turtywurty.railroad.Railroad;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LanguageConfig extends AbstractConfig {
 
 	private Map<String, String> languageTranslator;
 
 	public LanguageConfig(String file) {
-		languageTranslator = new HashMap<String, String>();
+		languageTranslator = new HashMap<>();
 		JSONTokener tokener = new JSONTokener(Railroad.class.getResourceAsStream(file));
 		JSONObject obj = new JSONObject(tokener);
 		for (String key : obj.keySet()) {

@@ -1,12 +1,12 @@
 package com.turtywurty.railroad.fetch.version.game;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.List;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 //Author: MMD. Taken and changed on 08/02/21
 public class MinecraftVersionHelper {
@@ -40,7 +40,7 @@ public class MinecraftVersionHelper {
 		InputStreamReader reader = openUrl();
 		if (reader == null)
 			return;
-		TypeToken<List<MinecraftVersionInfo>> token = new TypeToken<List<MinecraftVersionInfo>>() {
+		TypeToken<List<MinecraftVersionInfo>> token = new TypeToken<>() {
 		};
 		List<MinecraftVersionInfo> versions = new Gson().fromJson(reader, token.getType());
 		versionList = versions;

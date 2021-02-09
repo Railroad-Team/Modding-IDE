@@ -1,10 +1,6 @@
 package com.turtywurty.railroad.windows;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.turtywurty.railroad.util.UIUtils;
-
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,10 +9,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.util.HashMap;
+import java.util.Map;
+
 // TODO: Come up with a cleaner way of doing this. This code was rushed.
 public class ConfirmWindow {
 
-	public static Map<Stage, Boolean> ANSWER = new HashMap();
+	public static Map<Stage, Boolean> ANSWER = new HashMap<>();
 
 	public static boolean displayWindow(String title, String message) {
 		boolean result;

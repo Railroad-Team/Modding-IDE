@@ -1,3 +1,8 @@
+plugins {
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.9'
+}
+
 repositories {
     mavenCentral()
 }
@@ -8,4 +13,11 @@ dependencies {
     compile group: 'org.json', name: 'json', version: '20201115'
     compile group: 'org.fxmisc.richtext', name: 'richtextfx', version: '0.10.5'
     implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'org.jetbrains:annotations:20.1.0'
 }
+
+javafx {
+    modules = [ 'javafx.controls' ]
+}
+
+mainClassName = 'com.turtywurty.railroad.Railroad'
