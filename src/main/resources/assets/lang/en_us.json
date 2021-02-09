@@ -25,12 +25,13 @@
 	"menu.edit.selectAll": "Select All",
 	"menu.edit.findReplace": "Find/Replace",
 	
-	
-	"menu.source": "Source",
-	"menu.refactor": "Refactor",
-	"menu.navigate": "Navigate",
 	"menu.search": "Search",
-	"menu.project": "Project",
+	"menu.search.search": "Search",
+	"menu.search.text": "Text",
+	"menu.search.text.workspace": "Workspace",
+	"menu.search.text.project": "Project",
+	"menu.search.text.file": "File",
+	
 	"menu.run": "Run",
 	"menu.view": "View",
 	"menu.help": "Help",
