@@ -41,6 +41,7 @@ public abstract class AbstractNewFileWindow {
 			filePath = file.getAbsolutePath();
 			this.pathName.setText(filePath);
 		}
+		//TODO make a remembering classpath
 		fileChooser.setInitialDirectory(new File(""));
 
 	}

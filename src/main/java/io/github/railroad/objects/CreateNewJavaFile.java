@@ -10,8 +10,8 @@ import javafx.stage.Stage;
 
 public class CreateNewJavaFile extends AbstractNewFileWindow {
 
-	public CreateNewJavaFile(String title, String message, int type) {
-		super(title, message, type);
+	public CreateNewJavaFile(String title, String message, JavaClassTypes type) {
+		super(title, message, type.ID);
 		/*
 		 * Type 1 is Class Type 2 is Interface Type 3 is Enums Type 4 is Annotation
 		 */
@@ -33,18 +33,19 @@ public class CreateNewJavaFile extends AbstractNewFileWindow {
 
 	}
 
+	//TODO make it open the file in editor after saving
 	@Override
 	protected Button saveFile(Stage window) {
 		Button yesBtn = UIUtils.createButton(this.message, event -> {
 			File file = FileUtils.createNewFile(filePath);
 			String code = "";
-			if (this.type == 1) {
+			if (this.type == JavaClassTypes.CLASS.ID) {
 				code = "public class " + file.getName().replace(".java", "") + "{ \n \n}";
 				FileUtils.updateFile(file, code);
-			} else if (this.type == 2) {
+			} else if (this.type == JavaClassTypes.INTERFACE.ID) {
 				code = "public interface " + file.getName().replace(".java", "") + "{ \n \n}";
 				FileUtils.updateFile(file, code);
-			} else if (this.type == 3) {
+			} else if (this.type == JavaClassTypes.ENUM.ID) {
 				code = "public enum " + file.getName().replace(".java", "") + "{ \n \n}";
 				FileUtils.updateFile(file, code);
 			} else if (this.type == 4) {
