@@ -30,7 +30,7 @@ public class LanguageConfig extends AbstractConfig {
 	}
 
 	public String get(String key) {
-		return languageTranslator.getOrDefault(key, "Null");
+		return languageTranslator.getOrDefault(key, key);
 	}
 
 	@Override
