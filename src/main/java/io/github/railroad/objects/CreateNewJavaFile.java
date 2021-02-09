@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 public class CreateNewJavaFile extends AbstractNewFileWindow {
 
 	public CreateNewJavaFile(String title, String message, JavaClassTypes type) {
-		super(title, message, type.ID);
+		super(title, message, type);
 		/*
 		 * Type 1 is Class Type 2 is Interface Type 3 is Enums Type 4 is Annotation
 		 */
@@ -37,21 +37,30 @@ public class CreateNewJavaFile extends AbstractNewFileWindow {
 	@Override
 	protected Button saveFile(Stage window) {
 		Button yesBtn = UIUtils.createButton(this.message, event -> {
+			//please put this somewhere else in the event that the user fails to select a path
+			if (filePath == null || filePath.equals("File Path")) {
+				System.out.println("Input error");
+				window.close();
+				return;//failed to input
+			}
 			File file = FileUtils.createNewFile(filePath);
 			String code = "";
-			if (this.type == JavaClassTypes.CLASS.ID) {
-				code = "public class " + file.getName().replace(".java", "") + "{ \n \n}";
-				FileUtils.updateFile(file, code);
-			} else if (this.type == JavaClassTypes.INTERFACE.ID) {
-				code = "public interface " + file.getName().replace(".java", "") + "{ \n \n}";
-				FileUtils.updateFile(file, code);
-			} else if (this.type == JavaClassTypes.ENUM.ID) {
-				code = "public enum " + file.getName().replace(".java", "") + "{ \n \n}";
-				FileUtils.updateFile(file, code);
-			} else if (this.type == 4) {
-
+			switch(this.type){
+				case CLASS:
+					code = "public class " + file.getName().replace(".java", "") + "{ \n \n}";
+					FileUtils.updateFile(file, code);
+					break;
+				case ENUM:
+					code = "public interface " + file.getName().replace(".java", "") + "{ \n \n}";
+					FileUtils.updateFile(file, code);
+					break;
+				case INTERFACE:
+					code = "public enum " + file.getName().replace(".java", "") + "{ \n \n}";
+					FileUtils.updateFile(file, code);
+					break;
+				default:
+					throw new IllegalStateException(this.type.name() + " is not a supported java file");
 			}
-
 			window.close();
 		});
 		return yesBtn;
