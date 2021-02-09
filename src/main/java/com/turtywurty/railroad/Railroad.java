@@ -2,6 +2,7 @@ package com.turtywurty.railroad;
 
 import com.turtywurty.railroad.components.RailroadTopMenu;
 import com.turtywurty.railroad.config.Configs;
+import com.turtywurty.railroad.discordrichpresence.DiscordRichPresenceManager;
 import com.turtywurty.railroad.util.UIUtils;
 import com.turtywurty.railroad.windows.ConfirmWindow;
 
@@ -16,6 +17,7 @@ public class Railroad extends Application {
 
 	private Scene mainScene;
 	private Configs config;
+	private DiscordRichPresenceManager DRPmanager;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -32,6 +34,8 @@ public class Railroad extends Application {
 			event.consume();
 			this.onClose(window);
 		});
+		DRPmanager = new DiscordRichPresenceManager();
+		DRPmanager.setDetails("Working hard or hardly working").setStats("This is an ide!").setBigImage(DiscordRichPresenceManager.BigImageKeys.JOJO_PFP, "Hey this code isn't jank fool").build();
 	}
 
 	private void onClose(Stage window) {
