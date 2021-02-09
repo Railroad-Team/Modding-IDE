@@ -17,6 +17,10 @@
     -fx-fill: teal;
     -fx-font-weight: bold;
 }
+
+.class {
+    -fx-fill: blue;
+}
 .string {
    
     -fx-fill: teal;
