@@ -29,6 +29,8 @@ public class RailroadTopMenu extends MenuBar {
 		this.createEditMenu(editMenu);
 
 		Menu searchMenu = new Menu(this.langConfig.get("menu.search"));
+		this.createSearchMenu(searchMenu);
+		
 		Menu runMenu = new Menu(this.langConfig.get("menu.run"));
 		Menu viewMenu = new Menu(this.langConfig.get("menu.view"));
 		Menu helpMenu = new Menu(this.langConfig.get("menu.help"));
@@ -98,20 +100,61 @@ public class RailroadTopMenu extends MenuBar {
 					}
 				}).build();
 
-		newMenu.getItems().addAll(javaProject, project, javaWorkingSet, new SeparatorMenuItem(), sourceFolder, packagE, file,
-				folder, new SeparatorMenuItem(), clazz, interfacE, enuM, annotation);
+		newMenu.getItems().addAll(javaProject, project, javaWorkingSet, new SeparatorMenuItem(), sourceFolder, packagE,
+				file, folder, new SeparatorMenuItem(), clazz, interfacE, enuM, annotation);
 		fileMenu.getItems().add(newMenu);
 		return newMenu;
 	}
 
-	// TODO: Remove the -> Edit part
 	// TODO: pls can someone do assets
 	public Menu createEditMenu(Menu editMenu) {
 		MenuItem undo = RailroadMenuItem.Builder.create(this.langConfig.get("menu.edit.undo"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
+
 		MenuItem redo = RailroadMenuItem.Builder.create(this.langConfig.get("menu.edit.redo"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
-		editMenu.getItems().addAll(undo, redo);
+
+		MenuItem cut = RailroadMenuItem.Builder.create(this.langConfig.get("menu.edit.cut"))
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
+
+		MenuItem copy = RailroadMenuItem.Builder.create(this.langConfig.get("menu.edit.copy"))
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
+
+		MenuItem paste = RailroadMenuItem.Builder.create(this.langConfig.get("menu.edit.paste"))
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
+
+		MenuItem delete = RailroadMenuItem.Builder.create(this.langConfig.get("menu.edit.delete"))
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
+
+		MenuItem selectAll = RailroadMenuItem.Builder.create(this.langConfig.get("menu.edit.selectAll"))
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
+
+		MenuItem findReplace = RailroadMenuItem.Builder.create(this.langConfig.get("menu.edit.findReplace"))
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
+
+		editMenu.getItems().addAll(undo, redo, new SeparatorMenuItem(), cut, copy, paste, new SeparatorMenuItem(),
+				delete, selectAll, new SeparatorMenuItem(), findReplace);
 		return editMenu;
+	}
+
+	public Menu createSearchMenu(Menu searchMenu) {
+		MenuItem search = RailroadMenuItem.Builder.create(this.langConfig.get("menu.search.search"))
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
+		
+		Menu textMenu = new Menu(this.langConfig.get("menu.search.text"));
+		
+		MenuItem workspace = RailroadMenuItem.Builder.create(this.langConfig.get("menu.search.text.workspace"))
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
+		
+		MenuItem project = RailroadMenuItem.Builder.create(this.langConfig.get("menu.search.text.project"))
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
+		
+		MenuItem file = RailroadMenuItem.Builder.create(this.langConfig.get("menu.search.text.file"))
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
+		
+		
+		searchMenu.getItems().addAll(search, new SeparatorMenuItem(), textMenu);
+		textMenu.getItems().addAll(workspace, project, file);
+		return textMenu;
 	}
 }
