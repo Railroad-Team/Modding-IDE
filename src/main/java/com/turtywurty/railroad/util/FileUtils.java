@@ -48,7 +48,7 @@ public class FileUtils {
 		}
 	}
 
-	public static List<File> getSubfolders(@NotNull File file){
+	public static List<File> getSubfolders(File file){
 		return Arrays.asList(Objects.requireNonNull(file.listFiles(File::isDirectory)));
 	}
 
