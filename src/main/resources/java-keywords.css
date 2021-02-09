@@ -31,7 +31,12 @@
 }
 
 .string {
-    -fx-fill: blue;
+   
+    -fx-fill: teal;
+}
+
+.number {
+    -fx-fill: cadetblue;
 }
 
 .literal {
@@ -39,7 +44,7 @@
 }
 
 .comment {
-	-fx-fill: cadetblue;
+	-fx-fill: orange;
 }
 
 .paragraph-box:has-caret {

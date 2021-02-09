@@ -80,21 +80,23 @@ public class SyntaxHandler extends Application {
 	}
 
 	private static StyleSpans<Collection<String>> computeHighlighting(String text) {
-		
+
 		// TODO reference the main class
 		SyntaxObject syntax = new Configs().syntax.getByExt("java");
-		
 		Matcher matcher = syntax.getCompiled().matcher(text);
 		int lastKwEnd = 0;
 		StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
 		while (matcher.find()) {
-			
-			// TODO make this automatic
+
+			// TODO make this automatic, to stop errors. All things need to be present in
+			// syntax config right now.
 			String styleClass = matcher.group("KEYWORD") != null ? "keyword"
-					: matcher.group("LITERAL") != null ? "literal"
-							: matcher.group("COMMENT") != null ? "comment" : null;
+					: matcher.group("STRING") != null ? "string"
+							: matcher.group("FUNCTION") != null ? "function"
+									: matcher.group("NUMBER") != null ? "number"
+											: matcher.group("COMMENT") != null ? "comment" : null;
 			/* never happens */ assert styleClass != null;
-			
+
 			spansBuilder.add(Collections.emptyList(), matcher.start() - lastKwEnd);
 			spansBuilder.add(Collections.singleton(styleClass), matcher.end() - matcher.start());
 			lastKwEnd = matcher.end();

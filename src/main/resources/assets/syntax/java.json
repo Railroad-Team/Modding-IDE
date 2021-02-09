@@ -6,6 +6,18 @@
 			"type": "KEYWORD"
 		},
 		{
+			"regex": "\".*?\"",
+			"type": "STRING"
+		},
+		{
+			"regex": "\\w+\\s*(?=\\s*\\()",
+			"type": "FUNCTION"
+		},
+		{
+			"regex": "[+-]?([0-9]*[.])?[0-9LlFfDd]+",
+			"type": "NUMBER"
+		},
+		{
 			"regex": "//[^\n]*|/\\*(.|\\R)*?\\*/",
 			"type": "COMMENT"
 		}
