@@ -1,4 +1,4 @@
-package io.github.railroad.projects.fetch;
+package io.github.railroad.utility;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 
 import javafx.concurrent.Task;
 
-public class MDKFetcher {
+public class DownloadUtils {
 
 	public void fetch(String url) {
 		Task<Void> task = new DownloadTask(url);
