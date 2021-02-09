@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/main/java/com/turtywurty/railroad/window/ConfirmWindow.java
-package com.turtywurty.railroad.window;
-=======
 package com.turtywurty.railroad.windows;
->>>>>>> upstream/master:src/main/java/com/turtywurty/railroad/windows/ConfirmWindow.java
 
 import java.util.HashMap;
 import java.util.Map;
