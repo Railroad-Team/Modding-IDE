@@ -36,41 +36,43 @@ public class RailroadTopMenu extends MenuBar {
 	public Menu createFileNewMenu(Menu fileMenu) {
 		Menu newMenu = new Menu(this.langConfig.get("menu.file.new"));
 
-		MenuItem javaProject = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.javaproject"))
+		MenuItem javaProjectItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.javaproject"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
 
-		MenuItem project = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.project"))
+		MenuItem projectItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.project"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/project.png")).build();
 
-		MenuItem javaWorkingSet = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.javaworkingset"))
+		MenuItem javaWorkingSetItem = RailroadMenuItem.Builder
+				.create(this.langConfig.get("menu.file.new.javaworkingset"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/working_set.png")).build();
 
-		MenuItem packagE = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.package"))
+		MenuItem packageItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.package"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/package.png")).build();
 
-		MenuItem sourceFolder = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.sourcefolder"))
+		MenuItem sourceFolderItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.sourcefolder"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/source_folder.png")).build();
 
-		MenuItem file = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.file"))
+		MenuItem fileItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.file"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/file.png")).build();
 
-		MenuItem folder = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.folder"))
+		MenuItem folderItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.folder"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/folder.png")).build();
 
-		MenuItem clazz = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.class"))
+		MenuItem clazzItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.class"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/class.png")).build();
 
-		MenuItem interfacE = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.interface"))
+		MenuItem interfaceItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.interface"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/interface.png")).build();
 
-		MenuItem enuM = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.enum"))
+		MenuItem enumItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.enum"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/enum.png")).build();
 
-		MenuItem annotation = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.annotation"))
+		MenuItem annotationItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.annotation"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/annotation.png")).build();
 
-		newMenu.getItems().addAll(javaProject, project, javaWorkingSet, new SeparatorMenuItem(), sourceFolder, packagE, file,
-				folder, new SeparatorMenuItem(), clazz, interfacE, enuM, annotation);
+		newMenu.getItems().addAll(javaProjectItem, projectItem, javaWorkingSetItem, new SeparatorMenuItem(),
+				sourceFolderItem, packageItem, fileItem, folderItem, new SeparatorMenuItem(), clazzItem, interfaceItem,
+				enumItem, annotationItem);
 		fileMenu.getItems().add(newMenu);
 		return newMenu;
 	}
