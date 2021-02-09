@@ -1,7 +1,5 @@
 package io.github.railroad.utility;
 
-import java.io.InputStream;
-
 import io.github.railroad.Railroad;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,6 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+
+import java.io.InputStream;
 
 public class UIUtils {
 

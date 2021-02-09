@@ -2,15 +2,13 @@ package io.github.railroad.objects;
 
 import io.github.railroad.config.LanguageConfig;
 import io.github.railroad.utility.UIUtils;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 
 public class RailroadTopMenu extends MenuBar {
-	private LanguageConfig langConfig;
+	private final LanguageConfig langConfig;
 
 	public RailroadTopMenu(LanguageConfig langConfigIn, Menu... menus) {
 		super(menus);
@@ -56,12 +54,7 @@ public class RailroadTopMenu extends MenuBar {
 
 		MenuItem file = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.file"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/file.png"))
-				.setActionEvent(new EventHandler<ActionEvent>() {
-					@Override
-					public void handle(ActionEvent event) {
-						new CreateNewFileWindow("Create New File", "Done");
-					}
-				}).build();
+				.setActionEvent(event -> new CreateNewFileWindow("Create New File", "Done")).build();
 
 		MenuItem folderItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.folder"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/folder.png")).build();

@@ -1,12 +1,12 @@
 package io.github.railroad.objects;
 
-import java.io.File;
-
 import io.github.railroad.utility.FileUtils;
 import io.github.railroad.utility.UIUtils;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 public class CreateNewJavaFile extends AbstractNewFileWindow {
 
@@ -35,7 +35,7 @@ public class CreateNewJavaFile extends AbstractNewFileWindow {
 
 	@Override
 	protected Button saveFile(Stage window) {
-		Button yesBtn = UIUtils.createButton(this.message, event -> {
+		return UIUtils.createButton(this.message, event -> {
 			File file = FileUtils.createNewFile(filePath);
 			String code = "";
 			if (this.type == 1) {
@@ -47,13 +47,11 @@ public class CreateNewJavaFile extends AbstractNewFileWindow {
 			} else if (this.type == 3) {
 				code = "public enum " + file.getName().replace(".java", "") + "{ \n \n}";
 				FileUtils.updateFile(file, code);
-			} else if (this.type == 4) {
+			} /*else if (this.type == 4) {
 
-			}
+			}*/
 
 			window.close();
 		});
-		return yesBtn;
 	}
-
 }

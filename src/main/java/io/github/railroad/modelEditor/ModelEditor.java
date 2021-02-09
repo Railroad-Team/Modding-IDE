@@ -32,6 +32,11 @@ public class ModelEditor extends Application {
 
 	private double mousePosX, mousePosY = 0;
 
+	// TODO remove this and integrate into main IDE
+	public static void main(String[] args) {
+		launch(args);
+	}
+
 	@Override
 	public void start(Stage primaryStage) {
 
@@ -121,10 +126,4 @@ public class ModelEditor extends Application {
 
 		return box;
 	}
-
-	// TODO remove this and integrate into main IDE
-	public static void main(String[] args) {
-		launch(args);
-	}
-
 }

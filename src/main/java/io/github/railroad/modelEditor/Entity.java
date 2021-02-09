@@ -5,11 +5,10 @@ import javafx.scene.transform.Rotate;
 
 public class Entity {
 
-	private String name;
-	private Box object;
-
 	public Rotate rotateX = new Rotate(0, Rotate.X_AXIS);
 	public Rotate rotateY = new Rotate(0, Rotate.Y_AXIS);
+	private String name;
+	private Box object;
 
 	public Entity(String n, Box o) {
 		this.name = n;
