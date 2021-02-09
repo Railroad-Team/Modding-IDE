@@ -18,9 +18,9 @@ public abstract class AbstractNewFileWindow {
 	public Label pathName;
 	public String title;
 	public String message;
-	protected int type;
+	protected JavaClassTypes type;
 
-	public AbstractNewFileWindow(String title, String message, int type) {
+	public AbstractNewFileWindow(String title, String message, JavaClassTypes type) {
 		this.title = title;
 		this.message = message;
 		this.type = type;
@@ -41,6 +41,7 @@ public abstract class AbstractNewFileWindow {
 			filePath = file.getAbsolutePath();
 			this.pathName.setText(filePath);
 		}
+		//TODO make a remembering classpath
 		fileChooser.setInitialDirectory(new File(""));
 
 	}
