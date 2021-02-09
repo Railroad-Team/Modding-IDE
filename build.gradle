@@ -21,4 +21,4 @@ javafx {
     modules = [ 'javafx.controls' ]
 }
 
-mainClassName = 'com.turtywurty.railroad.Railroad'
+mainClassName = 'io.github.railroad.Railroad'
