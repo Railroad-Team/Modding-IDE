@@ -17,4 +17,8 @@ dependencies {
     compile fileTree(dir: 'libs', include: 'discord-rpc.jar')
 }
 
+javafx {
+    modules = [ 'javafx.controls' ]
+}
+
 mainClassName = 'com.turtywurty.railroad.Railroad'

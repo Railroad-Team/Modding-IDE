@@ -2,9 +2,7 @@ package com.turtywurty.railroad.components;
 
 import com.turtywurty.railroad.config.LanguageConfig;
 import com.turtywurty.railroad.util.UIUtils;
-import com.turtywurty.railroad.windows.CreateNewJavaFile;
 import com.turtywurty.railroad.windows.CreateNewFileWindow;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
@@ -13,7 +11,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 
 public class RailroadTopMenu extends MenuBar {
-	private LanguageConfig langConfig;
+	private final LanguageConfig langConfig;
 
 	public RailroadTopMenu(LanguageConfig langConfigIn, Menu... menus) {
 		super(menus);
@@ -30,7 +28,7 @@ public class RailroadTopMenu extends MenuBar {
 
 		Menu searchMenu = new Menu(this.langConfig.get("menu.search"));
 		this.createSearchMenu(searchMenu);
-		
+
 		Menu runMenu = new Menu(this.langConfig.get("menu.run"));
 		Menu viewMenu = new Menu(this.langConfig.get("menu.view"));
 		Menu helpMenu = new Menu(this.langConfig.get("menu.help"));
