@@ -82,7 +82,7 @@ public class RailroadTopMenu extends MenuBar {
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/annotation.png")).build();
 
 		newMenu.getItems().addAll(javaProjectItem, projectItem, javaWorkingSetItem, new SeparatorMenuItem(),
-				sourceFolderItem, packageItem, fileItem, folderItem, new SeparatorMenuItem(), clazzItem, interfaceItem,
+				sourceFolderItem, packageItem, file, folderItem, new SeparatorMenuItem(), clazzItem, interfaceItem,
 				enumItem, annotationItem);
     
 		fileMenu.getItems().add(newMenu);
