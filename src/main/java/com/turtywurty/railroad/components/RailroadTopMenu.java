@@ -75,14 +75,33 @@ public class RailroadTopMenu extends MenuBar {
 		return newMenu;
 	}
 
-	// TODO: Remove the -> Edit part
 	// TODO: pls can someone do assets
 	public Menu createEditMenu(Menu editMenu) {
 		MenuItem undo = RailroadMenuItem.Builder.create(this.langConfig.get("menu.edit.undo"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
+		
 		MenuItem redo = RailroadMenuItem.Builder.create(this.langConfig.get("menu.edit.redo"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
-		editMenu.getItems().addAll(undo, redo);
+		
+		MenuItem cut = RailroadMenuItem.Builder.create(this.langConfig.get("menu.edit.cut"))
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
+		
+		MenuItem copy = RailroadMenuItem.Builder.create(this.langConfig.get("menu.edit.copy"))
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
+		
+		MenuItem paste = RailroadMenuItem.Builder.create(this.langConfig.get("menu.edit.paste"))
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
+		
+		MenuItem delete = RailroadMenuItem.Builder.create(this.langConfig.get("menu.edit.delete"))
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
+		
+		MenuItem selectAll = RailroadMenuItem.Builder.create(this.langConfig.get("menu.edit.selectAll"))
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
+		
+		MenuItem findReplace = RailroadMenuItem.Builder.create(this.langConfig.get("menu.edit.findReplace"))
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
+		
+		editMenu.getItems().addAll(undo, redo, new SeparatorMenuItem(), cut, copy, paste, new SeparatorMenuItem(), delete, selectAll, new SeparatorMenuItem(), findReplace);
 		return editMenu;
 	}
 }

@@ -18,6 +18,13 @@
 	"menu.edit": "Edit",
 	"menu.edit.undo": "Undo",
 	"menu.edit.redo": "Redo",
+	"menu.edit.cut": "Cut",
+	"menu.edit.copy": "Copy",
+	"menu.edit.paste": "Paste",
+	"menu.edit.delete": "Delete",
+	"menu.edit.selectAll": "Select All",
+	"menu.edit.findReplace": "Find/Replace",
+	
 	
 	"menu.source": "Source",
 	"menu.refactor": "Refactor",
