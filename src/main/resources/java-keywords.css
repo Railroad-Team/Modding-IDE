@@ -30,17 +30,8 @@
     -fx-fill: orange;
 }
 
-.string {
-   
-    -fx-fill: teal;
-}
-
-.number {
-    -fx-fill: cadetblue;
-}
-
-.literal {
-    -fx-fill: orange;
+.class {
+    -fx-fill: blue;
 }
 
 .comment {

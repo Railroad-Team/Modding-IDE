@@ -94,7 +94,8 @@ public class SyntaxHandler extends Application {
 					: matcher.group("STRING") != null ? "string"
 							: matcher.group("FUNCTION") != null ? "function"
 									: matcher.group("NUMBER") != null ? "number"
-											: matcher.group("COMMENT") != null ? "comment" : null;
+											: matcher.group("COMMENT") != null ? "comment"
+													: matcher.group("CLASS") != null ? "class" : null;
 			/* never happens */ assert styleClass != null;
 
 			spansBuilder.add(Collections.emptyList(), matcher.start() - lastKwEnd);
