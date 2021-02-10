@@ -1,11 +1,10 @@
-package com.turtywurty.railroad;
+package io.github.railroad;
 
-import com.turtywurty.railroad.components.RailroadTopMenu;
-import com.turtywurty.railroad.config.Configs;
-import com.turtywurty.railroad.discordrichpresence.DiscordRichPresenceManager;
-import com.turtywurty.railroad.util.UIUtils;
-import com.turtywurty.railroad.windows.ConfirmWindow;
-
+import io.github.railroad.config.Configs;
+import io.github.railroad.drp.DiscordRichPresenceManager;
+import io.github.railroad.objects.ConfirmWindow;
+import io.github.railroad.objects.RailroadTopMenu;
+import io.github.railroad.utility.UIUtils;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -19,7 +18,7 @@ public class Railroad extends Application {
 	private Configs config;
 	private DiscordRichPresenceManager DRPmanager;
 
-	static void boot(String[] args) {
+	public static void main(String[] args) {
 		launch(args);
 	}
 
@@ -35,7 +34,8 @@ public class Railroad extends Application {
 			this.onClose(window);
 		});
 		DRPmanager = new DiscordRichPresenceManager();
-		DRPmanager.setDetails("Working hard or hardly working").setStats("This is an ide!").setBigImage(DiscordRichPresenceManager.BigImageKeys.JOJO_PFP, "Hey this code isn't jank fool").build();
+		DRPmanager.setDetails("Working hard or hardly working").setStats("This is an ide!")
+				.setBigImage(DiscordRichPresenceManager.BigImageKeys.JOJO_PFP, "Hey this code isn't jank fool").build();
 	}
 
 	private void onClose(Stage window) {
