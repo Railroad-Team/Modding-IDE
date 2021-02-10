@@ -8,17 +8,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
-import static io.github.railroad.utility.Components.ButtonBuilder.makeButton;
+import static io.github.railroad.utility.Components.Buttons.makeButton;
 
-// TODO: Come up with a cleaner way of doing this. This code was rushed.
-public final class ConfirmWindow {
-    public static final Map<Stage, Boolean> ANSWER = new HashMap<>();
+interface ConfirmWindow {
+    static void displayWindow(String title, String message) {
+        final AtomicBoolean result = new AtomicBoolean();
 
-    public static boolean displayWindow(String title, String message) {
-        final boolean result;
         final Stage window = new Stage();
         window.centerOnScreen();
         window.initModality(Modality.APPLICATION_MODAL);
@@ -29,23 +26,15 @@ public final class ConfirmWindow {
 
         final Label label = new Label(message);
 
-        final Button buttonYes = makeButton("Yes").action(event -> {
-            ANSWER.put(window, true);
-            window.close();
-        }).get();
-        final Button buttonNo = makeButton("No").action(event -> {
-            ANSWER.put(window, false);
-            window.close();
-        }).get();
+        final Button yes = makeButton("Yes").action(event -> result.set(true)).get();
+        final Button no = makeButton("No").action(event -> result.set(false)).get();
+
         final VBox layout = new VBox(10);
-        layout.getChildren().addAll(label, buttonYes, buttonNo);
+        layout.getChildren().addAll(label, yes, no);
         layout.setAlignment(Pos.CENTER);
 
         final Scene scene = new Scene(layout);
         window.setScene(scene);
         window.showAndWait();
-        result = ANSWER.get(window);
-        ANSWER.remove(window);
-        return result;
     }
 }

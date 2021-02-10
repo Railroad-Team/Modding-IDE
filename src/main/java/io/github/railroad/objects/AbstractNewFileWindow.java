@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 
-import static io.github.railroad.utility.Components.ButtonBuilder.*;
+import static io.github.railroad.utility.Components.Buttons.makeButton;
 import static java.nio.file.Files.createFile;
 import static java.nio.file.Paths.get;
 
@@ -70,10 +70,7 @@ public abstract class AbstractNewFileWindow {
 
         if (fileDialogBox(window)) { // File is successfully created
             createConfirmationWindow(window);
-        } else {
-            // Do nothing because user has clicked "cancel"
         }
-
     }
 
     // Confirmation window that appears after creating a file

@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import static io.github.railroad.utility.Components.ButtonBuilder.makeButton;
+import static io.github.railroad.utility.Components.Buttons.makeButton;
 import static java.nio.file.Files.*;
 import static java.nio.file.Paths.get;
 
@@ -43,7 +43,8 @@ public final class CreateNewJavaFile extends AbstractNewFileWindow {
     //TODO make it open the file in editor after saving
     //TODO: Fix this system
 
-    @Override protected Button saveFile(Stage window) {
+    @Override
+    protected Button saveFile(Stage window) {
         return makeButton(message).action(event -> {
             //please put this somewhere else in the event that the user fails to select a path
             if (filePath == null || filePath.equals("File Path")) {

@@ -12,10 +12,10 @@ import static java.lang.reflect.Modifier.PUBLIC;
  * @author TheOnlyTails
  */
 interface ClassType extends Function<Path, String>, Supplier<String> {
-    ClassType CLASS = create("class");
-    ClassType INTERFACE = create("interface");
-    ClassType ENUM = create("enum");
-    ClassType RECORD = create("record");
+    ClassType CLASS = create("class"),
+            INTERFACE = create("interface"),
+            ENUM = create("enum"),
+            RECORD = create("record");
 
     static ClassType create(String string) {
         return new ClassType() {
