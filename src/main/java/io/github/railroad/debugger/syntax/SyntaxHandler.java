@@ -1,13 +1,11 @@
 package io.github.railroad.debugger.syntax;
 
-import java.time.Duration;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.regex.Matcher;
-
+import io.github.railroad.config.Configs;
+import javafx.application.Application;
+import javafx.concurrent.Task;
+import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import org.fxmisc.flowless.VirtualizedScrollPane;
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.LineNumberFactory;
@@ -15,12 +13,13 @@ import org.fxmisc.richtext.model.StyleSpans;
 import org.fxmisc.richtext.model.StyleSpansBuilder;
 import org.reactfx.Subscription;
 
-import io.github.railroad.config.Configs;
-import javafx.application.Application;
-import javafx.concurrent.Task;
-import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
+import java.time.Duration;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Optional;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.regex.Matcher;
 
 public class SyntaxHandler extends Application {
 	public static void main(String[] args) {
@@ -31,6 +30,7 @@ public class SyntaxHandler extends Application {
 	private ExecutorService executor;
 
 	@SuppressWarnings("unused")
+	// @SuppressWarnings Should be removed, usually if you have to use SuppressWarnings, you have something to fix :)
 	@Override
 	public void start(Stage primaryStage) {
 		executor = Executors.newSingleThreadExecutor();
@@ -66,7 +66,7 @@ public class SyntaxHandler extends Application {
 		String text = codeArea.getText();
 		Task<StyleSpans<Collection<String>>> task = new Task<StyleSpans<Collection<String>>>() {
 			@Override
-			protected StyleSpans<Collection<String>> call() throws Exception {
+			protected StyleSpans<Collection<String>> call() {
 				return computeHighlighting(text);
 			}
 		};
