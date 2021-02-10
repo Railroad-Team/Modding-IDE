@@ -1,6 +1,5 @@
 package io.github.railroad.objects;
 
-import io.github.railroad.utility.UIUtils;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,14 +12,15 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 
+import static io.github.railroad.utility.Components.ButtonBuilder.*;
 import static java.nio.file.Files.createFile;
 import static java.nio.file.Paths.get;
 
 public abstract class AbstractNewFileWindow {
     public String filePath;
     public Label pathName;
-    public String title;
-    public String message;
+    public final String title;
+    public final String message;
 
     public AbstractNewFileWindow(String title, String message) {
         this.title = title;
@@ -42,7 +42,7 @@ public abstract class AbstractNewFileWindow {
     }
 
     protected Button saveFile(Stage window) {
-        return UIUtils.createButton(message, event -> {
+        return makeButton(message).action(event -> {
             if (filePath == null || filePath.equals("File Path")) {
                 System.out.println("Input error");
                 window.close();
@@ -54,7 +54,7 @@ public abstract class AbstractNewFileWindow {
                 throw new RuntimeException(reason);
             }
             window.close();
-        });
+        }).get();
     }
 
     public void makeWindow() {

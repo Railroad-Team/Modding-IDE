@@ -1,6 +1,6 @@
 package io.github.railroad.objects;
 
-import io.github.railroad.utility.UIUtils;
+import io.github.railroad.utility.Components;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,8 +9,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.util.HashMap;
 import java.util.Map;
+
+import static io.github.railroad.utility.Components.ButtonBuilder.makeButton;
 
 // TODO: Come up with a cleaner way of doing this. This code was rushed.
 public final class ConfirmWindow {
@@ -28,18 +31,16 @@ public final class ConfirmWindow {
 
 		final Label label = new Label(message);
 
-		final Button yesBtn = UIUtils.createButton("Yes", event -> {
+		final Button buttonYes = makeButton("Yes").action(event -> {
 			ANSWER.put(window, true);
 			window.close();
-		});
-
-		final Button noBtn = UIUtils.createButton("No", event -> {
+		}).get();
+		final Button buttonNo = makeButton("No").action(event -> {
 			ANSWER.put(window, false);
 			window.close();
-		});
-
+		}).get();
 		final VBox layout = new VBox(10);
-		layout.getChildren().addAll(label, yesBtn, noBtn);
+		layout.getChildren().addAll(label, buttonYes, buttonNo);
 		layout.setAlignment(Pos.CENTER);
 
 		final Scene scene = new Scene(layout);
