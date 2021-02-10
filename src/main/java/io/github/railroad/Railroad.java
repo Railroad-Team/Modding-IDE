@@ -14,8 +14,8 @@ import javafx.stage.Stage;
 
 public class Railroad extends Application {
 
-	private Scene mainScene;
-	private Configs config;
+	public Scene mainScene;
+	public Configs config;
 
 	public static void boot(String[] args) {
 		launch(args);
@@ -49,13 +49,5 @@ public class Railroad extends Application {
 		BorderPane borderPane = new BorderPane();
 		borderPane.setTop(topMenu);
 		this.mainScene = new Scene(borderPane);
-	}
-
-	public Configs getConfig() {
-		return this.config;
-	}
-
-	public void setMainScene(Scene mainScene) {
-		this.mainScene = mainScene;
 	}
 }
