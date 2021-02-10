@@ -85,14 +85,11 @@ public class RailroadTopMenu extends MenuBar {
 
 		MenuItem clazzItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.class"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/class.png"))
-				.setActionEvent(event -> new CreateNewJavaFile("Create New Class", "Done", JavaClassTypes.CLASS))
-				.build();
+				.setActionEvent(event -> new CreateNewJavaFile("Create New Class", "Done", JavaClassTypes.CLASS).makeWindow()).build();
 
 		MenuItem interfaceItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.interface"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/interface.png"))
-				.setActionEvent(
-						event -> new CreateNewJavaFile("Create New Interface", "Done", JavaClassTypes.INTERFACE))
-				.build();
+				.setActionEvent(event -> new CreateNewJavaFile("Create New Interface", "Done", JavaClassTypes.INTERFACE).makeWindow()).build();
 
 		MenuItem enumItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.enum"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/enum.png"))
