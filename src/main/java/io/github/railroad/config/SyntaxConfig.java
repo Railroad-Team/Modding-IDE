@@ -13,7 +13,7 @@ import java.util.*;
 
 public class SyntaxConfig extends AbstractConfig {
 
-	public List<SyntaxObject> languages = new ArrayList<>();
+	public List<SyntaxObject> languages = new ArrayList();
 
 	public static final SyntaxObject EMPTY = new SyntaxObject("null", new HashMap<String, EnumSyntaxType>() {
 		{
@@ -35,10 +35,7 @@ public class SyntaxConfig extends AbstractConfig {
 		for (File listOfFile : listOfFiles) {
 			Optional<String> optional = FileUtils.getExtension(listOfFile.getName());
 			if (!optional.isPresent()) {
-				// continue;
-				// break;
-				// throw something
-				// One of the above
+				//TODO: Do something here
 				break;
 			}
 			if (optional.get().equals("json")) {
@@ -48,7 +45,7 @@ public class SyntaxConfig extends AbstractConfig {
 				JSONObject obj = new JSONObject(tokenizer);
 				JSONArray rules = obj.getJSONArray("rules");
 
-				Map<String, EnumSyntaxType> ruleMap = new HashMap<>();
+				Map<String, EnumSyntaxType> ruleMap = new HashMap();
 				for (int j = 0; j < rules.length(); j++) {
 					JSONObject rule = rules.getJSONObject(j);
 					ruleMap.put(rule.getString("regex"), EnumSyntaxType.valueOf(rule.getString("type")));
