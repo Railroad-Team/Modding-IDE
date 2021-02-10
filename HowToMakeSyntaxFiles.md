@@ -1,4 +1,4 @@
-### How does one make a syntax file?
+# How does one make a syntax file? - Cy4Shot
 
 Well, here is the syntax!
 
