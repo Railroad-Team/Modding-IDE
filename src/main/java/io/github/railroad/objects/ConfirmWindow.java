@@ -12,6 +12,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import static io.github.railroad.utility.Components.Buttons.makeButton;
 
+/**
+ * @author temedy
+ */
 interface ConfirmWindow {
     static void displayWindow(String title, String message) {
         final AtomicBoolean result = new AtomicBoolean();

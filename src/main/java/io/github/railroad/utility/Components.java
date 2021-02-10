@@ -12,14 +12,14 @@ import javafx.scene.input.KeyCombination;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-//TODO: get rid of this
 public interface Components {
-
     static ImageView createMenuGraphics(String imagePath) {
         return new ImageView(new Image(imagePath, 20, 20, true, true, true));
     }
 
-    //Only temporary, will delete this, maaybe?
+    /**
+     * @author temedy
+     */
     interface Buttons extends Supplier<Button> {
         static Buttons makeButton(Button button) {
             return () -> button;
@@ -39,6 +39,9 @@ public interface Components {
         }
     }
 
+    /**
+     * @author TheOnlyTails
+     */
     interface MenuItems extends Supplier<MenuItem> {
         static MenuItems makeMenuItem(MenuItem menuItem) {
             menuItem.setId(menuItem.getText());
