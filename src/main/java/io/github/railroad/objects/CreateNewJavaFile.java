@@ -20,7 +20,7 @@ public class CreateNewJavaFile extends AbstractNewFileWindow {
 	}
 
 	@Override
-	public void fileDialogBox(Stage window) {
+	public boolean fileDialogBox(Stage window) {
 		FileChooser fileChooser = new FileChooser();
 
 		FileChooser.ExtensionFilter javaFilter = new FileChooser.ExtensionFilter("Java Files", "*.java");
@@ -30,9 +30,10 @@ public class CreateNewJavaFile extends AbstractNewFileWindow {
 		if (file != null) {
 			filePath = file.getAbsolutePath();
 			this.pathName.setText(filePath);
+			return true;         // Return true if file is created
 		}
 		fileChooser.setInitialDirectory(new File(""));
-
+		return false;            // Return false if "cancel" is selected
 	}
 
 	//TODO make it open the file in editor after saving

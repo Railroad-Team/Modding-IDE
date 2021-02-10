@@ -11,15 +11,17 @@ public class CreateNewFileWindow extends AbstractNewFileWindow {
 	}
 
 	@Override
-	public void fileDialogBox(Stage window) {
+	public boolean fileDialogBox(Stage window) {
 		FileChooser fileChooser = new FileChooser();
 
 		File file = fileChooser.showSaveDialog(window);
 		if (file != null) {
 			filePath = file.getAbsolutePath();
 			this.pathName.setText(filePath);
+			return true;         // Return true if file is created
 		}
 		fileChooser.setInitialDirectory(new File(""));
+		return false;            // Return false if "cancel" is selected
 	}
 
 }
