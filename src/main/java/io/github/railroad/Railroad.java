@@ -17,8 +17,8 @@ public class Railroad extends Application {
 	private Scene mainScene;
 	private Configs config;
 	private DiscordRichPresenceManager DRPmanager;
-
-	public static void main(String[] args) {
+	
+	public static void boot(String[] args) {
 		launch(args);
 	}
 
