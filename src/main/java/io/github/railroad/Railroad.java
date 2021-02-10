@@ -17,7 +17,7 @@ public class Railroad extends Application {
 	private Scene mainScene;
 	private Configs config;
 
-	public static void main(String[] args) {
+	public static void boot(String[] args) {
 		launch(args);
 	}
 
