@@ -1,11 +1,13 @@
 plugins {
     id 'application'
-    id 'org.openjfx.javafxplugin' version '0.0.8'
+    id 'org.openjfx.javafxplugin' version '0.0.9'
 }
 
 repositories {
     mavenCentral()
 }
+
+apply plugin: 'application'
 
 dependencies {
     implementation 'org.jetbrains:annotations:20.1.0'
@@ -21,3 +23,5 @@ javafx {
 }
 
 mainClassName = 'io.github.railroad.Startup'
+
+sourceCompatibility = JavaVersion.VERSION_15
