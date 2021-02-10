@@ -7,8 +7,6 @@ import net.arikia.dev.drpc.DiscordRichPresence;
 public class DiscordRichPresenceManager {
 	public static final String applicationID = "808571949227049000";
 
-	private boolean ready = false;
-
 	private String lastDetails = "";
 	private BigImageKeys lastBigImage = BigImageKeys.NONE;
 	private String lastBigImageDetails = "";
@@ -59,8 +57,7 @@ public class DiscordRichPresenceManager {
 	}
 
 	private void initDiscord() {
-		DiscordEventHandlers handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {
-			ready = true;
+		DiscordEventHandlers handlers = new DiscordEventHandlers.Builder().setReadyEventHandler(user -> {
 			System.out.println("Welcome " + user.username + "#" + user.discriminator + ".");
 			DiscordRichPresence.Builder presence = new DiscordRichPresence.Builder("Score: ");
 			presence.setDetails("Running Test");

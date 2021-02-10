@@ -1,21 +1,20 @@
 package io.github.railroad.config;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import io.github.railroad.Railroad;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import io.github.railroad.Railroad;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LanguageConfig extends AbstractConfig {
 
 	private Map<String, String> languageTranslator;
 
 	public LanguageConfig(String file) {
-		languageTranslator = new HashMap<String, String>();
-		JSONTokener tokener = new JSONTokener(Railroad.class.getResourceAsStream(file));
-		JSONObject obj = new JSONObject(tokener);
+		languageTranslator = new HashMap<>();
+		JSONTokener tokenizer = new JSONTokener(Railroad.class.getResourceAsStream(file));
+		JSONObject obj = new JSONObject(tokenizer);
 		for (String key : obj.keySet()) {
 			languageTranslator.put(key, obj.getString(key));
 		}
