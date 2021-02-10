@@ -1,6 +1,5 @@
 package io.github.railroad.debugger.syntax;
 
-import io.github.railroad.config.Configuration;
 import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
@@ -22,6 +21,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 
+//TODO: get rid of this
 public class SyntaxHandler extends Application {
 
     private CodeArea codeArea;
@@ -39,13 +39,12 @@ public class SyntaxHandler extends Application {
 
         // TODO reference the main class
         SyntaxObject syntax = EMPTY;
-        new Configuration();
-        for (final SyntaxObject o : new Configuration().languages) {
+     /*   for (final SyntaxObject o : new Configuration().languages) {
             if (o.ext.equals("java")) {
                 syntax = o;
                 break;
             }
-        }
+        }*/
 
         final Matcher matcher = syntax.compiled.matcher(text);
         int lastKwEnd = 0;

@@ -27,7 +27,6 @@ public final class CreateNewJavaFile extends AbstractNewFileWindow {
     @Override
     public boolean fileDialogBox(Stage window) {
         final FileChooser fileChooser = new FileChooser();
-
         final FileChooser.ExtensionFilter javaFilter = new FileChooser.ExtensionFilter("Java Files", "*.java");
 
         fileChooser.getExtensionFilters().add(javaFilter);

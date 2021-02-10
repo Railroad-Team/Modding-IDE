@@ -25,6 +25,9 @@ import java.util.List;
 // TODO make editor
 // TODO make exporter.
 // TODO a lot of things.
+
+//TODO: get rid of this
+
 public class ModelEditor extends Application {
 
     public static List<Entity> entities = new ArrayList<>();

@@ -3,6 +3,7 @@ package io.github.railroad.debugger.syntax;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+//TODO: get rid of this
 public class SyntaxObject {
     public String ext;
     public Map<String, EnumSyntaxType> regex;
