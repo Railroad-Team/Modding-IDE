@@ -54,22 +54,22 @@ public class RailroadTopMenu extends MenuBar {
 
 		MenuItem file = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.file"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/file.png"))
-				.setActionEvent(event -> new CreateNewFileWindow("Create New File", "Done")).build();
+				.setActionEvent(event -> new CreateNewFileWindow("Create New File", "Done").makeWindow()).build();
 
 		MenuItem folderItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.folder"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/folder.png")).build();
 
 		MenuItem clazzItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.class"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/class.png"))
-				.setActionEvent(event -> new CreateNewJavaFile("Create New Class", "Done", JavaClassTypes.CLASS)).build();
+				.setActionEvent(event -> new CreateNewJavaFile("Create New Class", "Done", JavaClassTypes.CLASS).makeWindow()).build();
 
 		MenuItem interfaceItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.interface"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/interface.png"))
-				.setActionEvent(event -> new CreateNewJavaFile("Create New Interface", "Done", JavaClassTypes.INTERFACE)).build();
+				.setActionEvent(event -> new CreateNewJavaFile("Create New Interface", "Done", JavaClassTypes.INTERFACE).makeWindow()).build();
 
 		MenuItem enumItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.enum"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/enum.png"))
-				.setActionEvent(event -> new CreateNewJavaFile("Create New Enum", "Done", JavaClassTypes.ENUM)).build();
+				.setActionEvent(event -> new CreateNewJavaFile("Create New Enum", "Done", JavaClassTypes.ENUM).makeWindow()).build();
 
 		MenuItem annotationItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.annotation"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/annotation.png")).build();
