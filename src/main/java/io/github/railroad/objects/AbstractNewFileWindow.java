@@ -22,25 +22,29 @@ public abstract class AbstractNewFileWindow {
 	public AbstractNewFileWindow(String title, String message) {
 		this.title = title;
 		this.message = message;
-		this.makeWindow();
 	}
 
-	public void fileDialogBox(Stage window) {
+	public boolean fileDialogBox(Stage window) {
 		FileChooser fileChooser = new FileChooser();
 
 		File file = fileChooser.showSaveDialog(window);
 		if (file != null) {
 			filePath = file.getAbsolutePath();
 			this.pathName.setText(filePath);
+			return true;         // Return true if file is created
 		}
 		//TODO make a remembering classpath
 		fileChooser.setInitialDirectory(new File(""));
-
+		return false;            // Return false if "cancel" is selected
 	}
 
 	protected Button saveFile(Stage window) {
-
 		return UIUtils.createButton(this.message, event -> {
+            if (filePath == null || filePath.equals("File Path")) {
+                System.out.println("Input error");
+                window.close();
+                return;//failed to input
+            }
 			FileUtils.createNewFile(filePath);
 			window.close();
 		});
@@ -57,9 +61,17 @@ public abstract class AbstractNewFileWindow {
 
 		this.pathName = new Label("File Path");
 
-		Button yesBtn = saveFile(window);
-		fileDialogBox(window);
+		if (fileDialogBox(window)) { // File is successfully created
+			createConfirmationWindow(window);
+		} else {
+			// Do nothing because user has clicked "cancel"
+		}
 
+	}
+
+	// Confirmation window that appears after creating a file
+	private void createConfirmationWindow(Stage window) {
+		Button yesBtn = saveFile(window);
 		VBox layout = new VBox(10);
 		layout.getChildren().addAll(pathName, yesBtn);
 		layout.setAlignment(Pos.CENTER);
@@ -67,6 +79,5 @@ public abstract class AbstractNewFileWindow {
 		Scene scene = new Scene(layout);
 		window.setScene(scene);
 		window.showAndWait();
-
 	}
 }
