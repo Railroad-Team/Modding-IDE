@@ -14,13 +14,10 @@ public class CreateNewJavaFile extends AbstractNewFileWindow {
 	public CreateNewJavaFile(String title, String message, JavaClassTypes type) {
 		super(title, message);
 		this.type = type;
-		/*
-		 * Type 1 is Class, Type 2 is Interface, Type 3 is Enums, Type 4 is Annotation
-		 */
 	}
 
 	@Override
-	public void fileDialogBox(Stage window) {
+	public boolean fileDialogBox(Stage window) {
 		FileChooser fileChooser = new FileChooser();
 
 		FileChooser.ExtensionFilter javaFilter = new FileChooser.ExtensionFilter("Java Files", "*.java");
@@ -30,9 +27,10 @@ public class CreateNewJavaFile extends AbstractNewFileWindow {
 		if (file != null) {
 			filePath = file.getAbsolutePath();
 			this.pathName.setText(filePath);
+			return true;         // Return true if file is created
 		}
 		fileChooser.setInitialDirectory(new File(""));
-
+		return false;            // Return false if "cancel" is selected
 	}
 
 	//TODO make it open the file in editor after saving
@@ -49,20 +47,19 @@ public class CreateNewJavaFile extends AbstractNewFileWindow {
 			assert file != null; // Should be replaced with check
 			String code;
 			switch (this.type) {
-				case CLASS:
+				case CLASS -> {
 					code = "public class " + file.getName().replace(".java", "") + "{ \n \n}";
 					FileUtils.updateFile(file, code);
-					break;
-				case ENUM:
+				}
+				case ENUM -> {
 					code = "public interface " + file.getName().replace(".java", "") + "{ \n \n}";
 					FileUtils.updateFile(file, code);
-					break;
-				case INTERFACE:
+				}
+				case INTERFACE -> {
 					code = "public enum " + file.getName().replace(".java", "") + "{ \n \n}";
 					FileUtils.updateFile(file, code);
-					break;
-				default:
-					throw new IllegalStateException(this.type.name() + " is not a supported java file");
+				}
+				default -> throw new IllegalStateException(this.type.name() + " is not a supported java file");
 			}
 			window.close();
 		});
