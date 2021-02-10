@@ -47,4 +47,12 @@ public class UIUtils {
         }
         return icons;
     }
+
+    public static Image[] getImages(String...imageLocationResolvable){
+        Image[] out = new Image[imageLocationResolvable.length];
+        for (int i = 0; i < imageLocationResolvable.length; i++){
+            out[i] = new Image(Railroad.class.getResourceAsStream(imageLocationResolvable[i]));
+        }
+        return out;
+    }
 }

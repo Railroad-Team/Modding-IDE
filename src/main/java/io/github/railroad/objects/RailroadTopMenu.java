@@ -1,11 +1,14 @@
 package io.github.railroad.objects;
 
 import io.github.railroad.config.LanguageConfig;
+import io.github.railroad.utility.FileUtils;
 import io.github.railroad.utility.UIUtils;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
+
+import java.io.File;
 
 // TODO make assets for all the menu items!
 public class RailroadTopMenu extends MenuBar {
@@ -30,11 +33,30 @@ public class RailroadTopMenu extends MenuBar {
 		Menu runMenu = new Menu(this.langConfig.get("menu.run"));
 		Menu viewMenu = new Menu(this.langConfig.get("menu.view"));
 		Menu helpMenu = new Menu(this.langConfig.get("menu.help"));
-		this.getMenus().addAll(fileMenu, editMenu, searchMenu, runMenu, viewMenu, helpMenu);
+
+		Menu fileExplorer = new Menu("File Explorer");
+		this.createFileExplorer(fileExplorer);
+
+		this.getMenus().addAll(fileMenu, editMenu, searchMenu, runMenu, viewMenu, helpMenu, fileExplorer);
 	}
 
-	public void createFileMenu(Menu fileMenu) {
+    private void createFileExplorer(Menu fileExplorer) {
+	    createFileExplorer(fileExplorer, new FileUtils.Folder(System.getProperty("user.dir")));
+    }
 
+    private Menu createFileExplorer(Menu fileExplorer, FileUtils.Folder rootFolder){
+        for (FileUtils.Folder folder : rootFolder.getSubFolders()){
+            Menu deeperFolder = new Menu(folder.getName());
+            deeperFolder.setGraphic(UIUtils.createMenuGraphics("/assets/img/folder.png"));
+            fileExplorer.getItems().addAll(createFileExplorer(deeperFolder, folder));
+        }
+        for (File file : rootFolder.getFiles()){
+            fileExplorer.getItems().addAll(RailroadMenuItem.Builder.create(file.getName()).build());
+        }
+        return fileExplorer;
+    }
+
+    public void createFileMenu(Menu fileMenu) {
 		this.createFileNewMenu(fileMenu);
 		this.createFileGenerateMenu(fileMenu);
 		fileMenu.getItems().add(new SeparatorMenuItem());
