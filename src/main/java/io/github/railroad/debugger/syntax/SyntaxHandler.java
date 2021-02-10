@@ -28,7 +28,7 @@ public class SyntaxHandler extends Application {
 
 	private CodeArea codeArea;
 	private ExecutorService executor;
-	
+
 	// Yes, static abuse. We will pass this in when implementing
 	private static Scene scene;
 	private static String ext;
@@ -36,7 +36,7 @@ public class SyntaxHandler extends Application {
 	@SuppressWarnings("unused") // We won't need this when actually implementing
 	@Override
 	public void start(Stage primaryStage) {
-		setExt("java");
+		setExt("json");
 		executor = Executors.newSingleThreadExecutor();
 		codeArea = new CodeArea();
 		codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
@@ -81,18 +81,19 @@ public class SyntaxHandler extends Application {
 	private void applyHighlighting(StyleSpans<Collection<String>> highlighting) {
 		codeArea.setStyleSpans(0, highlighting);
 	}
-	
+
 	private static void setExt(String e) {
 		ext = e;
 	}
 
+	// This throws some kinda exception but it clearly doesnt affect anything
+	// TODO surround with a try catch or something, idk (or fix it)
 	private static StyleSpans<Collection<String>> computeHighlighting(String text) {
 
-		// TODO reference the main class
-		SyntaxObject syntax = new Configs().syntax.getByExt(ext);
+		SyntaxObject syntax = Configs.INSTANCE.syntax.getByExt(ext);
 		Matcher matcher = syntax.getCompiled().matcher(text);
 
-		scene.getStylesheets().add("/assets/" + syntax.getPath() + ".css"); // Make this support config files
+		scene.getStylesheets().add("/assets/" + syntax.getPath() + ".css");
 
 		int lastKwEnd = 0;
 		StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();

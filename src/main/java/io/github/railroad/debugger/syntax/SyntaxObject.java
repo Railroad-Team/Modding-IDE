@@ -22,7 +22,6 @@ public class SyntaxObject {
 		for (Map.Entry<String, String> e : this.regex.entrySet()) {
 			builder.append("|(?<").append(e.getValue()).append(">").append(e.getKey()).append(")");
 		}
-		System.out.println(builder.toString());
 		this.compiled = Pattern.compile(builder.substring(1)); // Remove first "|"
 	}
 
