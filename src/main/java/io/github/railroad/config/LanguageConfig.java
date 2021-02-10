@@ -31,12 +31,7 @@ public class LanguageConfig extends AbstractConfig {
 	public String get(String key) {
 		return languageTranslator.getOrDefault(key, key);
 	}
-
-	@Override
-	public String getName() {
-		return "lang";
-	}
-
+	
 	@Override
 	public String getName() {
 		return "lang";

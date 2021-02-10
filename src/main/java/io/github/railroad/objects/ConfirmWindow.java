@@ -15,9 +15,6 @@ import javafx.stage.Stage;
 // TODO: Come up with a cleaner way of doing this. This code was rushed.
 public class ConfirmWindow {
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static Map<Stage, Boolean> ANSWER = new HashMap();
-
 	public static Map<Stage, Boolean> ANSWER = new HashMap<Stage, Boolean>();
 
 	public static boolean displayWindow(String title, String message) {
