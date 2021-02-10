@@ -18,6 +18,8 @@ public class ConfirmWindow {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static Map<Stage, Boolean> ANSWER = new HashMap();
 
+	public static Map<Stage, Boolean> ANSWER = new HashMap<Stage, Boolean>();
+
 	public static boolean displayWindow(String title, String message) {
 		boolean result;
 		Stage window = new Stage();
