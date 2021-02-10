@@ -18,9 +18,10 @@ dependencies {
 }
 
 javafx {
-    modules = [ 'javafx.controls' ]
+    version = "15.0.1"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
-mainClassName = 'io.github.railroad.Railroad'
+mainClassName = 'io.github.railroad.Startup'
 
 sourceCompatibility = JavaVersion.VERSION_15
