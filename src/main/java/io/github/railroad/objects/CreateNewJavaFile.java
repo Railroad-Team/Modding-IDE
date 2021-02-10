@@ -1,19 +1,21 @@
 package io.github.railroad.objects;
 
-import java.io.File;
-
 import io.github.railroad.utility.FileUtils;
 import io.github.railroad.utility.UIUtils;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class CreateNewJavaFile extends AbstractNewFileWindow {
+import java.io.File;
 
-	public CreateNewJavaFile(String title, String message, int type) {
-		super(title, message, type);
+public class CreateNewJavaFile extends AbstractNewFileWindow {
+	private final JavaClassTypes type;
+
+	public CreateNewJavaFile(String title, String message, JavaClassTypes type) {
+		super(title, message);
+		this.type = type;
 		/*
-		 * Type 1 is Class Type 2 is Interface Type 3 is Enums Type 4 is Annotation
+		 * Type 1 is Class, Type 2 is Interface, Type 3 is Enums, Type 4 is Annotation
 		 */
 	}
 
@@ -33,27 +35,37 @@ public class CreateNewJavaFile extends AbstractNewFileWindow {
 
 	}
 
+	//TODO make it open the file in editor after saving
 	@Override
 	protected Button saveFile(Stage window) {
-		Button yesBtn = UIUtils.createButton(this.message, event -> {
-			File file = FileUtils.createNewFile(filePath);
-			String code = "";
-			if (this.type == 1) {
-				code = "public class " + file.getName().replace(".java", "") + "{ \n \n}";
-				FileUtils.updateFile(file, code);
-			} else if (this.type == 2) {
-				code = "public interface " + file.getName().replace(".java", "") + "{ \n \n}";
-				FileUtils.updateFile(file, code);
-			} else if (this.type == 3) {
-				code = "public enum " + file.getName().replace(".java", "") + "{ \n \n}";
-				FileUtils.updateFile(file, code);
-			} else if (this.type == 4) {
-
+		return UIUtils.createButton(this.message, event -> {
+			//please put this somewhere else in the event that the user fails to select a path
+			if (filePath == null || filePath.equals("File Path")) {
+				System.out.println("Input error");
+				window.close();
+				return;//failed to input
 			}
-
+			File file = FileUtils.createNewFile(filePath);
+			assert file != null; // Should be replaced with check
+			String code;
+			switch (this.type) {
+				case CLASS:
+					code = "public class " + file.getName().replace(".java", "") + "{ \n \n}";
+					FileUtils.updateFile(file, code);
+					break;
+				case ENUM:
+					code = "public interface " + file.getName().replace(".java", "") + "{ \n \n}";
+					FileUtils.updateFile(file, code);
+					break;
+				case INTERFACE:
+					code = "public enum " + file.getName().replace(".java", "") + "{ \n \n}";
+					FileUtils.updateFile(file, code);
+					break;
+				default:
+					throw new IllegalStateException(this.type.name() + " is not a supported java file");
+			}
 			window.close();
 		});
-		return yesBtn;
 	}
 
 }

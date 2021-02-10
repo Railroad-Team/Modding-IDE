@@ -10,30 +10,28 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 
 public class RailroadMenuItem extends MenuItem {
-	private Builder properties;
 
 	private RailroadMenuItem(Builder propertiesIn) {
-		this.properties = propertiesIn;
-		this.setAccelerator(this.properties.acceleratorKey);
-		this.setDisable(this.properties.defaultDisabled);
-		this.setGraphic(this.properties.graphic);
-		this.setId(this.properties.id);
-		this.setMnemonicParsing(this.properties.shouldParseText);
-		this.setOnAction(this.properties.action);
-		this.setOnMenuValidation(this.properties.menuValidation);
-		this.setParentMenu(this.properties.parent);
-		this.setParentPopup(this.properties.contextMenu);
-		this.setStyle(this.properties.style);
-		this.setText(this.properties.text);
-		this.setUserData(this.properties.customUserData);
-		this.setVisible(this.properties.defaultVisible);
+		this.setAccelerator(propertiesIn.acceleratorKey);
+		this.setDisable(propertiesIn.defaultDisabled);
+		this.setGraphic(propertiesIn.graphic);
+		this.setId(propertiesIn.id);
+		this.setMnemonicParsing(propertiesIn.shouldParseText);
+		this.setOnAction(propertiesIn.action);
+		this.setOnMenuValidation(propertiesIn.menuValidation);
+		this.setParentMenu(propertiesIn.parent);
+		this.setParentPopup(propertiesIn.contextMenu);
+		this.setStyle(propertiesIn.style);
+		this.setText(propertiesIn.text);
+		this.setUserData(propertiesIn.customUserData);
+		this.setVisible(propertiesIn.defaultVisible);
 	}
 
 	public static class Builder {
 		private KeyCombination acceleratorKey;
 		private boolean defaultDisabled, shouldParseText = true, defaultVisible = true;
 		private ImageView graphic;
-		private String id, style, text = "";
+		private String id, style, text;
 		private EventHandler<ActionEvent> action;
 		private EventHandler<Event> menuValidation;
 		private Menu parent;

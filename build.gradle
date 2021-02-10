@@ -1,8 +1,13 @@
+plugins {
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.9'
+}
+
 repositories {
     mavenCentral()
 }
 
-apply plugin: 'java'
+apply plugin: 'application'
 
 dependencies {
     implementation 'org.jetbrains:annotations:20.1.0'
@@ -11,3 +16,12 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     compile fileTree(dir: 'libs', include: 'discord-rpc.jar')
 }
+
+javafx {
+    version = "15.0.1"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+mainClassName = 'io.github.railroad.Startup'
+
+sourceCompatibility = JavaVersion.VERSION_15

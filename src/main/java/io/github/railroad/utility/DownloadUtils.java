@@ -1,4 +1,6 @@
-package io.github.railroad.projects.fetch;
+package io.github.railroad.utility;
+
+import javafx.concurrent.Task;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -7,9 +9,7 @@ import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import javafx.concurrent.Task;
-
-public class MDKFetcher {
+public class DownloadUtils {
 
 	public void fetch(String url) {
 		Task<Void> task = new DownloadTask(url);
@@ -23,9 +23,9 @@ public class MDKFetcher {
 		thread.start();
 	}
 
-	private class DownloadTask extends Task<Void> {
+	private static class DownloadTask extends Task<Void> {
 
-		private String url;
+		private final String url;
 
 		public DownloadTask(String url) {
 			this.url = url;
@@ -33,12 +33,12 @@ public class MDKFetcher {
 
 		@Override
 		protected Void call() throws Exception {
-			String ext = url.substring(url.lastIndexOf("."), url.length());
+			String ext = url.substring(url.lastIndexOf("."));
 			URLConnection connection = new URL(url).openConnection();
 			long fileLength = connection.getContentLengthLong();
 
 			try (InputStream is = connection.getInputStream();
-					OutputStream os = Files.newOutputStream(Paths.get("downloadedfile" + ext))) {
+				 OutputStream os = Files.newOutputStream(Paths.get("downloadedfile" + ext))) {
 
 				long nread = 0L;
 				byte[] buf = new byte[8192];

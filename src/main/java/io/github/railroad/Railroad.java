@@ -16,26 +16,25 @@ public class Railroad extends Application {
 
 	private Scene mainScene;
 	private Configs config;
-	private DiscordRichPresenceManager DRPmanager;
 
-	public static void main(String[] args) {
+	public static void boot(String[] args) {
 		launch(args);
 	}
 
 	@Override
-	public void start(Stage mainWindow) throws Exception {
+	public void start(Stage mainWindow) {
 		this.config = new Configs();
 		this.createComponents(new RailroadTopMenu(this.config.lang), mainWindow);
 		Image[] icons = new Image[2];
-		icons = UIUtils.getIcons(icons);
+		UIUtils.getIcons(icons);
 		Stage window = UIUtils.setupWindow(mainWindow, this.config.lang.get("window.title"), this.mainScene, icons);
 		window.setOnCloseRequest(event -> {
 			event.consume();
 			this.onClose(window);
 		});
-		DRPmanager = new DiscordRichPresenceManager();
-		DRPmanager.setDetails("Working hard or hardly working").setStats("This is an ide!")
-				.setBigImage(DiscordRichPresenceManager.BigImageKeys.JOJO_PFP, "Hey this code isn't jank fool").build();
+		DiscordRichPresenceManager richPresenceManager = new DiscordRichPresenceManager();
+		richPresenceManager.setDetails("Railroad IDE").setStats("Editing {insert file name here}")
+				.setBigImage(DiscordRichPresenceManager.BigImageKeys.NONE, "Railroad IDE").build();
 	}
 
 	private void onClose(Stage window) {
