@@ -1,4 +1,4 @@
-package com.turtywurty.railroad;
+package io.github.railroad;
 
 public class Startup {
 	public static void main(String[] args) {
