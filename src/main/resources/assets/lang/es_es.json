@@ -1,0 +1,42 @@
+{
+	"window.title": "Railroad IDE",
+	
+	"menu.file": "Archivo",
+	"menu.file.new": "Nuevo",
+	"menu.file.new.javaproject": "Proyecto Java",
+	"menu.file.new.project": "Proyecto",
+	"menu.file.new.javaworkingset": "Conjunto de trabajo de Java",
+	"menu.file.new.package": "Paquete",
+	"menu.file.new.sourcefolder": "Carpeta de origen",
+	"menu.file.new.file": "Archivo",
+	"menu.file.new.folder": "Carpeta",
+	"menu.file.new.class": "Clase",
+	"menu.file.new.interface": "Interfaz",
+	"menu.file.new.enum": "Enum",
+	"menu.file.new.annotation": "Anotación",
+	"menu.file.open": "Abierto Archivo",
+	
+	"menu.edit": "Editar",
+	"menu.edit.undo": "Deshacer",
+	"menu.edit.redo": "Rehacer",
+	"menu.edit.cut": "Cortar",
+	"menu.edit.copy": "Copiar",
+	"menu.edit.paste": "Pegar",
+	"menu.edit.delete": "Eliminar",
+	"menu.edit.selectAll": "Seleccionar todo",
+	"menu.edit.findReplace": "Buscar / Reemplazar",
+	
+	"menu.search": "Buscar",
+	"menu.search.search": "Buscar",
+	"menu.search.text": "Texto",
+	"menu.search.text.workspace": "Espacio de trabajo",
+	"menu.search.text.project": "Proyecto",
+	"menu.search.text.file": "Archivo",
+	
+	"menu.run": "Tirada",
+	"menu.view": "Ver",
+	"menu.help": "Ayuda",
+	
+	"dialog.quit": "Dejar",
+	"dialog.quit.prompt": "¿Estás segura de que quieres dejar?"
+}
