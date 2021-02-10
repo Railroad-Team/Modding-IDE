@@ -5,7 +5,7 @@ Well, here is the syntax!
 ```json
 {
 	"extension": "file extension (e.g. 'java')",
-	"css_path": "path to css (e.g. 'styles/syntax/java'".
+	"css_path": "path to css (e.g. 'styles/syntax/java'"
 	"rules": [
 		{
 			"regex": "here you put the regex defining the colour",
