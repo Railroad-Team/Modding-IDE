@@ -1,9 +1,9 @@
 package io.github.railroad.objects;
 
-import java.io.File;
-
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 public class CreateNewFileWindow extends AbstractNewFileWindow {
 	public CreateNewFileWindow(String title, String message) {

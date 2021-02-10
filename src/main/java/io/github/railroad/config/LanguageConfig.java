@@ -7,7 +7,7 @@ import org.json.JSONTokener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LanguageConfig extends AbstractConfig {
+public class LanguageConfig implements AbstractConfig {
 
 	private Map<String, String> languageTranslator;
 

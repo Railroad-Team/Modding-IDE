@@ -1,7 +1,6 @@
 package io.github.railroad.config;
 
 public class Configs {
-
 	public LanguageConfig lang;
 	public SyntaxConfig syntax;
 

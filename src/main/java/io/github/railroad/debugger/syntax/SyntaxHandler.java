@@ -22,86 +22,89 @@ import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 
 public class SyntaxHandler extends Application {
-	public static void main(String[] args) {
-		launch(args); // TODO Remove this later
-	}
+    private CodeArea codeArea;
+    private ExecutorService executor;
 
-	private CodeArea codeArea;
-	private ExecutorService executor;
+    public static void main(String[] args) {
+        launch(args); // TODO Remove this later
+    }
 
-	@SuppressWarnings("unused")
-	// @SuppressWarnings Should be removed, usually if you have to use SuppressWarnings, you have something to fix :)
-	@Override
-	public void start(Stage primaryStage) {
-		executor = Executors.newSingleThreadExecutor();
-		codeArea = new CodeArea();
-		codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
-		Subscription cleanupWhenDone = codeArea.multiPlainChanges().successionEnds(Duration.ofMillis(500))
-				.supplyTask(this::computeHighlightingAsync).awaitLatest(codeArea.multiPlainChanges()).filterMap(t -> {
-					if (t.isSuccess()) {
-						return Optional.of(t.get());
-					} else {
-						t.getFailure().printStackTrace();
-						return Optional.empty();
-					}
-				}).subscribe(this::applyHighlighting);
+    private static StyleSpans<Collection<String>> computeHighlighting(String text) {
 
-		// call when no longer need it: `cleanupWhenFinished.unsubscribe();`
+        // TODO reference the main class
+        SyntaxObject syntax = new Configs().syntax.getByExt("java");
+        Matcher matcher = syntax.compiled.matcher(text);
+        int lastKwEnd = 0;
+        StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
 
-		codeArea.replaceText(0, 0, "");
+        while (matcher.find()) {
 
-		Scene scene = new Scene(new StackPane(new VirtualizedScrollPane<>(codeArea)), 600, 400);
-		scene.getStylesheets().add("java-keywords.css"); // Make this support config files
-		primaryStage.setScene(scene);
-		primaryStage.setTitle("Java Keywords Demo");
-		primaryStage.show();
-	}
+            // TODO make this automatic, to stop errors. All things need to be present in
+            // syntax config right now.
+            String styleClass = matcher.group("KEYWORD") != null ? "keyword"
+                    : matcher.group("STRING") != null ? "string"
+                    : matcher.group("FUNCTION") != null ? "function"
+                    : matcher.group("NUMBER") != null ? "number"
+                    : matcher.group("COMMENT") != null ? "comment"
+                    : matcher.group("CLASS") != null ? "class" : null;
+            /* never happens */
+            assert styleClass != null;
 
-	@Override
-	public void stop() {
-		executor.shutdown();
-	}
+            spansBuilder.add(Collections.emptyList(), matcher.start() - lastKwEnd);
+            spansBuilder.add(Collections.singleton(styleClass), matcher.end() - matcher.start());
+            lastKwEnd = matcher.end();
+        }
+        spansBuilder.add(Collections.emptyList(), text.length() - lastKwEnd);
+        return spansBuilder.create();
+    }
 
-	private Task<StyleSpans<Collection<String>>> computeHighlightingAsync() {
-		String text = codeArea.getText();
-		Task<StyleSpans<Collection<String>>> task = new Task<StyleSpans<Collection<String>>>() {
-			@Override
-			protected StyleSpans<Collection<String>> call() {
-				return computeHighlighting(text);
-			}
-		};
-		executor.execute(task);
-		return task;
-	}
+    @Override
+    public void start(Stage primaryStage) {
+        executor = Executors.newSingleThreadExecutor();
+        codeArea = new CodeArea();
+        codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
+        Subscription cleanupWhenDone = codeArea
+                .multiPlainChanges()
+                .successionEnds(Duration.ofMillis(500))
+                .supplyTask(this::computeHighlightingAsync)
+                .awaitLatest(codeArea.multiPlainChanges()).filterMap(t -> {
+                    if (t.isSuccess()) {
+                        return Optional.of(t.get());
+                    } else {
+                        t.getFailure().printStackTrace();
+                        return Optional.empty();
+                    }
+                }).subscribe(this::applyHighlighting);
 
-	private void applyHighlighting(StyleSpans<Collection<String>> highlighting) {
-		codeArea.setStyleSpans(0, highlighting);
-	}
+        // call when no longer need it: `cleanupWhenFinished.unsubscribe();`
 
-	private static StyleSpans<Collection<String>> computeHighlighting(String text) {
+        codeArea.replaceText(0, 0, "");
 
-		// TODO reference the main class
-		SyntaxObject syntax = new Configs().syntax.getByExt("java");
-		Matcher matcher = syntax.getCompiled().matcher(text);
-		int lastKwEnd = 0;
-		StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
-		while (matcher.find()) {
+        Scene scene = new Scene(new StackPane(new VirtualizedScrollPane<>(codeArea)), 600, 400);
+        scene.getStylesheets().add("java-keywords.css"); // Make this support config files
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Java Keywords Demo");
+        primaryStage.show();
+    }
 
-			// TODO make this automatic, to stop errors. All things need to be present in
-			// syntax config right now.
-			String styleClass = matcher.group("KEYWORD") != null ? "keyword"
-					: matcher.group("STRING") != null ? "string"
-							: matcher.group("FUNCTION") != null ? "function"
-									: matcher.group("NUMBER") != null ? "number"
-											: matcher.group("COMMENT") != null ? "comment"
-													: matcher.group("CLASS") != null ? "class" : null;
-			/* never happens */ assert styleClass != null;
+    @Override
+    public void stop() {
+        executor.shutdown();
+    }
 
-			spansBuilder.add(Collections.emptyList(), matcher.start() - lastKwEnd);
-			spansBuilder.add(Collections.singleton(styleClass), matcher.end() - matcher.start());
-			lastKwEnd = matcher.end();
-		}
-		spansBuilder.add(Collections.emptyList(), text.length() - lastKwEnd);
-		return spansBuilder.create();
-	}
+    private Task<StyleSpans<Collection<String>>> computeHighlightingAsync() {
+        String text = codeArea.getText();
+        Task<StyleSpans<Collection<String>>> task = new Task<>() {
+            @Override
+            protected StyleSpans<Collection<String>> call() {
+                return computeHighlighting(text);
+            }
+        };
+        executor.execute(task);
+        return task;
+    }
+
+    private void applyHighlighting(StyleSpans<Collection<String>> highlighting) {
+        codeArea.setStyleSpans(0, highlighting);
+    }
 }

@@ -1,13 +1,8 @@
 package io.github.railroad.modelEditor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.AmbientLight;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
@@ -23,114 +18,115 @@ import javafx.scene.shape.Box;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // TODO make this actually part of the IDE, not a stand alone run thingy
 // TODO make editor
 // TODO make exporter.
 // TODO a lot of things.
 public class ModelEditor extends Application {
 
-	public static List<Entity> entities = new ArrayList<Entity>();
-	public static int loop;
+    public static List<Entity> entities = new ArrayList<>();
+    public static int loop;
 
-	private double mousePosX, mousePosY = 0;
+    private double mousePosX, mousePosY = 0;
 
-	@Override
-	public void start(Stage primaryStage) {
+    // TODO remove this and integrate into main IDE
+    public static void main(String[] args) {
+        launch(args);
+    }
 
-		// Add all entities
-		entities.add(new Entity("Example1", createCube()));
+    @Override
+    public void start(Stage primaryStage) {
 
-		// Create group
-		Group root = new Group();
-		AmbientLight light = new AmbientLight();
-		PerspectiveCamera camera = new PerspectiveCamera();
+        // Add all entities
+        entities.add(new Entity("Example1", createCube()));
 
-		// Register entities
-		for (Entity e : entities)
-			root.getChildren().add(e.getObject());
+        // Create group
+        Group root = new Group();
+        AmbientLight light = new AmbientLight();
+        PerspectiveCamera camera = new PerspectiveCamera();
 
-		// Add buttons
-		Button button = new Button("Add cube lol");
-		ToggleButton toggleButton = new ToggleButton("Lighting");
-		HBox hbox = new HBox(button, toggleButton);
-		root.getChildren().add(hbox);
-		button.setOnAction(value -> {
-			addEntity(root, new Entity(String.valueOf(loop), createCube()));
-		});
+        // Register entities
+        for (Entity e : entities)
+            root.getChildren().add(e.object);
 
-		// Scene
-		Scene scene = new Scene(root, 850, 650);
-		scene.setCamera(camera);
+        // Add buttons
+        Button button = new Button("Add cube lol");
+        ToggleButton toggleButton = new ToggleButton("Lighting");
+        HBox hbox = new HBox(button, toggleButton);
+        root.getChildren().add(hbox);
+        button.setOnAction(value -> {
+            addEntity(root, new Entity(String.valueOf(loop), createCube()));
+        });
 
-		// ROTATING STUFF
-		// TODO 15 is a strength, make this configurable
-		scene.addEventHandler(MouseEvent.MOUSE_DRAGGED, me -> {
-			if (me.getButton() == MouseButton.PRIMARY) {
-				double dx = (mousePosX - me.getSceneX());
-				double dy = (mousePosY - me.getSceneY());
+        // Scene
+        Scene scene = new Scene(root, 850, 650);
+        scene.setCamera(camera);
 
-				for (Entity e : entities) {
-					e.rotateX.setAngle(e.rotateX.getAngle() - (dy / e.getObject().getHeight() * 360) * (Math.PI / 180) * 15);
-					e.rotateY.setAngle(e.rotateY.getAngle() - (dx / e.getObject().getWidth() * -360) * (Math.PI / 180) * 15);
-				}
+        // ROTATING STUFF
+        // TODO 15 is a strength, make this configurable
+        scene.addEventHandler(MouseEvent.MOUSE_DRAGGED, me -> {
+            if (me.getButton() == MouseButton.PRIMARY) {
+                double dx = (mousePosX - me.getSceneX());
+                double dy = (mousePosY - me.getSceneY());
 
-				mousePosX = me.getSceneX();
-				mousePosY = me.getSceneY();
-			}
-		});
+                for (Entity e : entities) {
+                    e.rotateX.setAngle(e.rotateX.getAngle() - (dy / e.object.getHeight() * 360) * (Math.PI / 180) * 15);
+                    e.rotateY.setAngle(e.rotateY.getAngle() - (dx / e.object.getWidth() * -360) * (Math.PI / 180) * 15);
+                }
 
-		scene.addEventHandler(MouseEvent.MOUSE_PRESSED, me -> {
-			mousePosX = me.getSceneX();
-			mousePosY = me.getSceneY();
-		});
+                mousePosX = me.getSceneX();
+                mousePosY = me.getSceneY();
+            }
+        });
 
-		primaryStage.setTitle("Model Editor? POG");
-		primaryStage.setScene(scene);
-		primaryStage.show();
+        scene.addEventHandler(MouseEvent.MOUSE_PRESSED, me -> {
+            mousePosX = me.getSceneX();
+            mousePosY = me.getSceneY();
+        });
 
-		// Timeline
-		Timeline tick = new Timeline(new KeyFrame(new Duration(10), new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent t) {
-				loop++;
-				if (root.getChildren().contains(light) && toggleButton.isSelected()) {
-					root.getChildren().remove(light);
-				} else if (!root.getChildren().contains(light) && !toggleButton.isSelected()) {
-					root.getChildren().add(light);
-				}
-			}
-		}));
-		tick.setCycleCount(Timeline.INDEFINITE);
-		tick.play();// Starts the timeline
-	}
+        primaryStage.setTitle("Model Editor? POG");
+        primaryStage.setScene(scene);
+        primaryStage.show();
 
-	public void addEntity(Group root, Entity e) {
-		entities.add(e);
-		root.getChildren().add(e.getObject());
-	}
+        // Timeline
+        Timeline tick = new Timeline(new KeyFrame(new Duration(10), event -> {
+            loop++;
+            if (root.getChildren().contains(light) && toggleButton.isSelected()) {
+                root.getChildren().remove(light);
+            } else if (!root.getChildren().contains(light) && !toggleButton.isSelected()) {
+                root.getChildren().add(light);
+            }
+        }));
 
-	Box createCube() {
-		Box box = new Box();
+        tick.setCycleCount(Timeline.INDEFINITE);
+        tick.play();// Starts the timeline
+    }
 
-		// Transform
-		box.setWidth(300); // x size
-		box.setHeight(300); // y size
-		box.setDepth(300);// z size
-		box.setTranslateX(400); // X pos
-		box.setTranslateY(300); // Y pos
-		box.setTranslateZ(0); // Z pos
+    public void addEntity(Group root, Entity e) {
+        entities.add(e);
+        root.getChildren().add(e.object);
+    }
 
-		// Material
-		PhongMaterial mat = new PhongMaterial();
-		mat.setSpecularColor(Color.BLACK);
-		mat.setDiffuseColor(Color.RED);
-		box.setMaterial(mat);
+    public Box createCube() {
+        Box box = new Box();
 
-		return box;
-	}
+        // Transform
+        box.setWidth(300); // x size
+        box.setHeight(300); // y size
+        box.setDepth(300);// z size
+        box.setTranslateX(400); // X pos
+        box.setTranslateY(300); // Y pos
+        box.setTranslateZ(0); // Z pos
 
-	// TODO remove this and integrate into main IDE
-	public static void main(String[] args) {
-		launch(args);
-	}
+        // Material
+        PhongMaterial mat = new PhongMaterial();
+        mat.setSpecularColor(Color.BLACK);
+        mat.setDiffuseColor(Color.RED);
+        box.setMaterial(mat);
 
+        return box;
+    }
 }

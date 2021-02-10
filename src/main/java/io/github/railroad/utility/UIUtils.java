@@ -34,17 +34,19 @@ public class UIUtils {
     }
 
     // TODO: Add some sort of config for these logo files.
-    public static Image[] getIcons(Image[] icons) { // Return value never used
+    public static void getIcons(Image[] icons) { // Return value never used
         InputStream logo16 = Railroad.class.getResourceAsStream("/assets/img/logo16.png");
         InputStream logo32 = Railroad.class.getResourceAsStream("/assets/img/logo32.png");
-        try {
-            icons[0] = new Image(logo16);
-            icons[1] = new Image(logo32);
-            logo16.close();
-            logo32.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        if (logo16 != null && logo32 != null) {
+            try {
+                icons[0] = new Image(logo16);
+                icons[1] = new Image(logo32);
+                logo16.close();
+                logo32.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        return icons;
     }
 }

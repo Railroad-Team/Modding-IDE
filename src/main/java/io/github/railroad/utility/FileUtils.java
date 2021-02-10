@@ -55,9 +55,9 @@ public class FileUtils {
 
 	public static class Folder {
 		private final File root;
-		private List<File> files;
+		private final List<File> files = new ArrayList<>();
 		private final int depth;
-		private List<Folder> subFolders; // IJ wants these local, but that makes no sense. I suggest you make getters.
+		private final List<Folder> subFolders = new ArrayList<>(); // IJ wants these local, but that makes no sense. I suggest you make getters.
 
 		public Folder(File rootDirectory, int depth) {
 			this.root = rootDirectory;
@@ -66,10 +66,9 @@ public class FileUtils {
 		}
 
 		public void refresh() {
-			subFolders = new ArrayList<>();
-			files = new ArrayList<>();
 			for (File subfolder : FileUtils.getSubFolders(this.root))
 				subFolders.add(new Folder(subfolder, this.depth + 1));
+
 			Collections.addAll(files, Objects.requireNonNull(root.listFiles((file) -> !file.isDirectory())));
 		}
 	}

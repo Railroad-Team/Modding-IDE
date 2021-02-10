@@ -1,6 +1,5 @@
 package io.github.railroad.config;
 
-public abstract class AbstractConfig {
-
-	public abstract String getName();
+public interface AbstractConfig {
+	String getName();
 }

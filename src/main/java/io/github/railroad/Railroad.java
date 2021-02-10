@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 public class Railroad extends Application {
 
 	public Scene mainScene;
-	public Configs config;
+	public Configs config = new Configs();
 
 	public static void boot(String[] args) {
 		launch(args);
@@ -23,7 +23,6 @@ public class Railroad extends Application {
 
 	@Override
 	public void start(Stage mainWindow) {
-		this.config = new Configs();
 		this.createComponents(new RailroadTopMenu(this.config.lang), mainWindow);
 		Image[] icons = new Image[2];
 		UIUtils.getIcons(icons);

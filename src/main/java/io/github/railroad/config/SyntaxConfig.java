@@ -11,57 +11,57 @@ import org.json.JSONTokener;
 import java.io.File;
 import java.util.*;
 
-public class SyntaxConfig extends AbstractConfig {
+public class SyntaxConfig implements AbstractConfig {
+    public static final SyntaxObject EMPTY = new SyntaxObject("null", new HashMap<>() {
+        {
+            put("(?s).*", EnumSyntaxType.ELSE);
+        }
+    });
+    public List<SyntaxObject> languages = new ArrayList<>();
 
-	public List<SyntaxObject> languages = new ArrayList<SyntaxObject>();
+    public SyntaxConfig() {
+        // Get all languages
+        File folder = new File("src/main/resources/assets/syntax");
+        File[] listOfFiles = folder.listFiles();
 
-	@SuppressWarnings("serial")
-	public static final SyntaxObject EMPTY = new SyntaxObject("null", new HashMap<String, EnumSyntaxType>() {
-		{
-			put("(?s).*", EnumSyntaxType.ELSE);
-		}
-	});
+        // Create Syntax Objects for each language and add them to the list
+        if (listOfFiles != null) {
+            for (File listOfFile : listOfFiles) {
+                Optional<String> optional = FileUtils.getExtension(listOfFile.getName());
+                if (optional.isEmpty()) {
+                    //TODO: Do something here
+                    break;
+                }
+                if (optional.get().equals("json")) {
+                    JSONTokener tokenizer = new JSONTokener(
+                            Railroad.class.getResourceAsStream("/assets/syntax/" + listOfFile.getName()));
 
-	@Override
-	public String getName() {
-		return "syntax";
-	}
+                    JSONObject obj = new JSONObject(tokenizer);
+                    JSONArray rules = obj.getJSONArray("rules");
 
-	public SyntaxConfig() {
-		// Get all languages
-		File folder = new File("src/main/resources/assets/syntax");
-		File[] listOfFiles = folder.listFiles();
+                    Map<String, EnumSyntaxType> ruleMap = new HashMap<>();
+                    for (int j = 0; j < rules.length(); j++) {
+                        JSONObject rule = rules.getJSONObject(j);
+                        ruleMap.put(rule.getString("regex"), EnumSyntaxType.valueOf(rule.getString("type")));
+                    }
 
-		// Create Syntax Objects for each language and add them to the list
-		for (File listOfFile : listOfFiles) {
-			Optional<String> optional = FileUtils.getExtension(listOfFile.getName());
-			if (!optional.isPresent()) {
-				// TODO: Do something here
-				break;
-			}
-			if (optional.get().equals("json")) {
-				JSONTokener tokenizer = new JSONTokener(
-						Railroad.class.getResourceAsStream("/assets/syntax/" + listOfFile.getName()));
+                    languages.add(new SyntaxObject(obj.getString("extension"), ruleMap));
+                }
+            }
+        }
+    }
 
-				JSONObject obj = new JSONObject(tokenizer);
-				JSONArray rules = obj.getJSONArray("rules");
+    @Override
+    public String getName() {
+        return "syntax";
+    }
 
-				Map<String, EnumSyntaxType> ruleMap = new HashMap<String, EnumSyntaxType>();
-				for (int j = 0; j < rules.length(); j++) {
-					JSONObject rule = rules.getJSONObject(j);
-					ruleMap.put(rule.getString("regex"), EnumSyntaxType.valueOf(rule.getString("type")));
-				}
+    public SyntaxObject getByExt(String ext) {
+        for (SyntaxObject o : this.languages) {
+            if (o.ext.equals(ext))
+                return o;
+        }
 
-				languages.add(new SyntaxObject(obj.getString("extension"), ruleMap));
-			}
-		}
-	}
-
-	public SyntaxObject getByExt(String ext) {
-		for (SyntaxObject o : this.languages) {
-			if (o.getExt().equals(ext))
-				return o;
-		}
-		return EMPTY;
-	}
+        return EMPTY;
+    }
 }
