@@ -9,31 +9,23 @@ import java.util.Map;
 
 public class LanguageConfig implements AbstractConfig {
 
-	private Map<String, String> languageTranslator;
+    public Map<String, String> languageTranslator;
 
-	public LanguageConfig(String file) {
-		languageTranslator = new HashMap<>();
-		JSONTokener tokenizer = new JSONTokener(Railroad.class.getResourceAsStream(file));
-		JSONObject obj = new JSONObject(tokenizer);
-		for (String key : obj.keySet()) {
-			languageTranslator.put(key, obj.getString(key));
-		}
-	}
+    public LanguageConfig(String file) {
+        languageTranslator = new HashMap<>();
+        final JSONTokener tokenizer = new JSONTokener(Railroad.class.getResourceAsStream(file));
+        final JSONObject obj = new JSONObject(tokenizer);
+        for (final String key : obj.keySet()) {
+            languageTranslator.put(key, obj.getString(key));
+        }
+    }
 
-	public Map<String, String> getLanguageTranslator() {
-		return languageTranslator;
-	}
+    public String get(String key) {
+        return languageTranslator.getOrDefault(key, key);
+    }
 
-	public void setLanguageTranslator(Map<String, String> languageTranslator) {
-		this.languageTranslator = languageTranslator;
-	}
-
-	public String get(String key) {
-		return languageTranslator.getOrDefault(key, key);
-	}
-
-	@Override
-	public String getName() {
-		return "lang";
-	}
+    @Override
+    public String name() {
+        return "lang";
+    }
 }

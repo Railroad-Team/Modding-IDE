@@ -37,9 +37,9 @@ public class DiscordRichPresenceManager {
 	}
 
 	private void initDiscord() {
-		DiscordEventHandlers handlers = new DiscordEventHandlers.Builder().setReadyEventHandler(user -> {
+		final DiscordEventHandlers handlers = new DiscordEventHandlers.Builder().setReadyEventHandler(user -> {
 			System.out.println("Welcome " + user.username + "#" + user.discriminator + ".");
-			DiscordRichPresence.Builder presence = new DiscordRichPresence.Builder("Score: ");
+			final DiscordRichPresence.Builder presence = new DiscordRichPresence.Builder("Score: ");
 			presence.setDetails("Running Test");
 			DiscordRPC.discordUpdatePresence(presence.build());
 		}).build();
@@ -73,7 +73,7 @@ public class DiscordRichPresenceManager {
 	 */
 	public void build() {
 		DiscordRPC.discordRunCallbacks();
-		DiscordRichPresence.Builder presence = new DiscordRichPresence.Builder(lastStats);
+		final DiscordRichPresence.Builder presence = new DiscordRichPresence.Builder(lastStats);
 		presence.setDetails(lastDetails);
 		presence.setStartTimestamps(lastStartTime);
 		presence.setBigImage(lastBigImage.KEY, lastBigImageDetails);

@@ -22,15 +22,15 @@ public class CreateNewJavaFile extends AbstractNewFileWindow {
 
     @Override
     public boolean fileDialogBox(Stage window) {
-        FileChooser fileChooser = new FileChooser();
+        final FileChooser fileChooser = new FileChooser();
 
-        FileChooser.ExtensionFilter javaFilter = new FileChooser.ExtensionFilter("Java Files", "*.java");
+        final FileChooser.ExtensionFilter javaFilter = new FileChooser.ExtensionFilter("Java Files", "*.java");
 
         fileChooser.getExtensionFilters().add(javaFilter);
-        File file = fileChooser.showSaveDialog(window);
+        final File file = fileChooser.showSaveDialog(window);
         if (file != null) {
             filePath = file.getAbsolutePath();
-            this.pathName.setText(filePath);
+            pathName.setText(filePath);
         }
 
         fileChooser.setInitialDirectory(new File(""));
@@ -40,7 +40,7 @@ public class CreateNewJavaFile extends AbstractNewFileWindow {
     //TODO make it open the file in editor after saving
     @Override
     protected Button saveFile(Stage window) {
-        return UIUtils.createButton(this.message, event -> {
+        return UIUtils.createButton(message, event -> {
             //please put this somewhere else in the event that the user fails to select a path
             if (filePath == null || filePath.equals("File Path")) {
                 System.out.println("Input error");
@@ -48,28 +48,28 @@ public class CreateNewJavaFile extends AbstractNewFileWindow {
                 return;//failed to input
             }
 
-            File file = FileUtils.createNewFile(filePath);
+            final File file = FileUtils.createNewFile(filePath);
             if (file != null) {
-                String code;
+                final String code;
 
-                if (ClassType.CLASS.equals(this.type)) {
+                if (ClassType.CLASS.equals(type)) {
                     code = ClassType.CLASS.apply(Path.of(filePath));
 
                     FileUtils.updateFile(file, code);
-                } else if (ClassType.ENUM.equals(this.type)) {
+                } else if (ClassType.ENUM.equals(type)) {
                     code = ClassType.ENUM.apply(Path.of(filePath));
 
                     FileUtils.updateFile(file, code);
-                } else if (ClassType.INTERFACE.equals(this.type)) {
+                } else if (ClassType.INTERFACE.equals(type)) {
                     code = ClassType.INTERFACE.apply(Path.of(filePath));
 
                     FileUtils.updateFile(file, code);
-                } else if (ClassType.RECORD.equals(this.type)) {
+                } else if (ClassType.RECORD.equals(type)) {
                     code = ClassType.RECORD.apply(Path.of(filePath));
 
                     FileUtils.updateFile(file, code);
                 } else {
-                    throw new IllegalStateException(this.type.get() + " is not a supported java file");
+                    throw new IllegalStateException(type.get() + " is not a supported java file");
                 }
                 window.close();
             } else {

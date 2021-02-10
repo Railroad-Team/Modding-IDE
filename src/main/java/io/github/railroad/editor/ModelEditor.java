@@ -1,4 +1,4 @@
-package io.github.railroad.modelEditor;
+package io.github.railroad.editor;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -44,35 +44,35 @@ public class ModelEditor extends Application {
         entities.add(new Entity("Example1", createCube()));
 
         // Create group
-        Group root = new Group();
-        AmbientLight light = new AmbientLight();
-        PerspectiveCamera camera = new PerspectiveCamera();
+        final Group root = new Group();
+        final AmbientLight light = new AmbientLight();
+        final PerspectiveCamera camera = new PerspectiveCamera();
 
         // Register entities
-        for (Entity e : entities)
+        for (final Entity e : entities)
             root.getChildren().add(e.object);
 
         // Add buttons
-        Button button = new Button("Add cube lol");
-        ToggleButton toggleButton = new ToggleButton("Lighting");
-        HBox hbox = new HBox(button, toggleButton);
+        final Button button = new Button("Add cube lol");
+        final ToggleButton toggleButton = new ToggleButton("Lighting");
+        final HBox hbox = new HBox(button, toggleButton);
         root.getChildren().add(hbox);
         button.setOnAction(value -> {
             addEntity(root, new Entity(String.valueOf(loop), createCube()));
         });
 
         // Scene
-        Scene scene = new Scene(root, 850, 650);
+        final Scene scene = new Scene(root, 850, 650);
         scene.setCamera(camera);
 
         // ROTATING STUFF
         // TODO 15 is a strength, make this configurable
         scene.addEventHandler(MouseEvent.MOUSE_DRAGGED, me -> {
             if (me.getButton() == MouseButton.PRIMARY) {
-                double dx = (mousePosX - me.getSceneX());
-                double dy = (mousePosY - me.getSceneY());
+                final double dx = (mousePosX - me.getSceneX());
+                final double dy = (mousePosY - me.getSceneY());
 
-                for (Entity e : entities) {
+                for (final Entity e : entities) {
                     e.rotateX.setAngle(e.rotateX.getAngle() - (dy / e.object.getHeight() * 360) * (Math.PI / 180) * 15);
                     e.rotateY.setAngle(e.rotateY.getAngle() - (dx / e.object.getWidth() * -360) * (Math.PI / 180) * 15);
                 }
@@ -92,7 +92,7 @@ public class ModelEditor extends Application {
         primaryStage.show();
 
         // Timeline
-        Timeline tick = new Timeline(new KeyFrame(new Duration(10), event -> {
+        final Timeline tick = new Timeline(new KeyFrame(new Duration(10), event -> {
             loop++;
             if (root.getChildren().contains(light) && toggleButton.isSelected()) {
                 root.getChildren().remove(light);
@@ -111,7 +111,7 @@ public class ModelEditor extends Application {
     }
 
     public Box createCube() {
-        Box box = new Box();
+        final Box box = new Box();
 
         // Transform
         box.setWidth(300); // x size
@@ -122,7 +122,7 @@ public class ModelEditor extends Application {
         box.setTranslateZ(0); // Z pos
 
         // Material
-        PhongMaterial mat = new PhongMaterial();
+        final PhongMaterial mat = new PhongMaterial();
         mat.setSpecularColor(Color.BLACK);
         mat.setDiffuseColor(Color.RED);
         box.setMaterial(mat);

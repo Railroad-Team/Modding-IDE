@@ -17,8 +17,8 @@ public class ConfirmWindow {
 	public static Map<Stage, Boolean> ANSWER = new HashMap<>();
 
 	public static boolean displayWindow(String title, String message) {
-		boolean result;
-		Stage window = new Stage();
+		final boolean result;
+		final Stage window = new Stage();
 		window.centerOnScreen();
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.setTitle(title);
@@ -26,23 +26,23 @@ public class ConfirmWindow {
 		window.setMinHeight(100);
 		window.setResizable(false);
 
-		Label label = new Label(message);
+		final Label label = new Label(message);
 
-		Button yesBtn = UIUtils.createButton("Yes", event -> {
+		final Button yesBtn = UIUtils.createButton("Yes", event -> {
 			ANSWER.put(window, true);
 			window.close();
 		});
 
-		Button noBtn = UIUtils.createButton("No", event -> {
+		final Button noBtn = UIUtils.createButton("No", event -> {
 			ANSWER.put(window, false);
 			window.close();
 		});
 
-		VBox layout = new VBox(10);
+		final VBox layout = new VBox(10);
 		layout.getChildren().addAll(label, yesBtn, noBtn);
 		layout.setAlignment(Pos.CENTER);
 
-		Scene scene = new Scene(layout);
+		final Scene scene = new Scene(layout);
 		window.setScene(scene);
 		window.showAndWait();
 		result = ANSWER.get(window);

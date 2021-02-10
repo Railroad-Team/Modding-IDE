@@ -23,30 +23,30 @@ public class Railroad extends Application {
 
 	@Override
 	public void start(Stage mainWindow) {
-		this.createComponents(new RailroadTopMenu(this.config.lang), mainWindow);
-		Image[] icons = new Image[2];
+		createComponents(new RailroadTopMenu(config.lang), mainWindow);
+		final Image[] icons = new Image[2];
 		UIUtils.getIcons(icons);
-		Stage window = UIUtils.setupWindow(mainWindow, this.config.lang.get("window.title"), this.mainScene, icons);
+		final Stage window = UIUtils.setupWindow(mainWindow, config.lang.get("window.title"), mainScene, icons);
 		window.setOnCloseRequest(event -> {
 			event.consume();
-			this.onClose(window);
+			onClose(window);
 		});
-		DiscordRichPresenceManager richPresenceManager = new DiscordRichPresenceManager();
+		final DiscordRichPresenceManager richPresenceManager = new DiscordRichPresenceManager();
 		richPresenceManager.setDetails("Railroad IDE").setStats("Editing {insert file name here}")
 				.setBigImage(DiscordRichPresenceManager.BigImageKeys.NONE, "Railroad IDE").build();
 	}
 
 	private void onClose(Stage window) {
-		boolean shouldClose = ConfirmWindow.displayWindow(this.config.lang.get("dialog.quit"),
-				this.config.lang.get("dialog.quit.prompt"));
+		final boolean shouldClose = ConfirmWindow.displayWindow(config.lang.get("dialog.quit"),
+				config.lang.get("dialog.quit.prompt"));
 		if (shouldClose)
 			window.close();
 	}
 
 	// TODO: Start filling out some of these other menus.
 	public void createComponents(Node topMenu, Stage window) {
-		BorderPane borderPane = new BorderPane();
+		final BorderPane borderPane = new BorderPane();
 		borderPane.setTop(topMenu);
-		this.mainScene = new Scene(borderPane);
+		mainScene = new Scene(borderPane);
 	}
 }

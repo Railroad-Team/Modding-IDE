@@ -24,7 +24,7 @@ public class UIUtils {
     }
 
     public static Button createButton(String text, EventHandler<ActionEvent> event) {
-        Button btn = new Button(text);
+        final Button btn = new Button(text);
         btn.setOnAction(event);
         return btn;
     }
@@ -35,8 +35,8 @@ public class UIUtils {
 
     // TODO: Add some sort of config for these logo files.
     public static void getIcons(Image[] icons) { // Return value never used
-        InputStream logo16 = Railroad.class.getResourceAsStream("/assets/img/logo16.png");
-        InputStream logo32 = Railroad.class.getResourceAsStream("/assets/img/logo32.png");
+        final InputStream logo16 = Railroad.class.getResourceAsStream("/assets/img/logo16.png");
+        final InputStream logo32 = Railroad.class.getResourceAsStream("/assets/img/logo32.png");
 
         if (logo16 != null && logo32 != null) {
             try {

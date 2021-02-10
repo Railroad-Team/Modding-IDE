@@ -9,12 +9,13 @@ import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+//TODO: get rid of this
 public class DownloadUtils {
 
     public void fetch(String url) {
-        Task<Void> task = new DownloadTask(url);
+        final Task<Void> task = new DownloadTask(url);
 
-        Thread thread = new Thread(task);
+        final Thread thread = new Thread(task);
         thread.setDaemon(true);
         thread.start();
     }
@@ -28,15 +29,15 @@ public class DownloadUtils {
 
         @Override
         protected Void call() throws Exception {
-            String ext = url.substring(url.lastIndexOf("."));
-            URLConnection connection = new URL(url).openConnection();
-            long fileLength = connection.getContentLengthLong();
+            final String ext = url.substring(url.lastIndexOf("."));
+            final URLConnection connection = new URL(url).openConnection();
+            final long fileLength = connection.getContentLengthLong();
 
-            try (InputStream is = connection.getInputStream();
-                 OutputStream os = Files.newOutputStream(Paths.get("downloadedfile" + ext))) {
+            try (final InputStream is = connection.getInputStream();
+                 final OutputStream os = Files.newOutputStream(Paths.get("downloadedfile" + ext))) {
 
                 long nread = 0L;
-                byte[] buf = new byte[8192];
+                final byte[] buf = new byte[8192];
                 int n;
                 while ((n = is.read(buf)) > 0) {
                     os.write(buf, 0, n);

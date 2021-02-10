@@ -9,17 +9,17 @@ public class SyntaxObject {
     public Pattern compiled;
 
     public SyntaxObject(String e, Map<String, EnumSyntaxType> r) {
-        this.ext = e;
-        this.regex = r;
+        ext = e;
+        regex = r;
         compile();
     }
 
     public void compile() {
-        StringBuilder builder = new StringBuilder();
-        for (Map.Entry<String, EnumSyntaxType> e : this.regex.entrySet()) {
+        final StringBuilder builder = new StringBuilder();
+        for (final Map.Entry<String, EnumSyntaxType> e : regex.entrySet()) {
             builder.append("|(?<").append(e.getValue().name()).append(">").append(e.getKey()).append(")");
         }
-        this.compiled = Pattern.compile(builder.substring(1)); // Remove first "|"
+        compiled = Pattern.compile(builder.substring(1)); // Remove first "|"
     }
 
     public boolean hasRegexFor(EnumSyntaxType type) {

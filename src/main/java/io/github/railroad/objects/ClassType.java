@@ -9,9 +9,7 @@ import static java.lang.String.format;
 import static java.lang.reflect.Modifier.PUBLIC;
 
 /**
- * Dont mind this class it is simply vibing. (can be added as a subclass as there is no reason for it to be alone)
- *
- * @author jojo2357
+ * @author TheOnlyTails
  */
 interface ClassType extends Function<Path, String>, Supplier<String> {
     ClassType CLASS = create("class");
@@ -23,7 +21,7 @@ interface ClassType extends Function<Path, String>, Supplier<String> {
         return new ClassType() {
             @Override
             public String apply(Path path) {
-                return format("%s %s %s {\n \t\n}", Modifier.toString(PUBLIC), string, path.getFileName().toString());
+                return format("%s %s %s {\n \t\n}", Modifier.toString(PUBLIC), string, path.getFileName());
             }
 
             @Override

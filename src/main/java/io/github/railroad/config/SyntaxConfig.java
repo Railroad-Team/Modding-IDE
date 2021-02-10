@@ -21,27 +21,27 @@ public class SyntaxConfig implements AbstractConfig {
 
     public SyntaxConfig() {
         // Get all languages
-        File folder = new File("src/main/resources/assets/syntax");
-        File[] listOfFiles = folder.listFiles();
+        final File folder = new File("src/main/resources/assets/syntax");
+        final File[] listOfFiles = folder.listFiles();
 
         // Create Syntax Objects for each language and add them to the list
         if (listOfFiles != null) {
-            for (File listOfFile : listOfFiles) {
-                Optional<String> optional = FileUtils.getExtension(listOfFile.getName());
+            for (final File listOfFile : listOfFiles) {
+                final Optional<String> optional = FileUtils.getExtension(listOfFile.getName());
                 if (optional.isEmpty()) {
                     //TODO: Do something here
                     break;
                 }
                 if (optional.get().equals("json")) {
-                    JSONTokener tokenizer = new JSONTokener(
+                    final JSONTokener tokenizer = new JSONTokener(
                             Railroad.class.getResourceAsStream("/assets/syntax/" + listOfFile.getName()));
 
-                    JSONObject obj = new JSONObject(tokenizer);
-                    JSONArray rules = obj.getJSONArray("rules");
+                    final JSONObject obj = new JSONObject(tokenizer);
+                    final JSONArray rules = obj.getJSONArray("rules");
 
-                    Map<String, EnumSyntaxType> ruleMap = new HashMap<>();
+                    final Map<String, EnumSyntaxType> ruleMap = new HashMap<>();
                     for (int j = 0; j < rules.length(); j++) {
-                        JSONObject rule = rules.getJSONObject(j);
+                        final JSONObject rule = rules.getJSONObject(j);
                         ruleMap.put(rule.getString("regex"), EnumSyntaxType.valueOf(rule.getString("type")));
                     }
 
@@ -52,12 +52,12 @@ public class SyntaxConfig implements AbstractConfig {
     }
 
     @Override
-    public String getName() {
+    public String name() {
         return "syntax";
     }
 
     public SyntaxObject getByExt(String ext) {
-        for (SyntaxObject o : this.languages) {
+        for (final SyntaxObject o : languages) {
             if (o.ext.equals(ext))
                 return o;
         }

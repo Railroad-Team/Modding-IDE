@@ -32,16 +32,16 @@ public class SyntaxHandler extends Application {
     private static StyleSpans<Collection<String>> computeHighlighting(String text) {
 
         // TODO reference the main class
-        SyntaxObject syntax = new Configs().syntax.getByExt("java");
-        Matcher matcher = syntax.compiled.matcher(text);
+        final SyntaxObject syntax = new Configs().syntax.getByExt("java");
+        final Matcher matcher = syntax.compiled.matcher(text);
         int lastKwEnd = 0;
-        StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
+        final StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
 
         while (matcher.find()) {
 
             // TODO make this automatic, to stop errors. All things need to be present in
             // syntax config right now.
-            String styleClass = matcher.group("KEYWORD") != null ? "keyword"
+            final String styleClass = matcher.group("KEYWORD") != null ? "keyword"
                     : matcher.group("STRING") != null ? "string"
                     : matcher.group("FUNCTION") != null ? "function"
                     : matcher.group("NUMBER") != null ? "number"
@@ -63,7 +63,7 @@ public class SyntaxHandler extends Application {
         executor = Executors.newSingleThreadExecutor();
         codeArea = new CodeArea();
         codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
-        Subscription cleanupWhenDone = codeArea
+        final Subscription cleanupWhenDone = codeArea
                 .multiPlainChanges()
                 .successionEnds(Duration.ofMillis(500))
                 .supplyTask(this::computeHighlightingAsync)
@@ -80,7 +80,7 @@ public class SyntaxHandler extends Application {
 
         codeArea.replaceText(0, 0, "");
 
-        Scene scene = new Scene(new StackPane(new VirtualizedScrollPane<>(codeArea)), 600, 400);
+        final Scene scene = new Scene(new StackPane(new VirtualizedScrollPane<>(codeArea)), 600, 400);
         scene.getStylesheets().add("java-keywords.css"); // Make this support config files
         primaryStage.setScene(scene);
         primaryStage.setTitle("Java Keywords Demo");
@@ -93,8 +93,8 @@ public class SyntaxHandler extends Application {
     }
 
     private Task<StyleSpans<Collection<String>>> computeHighlightingAsync() {
-        String text = codeArea.getText();
-        Task<StyleSpans<Collection<String>>> task = new Task<>() {
+        final String text = codeArea.getText();
+        final Task<StyleSpans<Collection<String>>> task = new Task<>() {
             @Override
             protected StyleSpans<Collection<String>> call() {
                 return computeHighlighting(text);
