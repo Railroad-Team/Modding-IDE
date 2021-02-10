@@ -78,7 +78,7 @@ public class RailroadTopMenu extends MenuBar {
 
 		MenuItem file = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.file"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/file.png"))
-				.setActionEvent(event -> new CreateNewFileWindow("Create New File", "Done")).build();
+				.setActionEvent(event -> new CreateNewFileWindow("Create New File", "Done").makeWindow()).build();
 
 		MenuItem folderItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.folder"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/folder.png")).build();
@@ -96,7 +96,7 @@ public class RailroadTopMenu extends MenuBar {
 
 		MenuItem enumItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.enum"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/enum.png"))
-				.setActionEvent(event -> new CreateNewJavaFile("Create New Enum", "Done", JavaClassTypes.ENUM)).build();
+				.setActionEvent(event -> new CreateNewJavaFile("Create New Enum", "Done", JavaClassTypes.ENUM).makeWindow()).build();
 
 		MenuItem annotationItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.annotation"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/annotation.png")).build();
