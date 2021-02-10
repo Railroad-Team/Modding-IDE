@@ -22,7 +22,6 @@ public abstract class AbstractNewFileWindow {
 	public AbstractNewFileWindow(String title, String message) {
 		this.title = title;
 		this.message = message;
-		this.makeWindow();
 	}
 
 	public void fileDialogBox(Stage window) {

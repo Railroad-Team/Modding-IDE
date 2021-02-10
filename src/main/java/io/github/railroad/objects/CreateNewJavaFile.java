@@ -49,20 +49,19 @@ public class CreateNewJavaFile extends AbstractNewFileWindow {
 			assert file != null; // Should be replaced with check
 			String code;
 			switch (this.type) {
-				case CLASS:
+				case CLASS -> {
 					code = "public class " + file.getName().replace(".java", "") + "{ \n \n}";
 					FileUtils.updateFile(file, code);
-					break;
-				case ENUM:
+				}
+				case ENUM -> {
 					code = "public interface " + file.getName().replace(".java", "") + "{ \n \n}";
 					FileUtils.updateFile(file, code);
-					break;
-				case INTERFACE:
+				}
+				case INTERFACE -> {
 					code = "public enum " + file.getName().replace(".java", "") + "{ \n \n}";
 					FileUtils.updateFile(file, code);
-					break;
-				default:
-					throw new IllegalStateException(this.type.name() + " is not a supported java file");
+				}
+				default -> throw new IllegalStateException(this.type.name() + " is not a supported java file");
 			}
 			window.close();
 		});
