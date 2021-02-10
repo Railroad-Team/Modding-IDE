@@ -1,10 +1,11 @@
-package io.github.railroad;
+package com.turtywurty.railroad;
 
-import io.github.railroad.config.Configs;
-import io.github.railroad.drp.DiscordRichPresenceManager;
-import io.github.railroad.objects.ConfirmWindow;
-import io.github.railroad.objects.RailroadTopMenu;
-import io.github.railroad.utility.UIUtils;
+import com.turtywurty.railroad.components.RailroadTopMenu;
+import com.turtywurty.railroad.config.Configs;
+import com.turtywurty.railroad.discordrichpresence.DiscordRichPresenceManager;
+import com.turtywurty.railroad.util.UIUtils;
+import com.turtywurty.railroad.windows.ConfirmWindow;
+
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
