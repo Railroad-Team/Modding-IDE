@@ -12,7 +12,7 @@ public final class RailroadTopMenu extends MenuBar {
 
     public void createMenu() {
         final Menu fileMenu = new Menu("File");
-        createFileNewMenu(fileMenu);
+        createFileMenu(fileMenu);
 
         final Menu editMenu = new Menu("Edit");
         createEditMenu(editMenu);
@@ -51,7 +51,7 @@ public final class RailroadTopMenu extends MenuBar {
     }
 
     public void createFileNewMenu(Menu fileMenu) {
-        final Menu newMenu = new Menu("menu.file.new");
+        final Menu newMenu = new Menu("New");
 
         final MenuItem javaProjectItem = Builder.create("Java project")
                 .setGraphic(Components.createMenuGraphics("/assets/img/java_project.png")).build();
