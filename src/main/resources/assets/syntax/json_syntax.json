@@ -1,0 +1,10 @@
+{
+	"extension": "json",
+	"css_path": "styles/syntax/json",
+	"rules": [
+		{
+			"regex": "(?<![:\\[]\\s*)(\"([\\w$-/^()+[\\]]|(\\\\\")|[\\\\])*\")(?!\\s*\\])",
+			"type": "key"
+		}
+	]
+}
