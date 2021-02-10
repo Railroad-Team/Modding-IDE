@@ -33,8 +33,8 @@ public class Railroad extends Application {
 			this.onClose(window);
 		});
 		DiscordRichPresenceManager richPresenceManager = new DiscordRichPresenceManager();
-		richPresenceManager.setDetails("Working hard or hardly working").setStats("This is an ide!")
-				.setBigImage(DiscordRichPresenceManager.BigImageKeys.JOJO_PFP, "Hey this code isn't jank fool").build();
+		richPresenceManager.setDetails("Railroad IDE").setStats("Editing {insert file name here}")
+				.setBigImage(DiscordRichPresenceManager.BigImageKeys.NONE, "Railroad IDE").build();
 	}
 
 	private void onClose(Stage window) {
