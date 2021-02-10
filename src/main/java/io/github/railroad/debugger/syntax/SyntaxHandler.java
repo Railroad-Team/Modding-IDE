@@ -28,12 +28,12 @@ public class SyntaxHandler extends Application {
 
 	private CodeArea codeArea;
 	private ExecutorService executor;
+	
+	// Yes, static abuse. We will pass this in when implementing
 	private static Scene scene;
 	private static String ext;
 
-	@SuppressWarnings("unused")
-	// @SuppressWarnings Should be removed, usually if you have to use
-	// SuppressWarnings, you have something to fix :)
+	@SuppressWarnings("unused") // We won't need this when actually implementing
 	@Override
 	public void start(Stage primaryStage) {
 		setExt("java");
