@@ -18,13 +18,13 @@ public class SyntaxObject {
 	public void compile() {
 		StringBuilder builder = new StringBuilder();
 		for (Map.Entry<String, EnumSyntaxType> e : this.regex.entrySet()) {
-			builder.append("|(?<" + e.getValue().name() + ">" + e.getKey() + ")");
+			builder.append("|(?<").append(e.getValue().name()).append(">").append(e.getKey()).append(")"); // If you're going to use append, you gotta commit to it ;)
 		}
-		this.compiled = Pattern.compile(builder.toString().substring(1)); // Remove first "|"
+		this.compiled = Pattern.compile(builder.substring(1)); // Remove first "|"
 	}
 
 	public boolean hasRegexFor(EnumSyntaxType type) {
-		return regex.values().contains(type);
+		return regex.containsValue(type);
 	}
 
 	public String getExt() {

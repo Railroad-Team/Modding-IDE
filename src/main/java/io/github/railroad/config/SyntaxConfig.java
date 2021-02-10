@@ -1,25 +1,20 @@
 package io.github.railroad.config;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.JSONTokener;
-
 import io.github.railroad.Railroad;
 import io.github.railroad.debugger.syntax.EnumSyntaxType;
 import io.github.railroad.debugger.syntax.SyntaxObject;
 import io.github.railroad.utility.FileUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
+import java.io.File;
+import java.util.*;
 
 public class SyntaxConfig extends AbstractConfig {
 
-	public List<SyntaxObject> languages = new ArrayList<SyntaxObject>();
+	public List<SyntaxObject> languages = new ArrayList<>();
 
-	@SuppressWarnings("serial")
 	public static final SyntaxObject EMPTY = new SyntaxObject("null", new HashMap<String, EnumSyntaxType>() {
 		{
 			put("(?s).*", EnumSyntaxType.ELSE);
@@ -37,15 +32,23 @@ public class SyntaxConfig extends AbstractConfig {
 		File[] listOfFiles = folder.listFiles();
 
 		// Create Syntax Objects for each language and add them to the list
-		for (int i = 0; i < listOfFiles.length; i++) {
-			if (FileUtils.getExtention(listOfFiles[i].getName()).get().equals("json")) {
-				JSONTokener tokener = new JSONTokener(
-						Railroad.class.getResourceAsStream("/assets/syntax/" + listOfFiles[i].getName()));
+		for (File listOfFile : listOfFiles) {
+			Optional<String> optional = FileUtils.getExtension(listOfFile.getName());
+			if (!optional.isPresent()) {
+				// continue;
+				// break;
+				// throw something
+				// One of the above
+				break;
+			}
+			if (optional.get().equals("json")) {
+				JSONTokener tokenizer = new JSONTokener(
+						Railroad.class.getResourceAsStream("/assets/syntax/" + listOfFile.getName()));
 
-				JSONObject obj = new JSONObject(tokener);
+				JSONObject obj = new JSONObject(tokenizer);
 				JSONArray rules = obj.getJSONArray("rules");
 
-				Map<String, EnumSyntaxType> ruleMap = new HashMap<String, EnumSyntaxType>();
+				Map<String, EnumSyntaxType> ruleMap = new HashMap<>();
 				for (int j = 0; j < rules.length(); j++) {
 					JSONObject rule = rules.getJSONObject(j);
 					ruleMap.put(rule.getString("regex"), EnumSyntaxType.valueOf(rule.getString("type")));

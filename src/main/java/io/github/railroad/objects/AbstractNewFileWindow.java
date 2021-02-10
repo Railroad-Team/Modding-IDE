@@ -1,7 +1,5 @@
 package io.github.railroad.objects;
 
-import java.io.File;
-
 import io.github.railroad.utility.FileUtils;
 import io.github.railroad.utility.UIUtils;
 import javafx.geometry.Pos;
@@ -13,19 +11,13 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
+
 public abstract class AbstractNewFileWindow {
 	public String filePath;
 	public Label pathName;
 	public String title;
 	public String message;
-	protected JavaClassTypes type;
-
-	public AbstractNewFileWindow(String title, String message, JavaClassTypes type) {
-		this.title = title;
-		this.message = message;
-		this.type = type;
-		this.makeWindow();
-	}
 
 	public AbstractNewFileWindow(String title, String message) {
 		this.title = title;
@@ -48,11 +40,10 @@ public abstract class AbstractNewFileWindow {
 
 	protected Button saveFile(Stage window) {
 
-		Button yesBtn = UIUtils.createButton(this.message, event -> {
+		return UIUtils.createButton(this.message, event -> {
 			FileUtils.createNewFile(filePath);
 			window.close();
 		});
-		return yesBtn;
 	}
 
 	public void makeWindow() {
