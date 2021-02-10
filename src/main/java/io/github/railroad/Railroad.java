@@ -18,7 +18,7 @@ public class Railroad extends Application {
 	private Configs config;
 	private DiscordRichPresenceManager DRPmanager;
 
-	public static void main(String[] args) {
+	static void boot(String[] args) {
 		launch(args);
 	}
 
@@ -34,8 +34,7 @@ public class Railroad extends Application {
 			this.onClose(window);
 		});
 		DRPmanager = new DiscordRichPresenceManager();
-		DRPmanager.setDetails("Working hard or hardly working").setStats("This is an ide!")
-				.setBigImage(DiscordRichPresenceManager.BigImageKeys.JOJO_PFP, "Hey this code isn't jank fool").build();
+		DRPmanager.setDetails("Working hard or hardly working").setStats("This is an ide!").setBigImage(DiscordRichPresenceManager.BigImageKeys.JOJO_PFP, "Hey this code isn't jank fool").build();
 	}
 
 	private void onClose(Stage window) {
