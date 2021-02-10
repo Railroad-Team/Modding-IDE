@@ -14,9 +14,6 @@ public class CreateNewJavaFile extends AbstractNewFileWindow {
 	public CreateNewJavaFile(String title, String message, JavaClassTypes type) {
 		super(title, message);
 		this.type = type;
-		/*
-		 * Type 1 is Class, Type 2 is Interface, Type 3 is Enums, Type 4 is Annotation
-		 */
 	}
 
 	@Override

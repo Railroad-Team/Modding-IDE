@@ -38,8 +38,12 @@ public abstract class AbstractNewFileWindow {
 	}
 
 	protected Button saveFile(Stage window) {
-
 		return UIUtils.createButton(this.message, event -> {
+            if (filePath == null || filePath.equals("File Path")) {
+                System.out.println("Input error");
+                window.close();
+                return;//failed to input
+            }
 			FileUtils.createNewFile(filePath);
 			window.close();
 		});
