@@ -17,7 +17,8 @@ Well, here is the syntax!
 		}
 	]
 
-}```
+}
+```
 
 And that is it for the json! But we also have css. In here we define the colours per type of regex.
 
@@ -29,4 +30,5 @@ And that is it for the json! But we also have css. In here we define the colours
 
 .comment {
     -fx-fill: purple;
-}```
+}
+```
