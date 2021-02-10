@@ -13,8 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 // TODO: Come up with a cleaner way of doing this. This code was rushed.
-public class ConfirmWindow {
-	public static Map<Stage, Boolean> ANSWER = new HashMap<>();
+public final class ConfirmWindow {
+	public static final Map<Stage, Boolean> ANSWER = new HashMap<>();
 
 	public static boolean displayWindow(String title, String message) {
 		final boolean result;

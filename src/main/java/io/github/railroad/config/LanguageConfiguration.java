@@ -7,11 +7,11 @@ import org.json.JSONTokener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LanguageConfig implements AbstractConfig {
+public class LanguageConfiguration {
 
-    public Map<String, String> languageTranslator;
+    public final Map<String, String> languageTranslator;
 
-    public LanguageConfig(String file) {
+    public LanguageConfiguration(String file) {
         languageTranslator = new HashMap<>();
         final JSONTokener tokenizer = new JSONTokener(Railroad.class.getResourceAsStream(file));
         final JSONObject obj = new JSONObject(tokenizer);
@@ -20,12 +20,8 @@ public class LanguageConfig implements AbstractConfig {
         }
     }
 
+    //TODO: dafuq?
     public String get(String key) {
         return languageTranslator.getOrDefault(key, key);
-    }
-
-    @Override
-    public String name() {
-        return "lang";
     }
 }

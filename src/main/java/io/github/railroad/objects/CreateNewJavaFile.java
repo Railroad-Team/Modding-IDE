@@ -1,16 +1,20 @@
 package io.github.railroad.objects;
 
-import io.github.railroad.utility.FileUtils;
 import io.github.railroad.utility.UIUtils;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 
-public class CreateNewJavaFile extends AbstractNewFileWindow {
-    private final ClassType type;
+import static java.nio.file.Files.exists;
+import static java.nio.file.Files.writeString;
+import static java.nio.file.Paths.get;
+
+public final class CreateNewJavaFile extends AbstractNewFileWindow {
+    public final ClassType type;
 
     public CreateNewJavaFile(String title, String message, ClassType type) {
         super(title, message);
@@ -48,32 +52,17 @@ public class CreateNewJavaFile extends AbstractNewFileWindow {
                 return;//failed to input
             }
 
-            final File file = FileUtils.createNewFile(filePath);
-            if (file != null) {
-                final String code;
-
-                if (ClassType.CLASS.equals(type)) {
-                    code = ClassType.CLASS.apply(Path.of(filePath));
-
-                    FileUtils.updateFile(file, code);
-                } else if (ClassType.ENUM.equals(type)) {
-                    code = ClassType.ENUM.apply(Path.of(filePath));
-
-                    FileUtils.updateFile(file, code);
-                } else if (ClassType.INTERFACE.equals(type)) {
-                    code = ClassType.INTERFACE.apply(Path.of(filePath));
-
-                    FileUtils.updateFile(file, code);
-                } else if (ClassType.RECORD.equals(type)) {
-                    code = ClassType.RECORD.apply(Path.of(filePath));
-
-                    FileUtils.updateFile(file, code);
-                } else {
-                    throw new IllegalStateException(type.get() + " is not a supported java file");
+            try {
+                final Path path = get(filePath);
+                if (!exists(path)) {
+                    writeString(path, type.apply(path));
+                    //TODO: Fix this system
+                    window.close();
+                    return;
                 }
-                window.close();
-            } else {
                 // TODO: What happens if the file is null?
+            } catch (IOException reason) {
+                throw new RuntimeException(reason);
             }
         });
     }

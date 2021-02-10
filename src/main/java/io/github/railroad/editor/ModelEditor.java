@@ -50,7 +50,7 @@ public class ModelEditor extends Application {
 
         // Register entities
         for (final Entity e : entities)
-            root.getChildren().add(e.object);
+            root.getChildren().add(e.box);
 
         // Add buttons
         final Button button = new Button("Add cube lol");
@@ -73,8 +73,8 @@ public class ModelEditor extends Application {
                 final double dy = (mousePosY - me.getSceneY());
 
                 for (final Entity e : entities) {
-                    e.rotateX.setAngle(e.rotateX.getAngle() - (dy / e.object.getHeight() * 360) * (Math.PI / 180) * 15);
-                    e.rotateY.setAngle(e.rotateY.getAngle() - (dx / e.object.getWidth() * -360) * (Math.PI / 180) * 15);
+                    e.rotateX.setAngle(e.rotateX.getAngle() - (dy / e.box.getHeight() * 360) * (Math.PI / 180) * 15);
+                    e.rotateY.setAngle(e.rotateY.getAngle() - (dx / e.box.getWidth() * -360) * (Math.PI / 180) * 15);
                 }
 
                 mousePosX = me.getSceneX();
@@ -107,7 +107,7 @@ public class ModelEditor extends Application {
 
     public void addEntity(Group root, Entity e) {
         entities.add(e);
-        root.getChildren().add(e.object);
+        root.getChildren().add(e.box);
     }
 
     public Box createCube() {

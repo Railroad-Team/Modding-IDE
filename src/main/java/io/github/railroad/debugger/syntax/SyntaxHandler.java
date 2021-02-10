@@ -1,6 +1,6 @@
 package io.github.railroad.debugger.syntax;
 
-import io.github.railroad.config.Configs;
+import io.github.railroad.config.Configuration;
 import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
@@ -16,14 +16,20 @@ import org.reactfx.Subscription;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 
 public class SyntaxHandler extends Application {
+
     private CodeArea codeArea;
     private ExecutorService executor;
+
+    public static final SyntaxObject EMPTY = new SyntaxObject("null", new HashMap<>() {{
+        put("(?s).*", EnumSyntaxType.ELSE);
+    }});
 
     public static void main(String[] args) {
         launch(args); // TODO Remove this later
@@ -32,7 +38,15 @@ public class SyntaxHandler extends Application {
     private static StyleSpans<Collection<String>> computeHighlighting(String text) {
 
         // TODO reference the main class
-        final SyntaxObject syntax = new Configs().syntax.getByExt("java");
+        SyntaxObject syntax = EMPTY;
+        new Configuration();
+        for (final SyntaxObject o : new Configuration().languages) {
+            if (o.ext.equals("java")) {
+                syntax = o;
+                break;
+            }
+        }
+
         final Matcher matcher = syntax.compiled.matcher(text);
         int lastKwEnd = 0;
         final StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();

@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.InputStream;
 
+//TODO: get rid of this
 public class UIUtils {
 
     public static Stage setupWindow(Stage window, String title, Scene startScene, Image[] logos) {

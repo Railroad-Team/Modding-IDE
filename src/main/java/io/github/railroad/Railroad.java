@@ -1,6 +1,6 @@
 package io.github.railroad;
 
-import io.github.railroad.config.Configs;
+import io.github.railroad.config.Configuration;
 import io.github.railroad.drp.DiscordRichPresenceManager;
 import io.github.railroad.objects.ConfirmWindow;
 import io.github.railroad.objects.RailroadTopMenu;
@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 public class Railroad extends Application {
 
 	public Scene mainScene;
-	public Configs config = new Configs();
+	public Configuration config = new Configuration();
 
 	public static void boot(String[] args) {
 		launch(args);
@@ -23,10 +23,10 @@ public class Railroad extends Application {
 
 	@Override
 	public void start(Stage mainWindow) {
-		createComponents(new RailroadTopMenu(config.lang), mainWindow);
+		createComponents(new RailroadTopMenu(config.language), mainWindow);
 		final Image[] icons = new Image[2];
 		UIUtils.getIcons(icons);
-		final Stage window = UIUtils.setupWindow(mainWindow, config.lang.get("window.title"), mainScene, icons);
+		final Stage window = UIUtils.setupWindow(mainWindow, config.language.get("window.title"), mainScene, icons);
 		window.setOnCloseRequest(event -> {
 			event.consume();
 			onClose(window);
@@ -37,8 +37,8 @@ public class Railroad extends Application {
 	}
 
 	private void onClose(Stage window) {
-		final boolean shouldClose = ConfirmWindow.displayWindow(config.lang.get("dialog.quit"),
-				config.lang.get("dialog.quit.prompt"));
+		final boolean shouldClose = ConfirmWindow.displayWindow(config.language.get("dialog.quit"),
+				config.language.get("dialog.quit.prompt"));
 		if (shouldClose)
 			window.close();
 	}

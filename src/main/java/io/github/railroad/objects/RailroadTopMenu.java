@@ -1,6 +1,6 @@
 package io.github.railroad.objects;
 
-import io.github.railroad.config.LanguageConfig;
+import io.github.railroad.config.LanguageConfiguration;
 import io.github.railroad.objects.RailroadMenuItem.Builder;
 import io.github.railroad.utility.UIUtils;
 import javafx.scene.control.Menu;
@@ -10,9 +10,9 @@ import javafx.scene.control.SeparatorMenuItem;
 
 // TODO make assets for all the menu items!
 public class RailroadTopMenu extends MenuBar {
-    private final LanguageConfig langConfig;
+    private final LanguageConfiguration langConfig;
 
-    public RailroadTopMenu(LanguageConfig langConfigIn, Menu... menus) {
+    public RailroadTopMenu(LanguageConfiguration langConfigIn, Menu... menus) {
         super(menus);
         langConfig = langConfigIn;
         createMenu();
