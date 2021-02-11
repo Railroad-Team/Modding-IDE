@@ -12,10 +12,10 @@ import java.util.regex.Pattern;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-/*
+/**
  * @author Cy4Shot
  * 
- * This class crawls the forge website in order to get version ids.
+ *         This class crawls the forge website in order to get version ids.
  */
 public class ForgeVersionHelper {
 
