@@ -1,6 +1,7 @@
 package io.github.railroad.objects;
 
 import io.github.railroad.config.LanguageConfig;
+import io.github.railroad.terminal.OpenTerminal;
 import io.github.railroad.utility.UIUtils;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -29,6 +30,8 @@ public class RailroadTopMenu extends MenuBar {
 
 		Menu runMenu = new Menu(this.langConfig.get("menu.run"));
 		Menu viewMenu = new Menu(this.langConfig.get("menu.view"));
+		this.createViewMenu(viewMenu);
+		
 		Menu helpMenu = new Menu(this.langConfig.get("menu.help"));
 		this.getMenus().addAll(fileMenu, editMenu, searchMenu, runMenu, viewMenu, helpMenu);
 	}
@@ -178,5 +181,14 @@ public class RailroadTopMenu extends MenuBar {
 
 		searchMenu.getItems().addAll(search, new SeparatorMenuItem(), textMenu);
 		textMenu.getItems().addAll(workspace, project, file);
+	}
+	
+	// TODO: Give a suitable location to open terminal
+	public void createViewMenu(Menu viewMenu) {
+		MenuItem terminal = RailroadMenuItem.Builder.create(this.langConfig.get("menu.view.openterminal"))
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png"))
+				.setActionEvent(event -> OpenTerminal.openTerminal(null)).build();
+		
+		viewMenu.getItems().addAll(terminal);
 	}
 }
