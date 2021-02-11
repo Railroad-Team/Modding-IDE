@@ -21,7 +21,7 @@ public interface Components {
      * @author temedy
      */
     interface Buttons extends Supplier<Button> {
-        static Buttons makeButton(Button button) {
+        private static Buttons makeButton(Button button) {
             return () -> button;
         }
 
@@ -43,7 +43,7 @@ public interface Components {
      * @author TheOnlyTails
      */
     interface MenuItems extends Supplier<MenuItem> {
-        static MenuItems makeMenuItem(MenuItem item) {
+        private static MenuItems makeMenuItem(MenuItem item) {
             item.setId(item.getText());
             return () -> item;
         }
