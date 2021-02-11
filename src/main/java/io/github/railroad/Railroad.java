@@ -15,10 +15,10 @@ public class Railroad extends Application {
     public Scene mainScene;
 
     @Override
-    public void start(Stage mainWindow) {
+    public void start(Stage stage) {
         final TopMenu menu = new TopMenu();
         menu.createMenu();
-        createComponents(menu, mainWindow);
+        createComponents(menu, stage);
         final Image[] icons = new Image[2];
         // Return value never used
         final InputStream logo16 = Railroad.class.getResourceAsStream("/assets/img/logo16.png");
@@ -34,13 +34,13 @@ public class Railroad extends Application {
                 e.printStackTrace();
             }
         }
-        mainWindow.setTitle("Title");
-        mainWindow.setScene(mainScene);
-        mainWindow.setMaximized(true);
-        mainWindow.getIcons().setAll(icons);
-        mainWindow.centerOnScreen();
-        mainWindow.show();
-        final Stage window = mainWindow;
+        stage.setTitle("Title");
+        stage.setScene(mainScene);
+        stage.setMaximized(true);
+        stage.getIcons().setAll(icons);
+        stage.centerOnScreen();
+        stage.show();
+        final Stage window = stage;
         window.setOnCloseRequest(event -> {
             event.consume();
             onClose(window);

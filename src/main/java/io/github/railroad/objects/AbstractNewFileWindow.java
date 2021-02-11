@@ -16,6 +16,7 @@ import static io.github.railroad.utility.Components.Buttons.makeButton;
 import static java.nio.file.Files.createFile;
 import static java.nio.file.Paths.get;
 
+//TODO: refactor this
 public abstract class AbstractNewFileWindow {
     public String filePath;
     public Label pathName;

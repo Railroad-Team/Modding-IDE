@@ -20,9 +20,6 @@ public final class CreateNewJavaFile extends AbstractNewFileWindow {
     public CreateNewJavaFile(String title, String message, ClassType type) {
         super(title, message);
         this.type = type;
-        /*
-         * Type 1 is Class, Type 2 is Interface, Type 3 is Enums, Type 4 is Annotation
-         */
     }
 
     @Override
@@ -41,32 +38,31 @@ public final class CreateNewJavaFile extends AbstractNewFileWindow {
         return false;
     }
 
-    //TODO make it open the file in editor after saving
-    //TODO: Fix this system
+    //TODO: get rid of this
+    private final Object saveLock = new Object();
 
     @Override
     protected Button saveFile(Stage window) {
         return makeButton(message).action(event -> {
-            //please put this somewhere else in the event that the user fails to select a path
-            if (filePath == null || filePath.equals("File Path")) {
-                window.close();
-                throw new RuntimeException("Input error");
-            }
-
-            commonPool().execute(() -> {
-                try {
-                    final Path path = get(filePath);
-                    if (!exists(path)) createFile(path);
-                    writeString(path, type.apply(path));
-
-                    synchronized (window) {
-                        window.close();
-                    }
-                } catch (IOException reason) {
-                    throw new RuntimeException(reason);
+            synchronized (saveLock) {
+                if (filePath == null || filePath.equals("File Path")) {
+                    window.close();
+                    throw new RuntimeException("Input error");
                 }
-            });
 
+                commonPool().execute(() -> {
+                    try {
+                        synchronized (saveLock) {
+                            final Path path = get(filePath);
+                            if (!exists(path)) createFile(path);
+                            writeString(path, type.apply(path));
+                            window.close();
+                        }
+                    } catch (IOException reason) {
+                        throw new RuntimeException(reason);
+                    }
+                });
+            }
         }).get();
     }
 }
