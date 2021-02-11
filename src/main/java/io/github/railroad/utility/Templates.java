@@ -38,6 +38,9 @@ public interface Templates {
         JavaTemplate<Pair<Path, String>> ANNOTATION = pair -> GENERATE.apply(ANNOTATION_NAME, pair);
     }
 
+    /**
+     * @author Temedy
+     */
     interface JsonTemplate<Type> extends Function<Type, String> {
         JsonTemplate<Object> EMPTY = $ -> "{}";
     }
