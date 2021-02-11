@@ -25,16 +25,16 @@ public interface Components {
             return () -> button;
         }
 
-        static Buttons makeButton(String text) {
-            return makeButton(new Button(text));
+        static Buttons makeButton(Object text) {
+            return makeButton(new Button(text.toString()));
         }
 
         default Buttons action(EventHandler<ActionEvent> event) {
-            consume(button -> button.setOnAction(event));
+            accept(button -> button.setOnAction(event));
             return this;
         }
 
-        default void consume(Consumer<Button> consumer) {
+        default void accept(Consumer<Button> consumer) {
             consumer.accept(get());
         }
     }
@@ -43,71 +43,71 @@ public interface Components {
      * @author TheOnlyTails
      */
     interface MenuItems extends Supplier<MenuItem> {
-        static MenuItems makeMenuItem(MenuItem menuItem) {
-            menuItem.setId(menuItem.getText());
-            return () -> menuItem;
+        static MenuItems makeMenuItem(MenuItem item) {
+            item.setId(item.getText());
+            return () -> item;
         }
 
-        static MenuItems makeMenuItem(String text) {
-            return makeMenuItem(new MenuItem(text));
+        static MenuItems makeMenuItem(Object text) {
+            return makeMenuItem(new MenuItem(text.toString()));
         }
 
         default MenuItems visible(boolean visible) {
-            consume(menuItem -> menuItem.setVisible(visible));
+            accept(item -> item.setVisible(visible));
             return this;
         }
 
-        default MenuItems customUserData(Object data) {
-            consume(menuItem -> menuItem.setUserData(data));
+        default MenuItems userData(Object data) {
+            accept(item -> item.setUserData(data));
             return this;
         }
 
         default MenuItems accelerationKey(KeyCombination combination) {
-            consume(menuItem -> menuItem.setAccelerator(combination));
+            accept(item -> item.setAccelerator(combination));
             return this;
         }
 
         default MenuItems disable() {
-            consume(menuItem -> menuItem.setDisable(true));
+            accept(item -> item.setDisable(true));
             return this;
         }
 
         default MenuItems parseText() {
-            consume(menuItem -> menuItem.setMnemonicParsing(true));
+            accept(item -> item.setMnemonicParsing(true));
             return this;
         }
 
-        default MenuItems parseText(boolean shouldParseText) {
-            consume(menuItem -> menuItem.setMnemonicParsing(shouldParseText));
+        default MenuItems parseText(boolean parse) {
+            accept(item -> item.setMnemonicParsing(parse));
             return this;
         }
 
         default MenuItems graphic(ImageView graphic) {
-            consume(menuItem -> menuItem.setGraphic(graphic));
+            accept(item -> item.setGraphic(graphic));
             return this;
         }
 
         default MenuItems style(String style) {
-            consume(menuItem -> menuItem.setStyle(style));
+            accept(item -> item.setStyle(style));
             return this;
         }
 
         default MenuItems text(String text) {
-            consume(menuItem -> menuItem.setText(text));
+            accept(item -> item.setText(text));
             return this;
         }
 
         default MenuItems action(EventHandler<ActionEvent> action) {
-            consume(menuItem -> menuItem.setOnAction(action));
+            accept(item -> item.setOnAction(action));
             return this;
         }
 
-        default MenuItems menuValidation(EventHandler<Event> menuValidation) {
-            consume(menuItem -> menuItem.setOnMenuValidation(menuValidation));
+        default MenuItems menuValidation(EventHandler<Event> handler) {
+            accept(item -> item.setOnMenuValidation(handler));
             return this;
         }
 
-        default void consume(Consumer<MenuItem> consumer) {
+        default void accept(Consumer<MenuItem> consumer) {
             consumer.accept(get());
         }
     }

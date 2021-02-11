@@ -1,11 +1,12 @@
 package io.github.railroad.objects;
 
-import io.github.railroad.utility.Components;
-import io.github.railroad.utility.Components.MenuItems;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
+
+import static io.github.railroad.utility.Components.MenuItems.makeMenuItem;
+import static io.github.railroad.utility.Components.createMenuGraphics;
 
 // TODO make assets for all the menu items!
 public final class RailroadTopMenu extends MenuBar {
@@ -27,67 +28,57 @@ public final class RailroadTopMenu extends MenuBar {
     }
 
     public void createFileMenu(Menu fileMenu) {
+
         createFileNewMenu(fileMenu);
         createFileGenerateMenu(fileMenu);
         fileMenu.getItems().add(new SeparatorMenuItem());
 
-        final MenuItem openItem = MenuItems.makeMenuItem("Open")
-                .graphic(Components.createMenuGraphics("/assets/img/java_project.png")).get();
-
-        final MenuItem openRecentItem = MenuItems.makeMenuItem("Open recent")
-                .graphic(Components.createMenuGraphics("/assets/img/java_project.png")).get();
-
-        final MenuItem saveItem = MenuItems.makeMenuItem("Save")
-                .graphic(Components.createMenuGraphics("/assets/img/java_project.png")).get();
-
-        final MenuItem saveAsItem = MenuItems.makeMenuItem("Save as")
-                .graphic(Components.createMenuGraphics("/assets/img/java_project.png")).get();
-
-        final MenuItem exportItem = MenuItems.makeMenuItem("Export file")
-                .graphic(Components.createMenuGraphics("/assets/img/java_project.png")).get();
-
-        fileMenu.getItems().addAll(openItem, openRecentItem, new SeparatorMenuItem(), saveItem, saveAsItem, exportItem);
+        final MenuItem open = makeMenuItem("Open").graphic(createMenuGraphics("/assets/img/java_project.png")).get();
+        final MenuItem recent = makeMenuItem("Open recent").graphic(createMenuGraphics("/assets/img/java_project.png")).get();
+        final MenuItem save = makeMenuItem("Save").graphic(createMenuGraphics("/assets/img/java_project.png")).get();
+        final MenuItem saveAs = makeMenuItem("Save as").graphic(createMenuGraphics("/assets/img/java_project.png")).get();
+        final MenuItem export = makeMenuItem("Export file").graphic(createMenuGraphics("/assets/img/java_project.png")).get();
+        fileMenu.getItems().addAll(open, recent, new SeparatorMenuItem(), save, saveAs, export);
     }
 
     public void createFileNewMenu(Menu fileMenu) {
         final Menu newMenu = new Menu("New");
+        final MenuItem javaProjectItem = Builder.create("Java project")
+                .setGraphic(createMenuGraphics("/assets/img/java_project.png")).build();
 
-        final MenuItem javaProjectItem = MenuItems.makeMenuItem("Java project")
-                .graphic(Components.createMenuGraphics("/assets/img/java_project.png")).get();
+        final MenuItem projectItem = Builder.create("Project")
+                .setGraphic(createMenuGraphics("/assets/img/project.png")).build();
 
-        final MenuItem projectItem = MenuItems.makeMenuItem("Project")
-                .graphic(Components.createMenuGraphics("/assets/img/project.png")).get();
+        final MenuItem javaWorkingSetItem = Builder.create("Working set")
+                .setGraphic(createMenuGraphics("/assets/img/working_set.png")).build();
 
-        final MenuItem javaWorkingSetItem = MenuItems.makeMenuItem("Working set")
-                .graphic(Components.createMenuGraphics("/assets/img/working_set.png")).get();
+        final MenuItem packageItem = Builder.create("Package")
+                .setGraphic(createMenuGraphics("/assets/img/package.png")).build();
 
-        final MenuItem packageItem = MenuItems.makeMenuItem("Package")
-                .graphic(Components.createMenuGraphics("/assets/img/package.png")).get();
+        final MenuItem sourceFolderItem = Builder.create("Source folder")
+                .setGraphic(createMenuGraphics("/assets/img/source_folder.png")).build();
 
-        final MenuItem sourceFolderItem = MenuItems.makeMenuItem("Source folder")
-                .graphic(Components.createMenuGraphics("/assets/img/source_folder.png")).get();
+        final MenuItem file = Builder.create("File")
+                .setGraphic(createMenuGraphics("/assets/img/file.png"))
+                .setActionEvent(event -> new CreateNewFileWindow("Create New File", "Done")).build();
 
-        final MenuItem file = MenuItems.makeMenuItem("File")
-                .graphic(Components.createMenuGraphics("/assets/img/file.png"))
-                .action(event -> new CreateNewFileWindow("Create New File", "Done")).get();
+        final MenuItem folderItem = Builder.create("Folder")
+                .setGraphic(createMenuGraphics("/assets/img/folder.png")).build();
 
-        final MenuItem folderItem = MenuItems.makeMenuItem("Folder")
-                .graphic(Components.createMenuGraphics("/assets/img/folder.png")).get();
+        final MenuItem clazzItem = Builder.create("Class")
+                .setGraphic(createMenuGraphics("/assets/img/class.png"))
+                .setActionEvent(event -> new CreateNewJavaFile("Create New Class", "Done", ClassType.CLASS)).build();
 
-        final MenuItem clazzItem = MenuItems.makeMenuItem("Class")
-                .graphic(Components.createMenuGraphics("/assets/img/class.png"))
-                .action(event -> new CreateNewJavaFile("Create New Class", "Done", ClassType.CLASS)).get();
+        final MenuItem interfaceItem = Builder.create("Interface")
+                .setGraphic(createMenuGraphics("/assets/img/interface.png"))
+                .setActionEvent(event -> new CreateNewJavaFile("Create New Interface", "Done", ClassType.INTERFACE)).build();
 
-        final MenuItem interfaceItem = MenuItems.makeMenuItem("Interface")
-                .graphic(Components.createMenuGraphics("/assets/img/interface.png"))
-                .action(event -> new CreateNewJavaFile("Create New Interface", "Done", ClassType.INTERFACE)).get();
+        final MenuItem enumItem = Builder.create("Enum")
+                .setGraphic(createMenuGraphics("/assets/img/enum.png"))
+                .setActionEvent(event -> new CreateNewJavaFile("Create New Enum", "Done", ClassType.ENUM)).build();
 
-        final MenuItem enumItem = MenuItems.makeMenuItem("Enum")
-                .graphic(Components.createMenuGraphics("/assets/img/enum.png"))
-                .action(event -> new CreateNewJavaFile("Create New Enum", "Done", ClassType.ENUM)).get();
-
-        final MenuItem annotationItem = MenuItems.makeMenuItem("Annotation")
-                .graphic(Components.createMenuGraphics("/assets/img/annotation.png")).get();
+        final MenuItem annotationItem = Builder.create("Annotation")
+                .setGraphic(createMenuGraphics("/assets/img/annotation.png")).build();
 
         newMenu.getItems().addAll(javaProjectItem, projectItem, javaWorkingSetItem, new SeparatorMenuItem(),
                 sourceFolderItem, packageItem, file, folderItem, new SeparatorMenuItem(), clazzItem, interfaceItem, enumItem,
@@ -99,20 +90,20 @@ public final class RailroadTopMenu extends MenuBar {
     public void createFileGenerateMenu(Menu fileMenu) {
         final Menu generateMenu = new Menu("Generate");
 
-        final MenuItem forgeModItem = MenuItems.makeMenuItem("Forge mod")
-                .graphic(Components.createMenuGraphics("/assets/img/java_project.png")).get();
+        final MenuItem forgeModItem = RailroadMenuItem.Builder.create("Forge mod")
+                .setGraphic(createMenuGraphics("/assets/img/java_project.png")).build();
 
-        final MenuItem fabricModItem = MenuItems.makeMenuItem("Fabric mod")
-                .graphic(Components.createMenuGraphics("/assets/img/java_project.png")).get();
+        final MenuItem fabricModItem = RailroadMenuItem.Builder.create("Fabric mod")
+                .setGraphic(createMenuGraphics("/assets/img/java_project.png")).build();
 
-        final MenuItem itemModel = MenuItems.makeMenuItem("Item model")
-                .graphic(Components.createMenuGraphics("/assets/img/java_project.png")).get();
+        final MenuItem itemModel = RailroadMenuItem.Builder.create("Item model")
+                .setGraphic(createMenuGraphics("/assets/img/java_project.png")).build();
 
-        final MenuItem blockModel = MenuItems.makeMenuItem("Block model")
-                .graphic(Components.createMenuGraphics("/assets/img/java_project.png")).get();
+        final MenuItem blockModel = RailroadMenuItem.Builder.create("Block model")
+                .setGraphic(createMenuGraphics("/assets/img/java_project.png")).build();
 
-        final MenuItem blockState = MenuItems.makeMenuItem("Block state")
-                .graphic(Components.createMenuGraphics("/assets/img/java_project.png")).get();
+        final MenuItem blockState = RailroadMenuItem.Builder.create("Block state")
+                .setGraphic(createMenuGraphics("/assets/img/java_project.png")).build();
 
         generateMenu.getItems().addAll(forgeModItem, fabricModItem, new SeparatorMenuItem(), itemModel, blockModel,
                 blockState);
@@ -121,48 +112,48 @@ public final class RailroadTopMenu extends MenuBar {
     }
 
     public void createEditMenu(Menu editMenu) {
-        final MenuItem undo = MenuItems.makeMenuItem("Undo")
-                .graphic(Components.createMenuGraphics("/assets/img/java_project.png")).get();
+        final MenuItem undo = Builder.create("Undo")
+                .setGraphic(createMenuGraphics("/assets/img/java_project.png")).build();
 
-        final MenuItem redo = MenuItems.makeMenuItem("Redo")
-                .graphic(Components.createMenuGraphics("/assets/img/java_project.png")).get();
+        final MenuItem redo = Builder.create("Redo")
+                .setGraphic(createMenuGraphics("/assets/img/java_project.png")).build();
 
-        final MenuItem cut = MenuItems.makeMenuItem("Cut")
-                .graphic(Components.createMenuGraphics("/assets/img/java_project.png")).get();
+        final MenuItem cut = Builder.create("Cut")
+                .setGraphic(createMenuGraphics("/assets/img/java_project.png")).build();
 
-        final MenuItem copy = MenuItems.makeMenuItem("Copy")
-                .graphic(Components.createMenuGraphics("/assets/img/java_project.png")).get();
+        final MenuItem copy = Builder.create("Copy")
+                .setGraphic(createMenuGraphics("/assets/img/java_project.png")).build();
 
-        final MenuItem paste = MenuItems.makeMenuItem("Paste")
-                .graphic(Components.createMenuGraphics("/assets/img/java_project.png")).get();
+        final MenuItem paste = Builder.create("Paste")
+                .setGraphic(createMenuGraphics("/assets/img/java_project.png")).build();
 
-        final MenuItem delete = MenuItems.makeMenuItem("Delete")
-                .graphic(Components.createMenuGraphics("/assets/img/java_project.png")).get();
+        final MenuItem delete = Builder.create("Delete")
+                .setGraphic(createMenuGraphics("/assets/img/java_project.png")).build();
 
-        final MenuItem selectAll = MenuItems.makeMenuItem("Select all")
-                .graphic(Components.createMenuGraphics("/assets/img/java_project.png")).get();
+        final MenuItem selectAll = Builder.create("Select all")
+                .setGraphic(createMenuGraphics("/assets/img/java_project.png")).build();
 
-        final MenuItem findReplace = MenuItems.makeMenuItem("Find / Replace")
-                .graphic(Components.createMenuGraphics("/assets/img/java_project.png")).get();
+        final MenuItem findReplace = Builder.create("Find / Replace")
+                .setGraphic(createMenuGraphics("/assets/img/java_project.png")).build();
 
         editMenu.getItems().addAll(undo, redo, new SeparatorMenuItem(), cut, copy, paste, new SeparatorMenuItem(), delete,
                 selectAll, new SeparatorMenuItem(), findReplace);
     }
 
     public void createSearchMenu(Menu searchMenu) {
-        final MenuItem search = MenuItems.makeMenuItem("Search")
-                .graphic(Components.createMenuGraphics("/assets/img/java_project.png")).get();
+        final MenuItem search = Builder.create("Search")
+                .setGraphic(createMenuGraphics("/assets/img/java_project.png")).build();
 
         final Menu textMenu = new Menu("Text");
 
-        final MenuItem workspace = MenuItems.makeMenuItem("Workspace")
-                .graphic(Components.createMenuGraphics("/assets/img/java_project.png")).get();
+        final MenuItem workspace = Builder.create("Workspace")
+                .setGraphic(createMenuGraphics("/assets/img/java_project.png")).build();
 
-        final MenuItem project = MenuItems.makeMenuItem("Project")
-                .graphic(Components.createMenuGraphics("/assets/img/java_project.png")).get();
+        final MenuItem project = Builder.create("Project")
+                .setGraphic(createMenuGraphics("/assets/img/java_project.png")).build();
 
-        final MenuItem file = MenuItems.makeMenuItem("File")
-                .graphic(Components.createMenuGraphics("/assets/img/java_project.png")).get();
+        final MenuItem file = Builder.create("File")
+                .setGraphic(createMenuGraphics("/assets/img/java_project.png")).build();
 
         searchMenu.getItems().addAll(search, new SeparatorMenuItem(), textMenu);
         textMenu.getItems().addAll(workspace, project, file);

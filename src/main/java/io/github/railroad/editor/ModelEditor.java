@@ -18,8 +18,13 @@ import javafx.scene.shape.Box;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.nio.file.DirectoryStream;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
+
+import static java.nio.file.Files.newDirectoryStream;
 
 // TODO make this actually part of the IDE, not a stand alone run thingy
 // TODO make editor
@@ -60,9 +65,7 @@ public class ModelEditor extends Application {
         final ToggleButton toggleButton = new ToggleButton("Lighting");
         final HBox hbox = new HBox(button, toggleButton);
         root.getChildren().add(hbox);
-        button.setOnAction(value -> {
-            addEntity(root, new Entity(String.valueOf(loop), createCube()));
-        });
+        button.setOnAction(value -> addEntity(root, new Entity(String.valueOf(loop), createCube())));
 
         // Scene
         final Scene scene = new Scene(root, 850, 650);
