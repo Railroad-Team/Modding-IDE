@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import org.jetbrains.annotations.Nullable;
 
-import io.github.railroad.utility.GetOS;
+import io.github.railroad.utility.Utils;
 
 /*
  * Util class to open windows, linux or mac terminal 
@@ -17,11 +17,11 @@ public class OpenTerminal {
 
 	
 	public static void openTerminal(@Nullable File file) {
-		if(GetOS.isWin()) {
+		if(Utils.isWindows()) {
 			openWindowsTerminalAtFile(file);
-		}else if(GetOS.isLinux()) {
+		}else if(Utils.isUnix()) {
 			openLinuxTerminalAtFile(file);
-		}else if(GetOS.isMac()) {
+		}else if(Utils.isMac()) {
 			openMacTerminalAtFile(file);
 		}
 	}
