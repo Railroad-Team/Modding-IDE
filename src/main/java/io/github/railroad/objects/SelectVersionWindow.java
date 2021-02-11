@@ -19,6 +19,14 @@ import java.util.Objects;
 
 public class SelectVersionWindow {
 
+    /**
+     * @author ChAoS
+     *
+     * Display the version selector window for workspace setup process.
+     *
+     * @param title Title of the selector screen
+     * @param type platform to be fetched and display on view list
+     */
     public static void displayWindow(String title, PlatformType type) {
         Stage window = new Stage();
         window.centerOnScreen();

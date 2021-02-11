@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/***
+/**
  * @author ChAoS
  *
  * Class ForgeClass can be used as a list of forge version fetching result,
