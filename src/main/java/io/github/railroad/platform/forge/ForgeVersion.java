@@ -1,8 +1,5 @@
 package io.github.railroad.platform.forge;
 
-import io.github.railroad.platform.SemanticVersion;
-import io.github.railroad.utility.SortUtils;
-
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -12,17 +9,27 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+/***
+ * @author ChAoS
+ *
+ * Class ForgeClass can be used as a list of forge version fetching result,
+ * you can only get it by using method {@code downloadVersion()}.
+ *
+ * TODO: Sorted version list still unavailable until {@code SemanticVersion.parse(String value)} is fully handled.
+ */
 public class ForgeVersion {
     public final List<String> versions;
-//    public final List<SemanticVersion> sortedMinecraftVersions;
+    public final List<String> sortedVersion;
+    public final List<String> unsortedMinecraftVersions;
+    public final List<String> sortedMinecraftVersions;
 
     private ForgeVersion(List<String> versions) {
         this.versions = versions;
-        List<String> unsortedMinecraftVersions = versions.stream()
+        unsortedMinecraftVersions = versions.stream()
                 .map(str -> {
                     int index = str.indexOf('-');
 
@@ -30,27 +37,14 @@ public class ForgeVersion {
                         return null;
 
                     return str.substring(0, index);
-                }).distinct()
-                .collect(Collectors.toList());
-//        sortedMinecraftVersions = SortUtils.sortVersions(unsortedMinecraftVersions);
-    }
-
-    public List<SemanticVersion> getForgeVersions(SemanticVersion minecraftVersion) {
-        String version = minecraftVersion.toString();
-
-        return versions.stream()
-                .filter(v -> v.startsWith(version))
-                .map(v -> {
-                    try {
-                        return SemanticVersion.parse(v.split("-")[1]);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    return SemanticVersion.ERROR_VERSION_PLACEHOLDER;
                 })
-                .sorted()
-                .limit(50)
+                .distinct()
                 .collect(Collectors.toList());
+
+        Collections.reverse(new ArrayList<>(versions));
+        this.sortedVersion = versions;
+        Collections.reverse(new ArrayList<>(unsortedMinecraftVersions));
+        sortedMinecraftVersions = unsortedMinecraftVersions;
     }
 
     public static ForgeVersion downloadVersions() throws IOException {

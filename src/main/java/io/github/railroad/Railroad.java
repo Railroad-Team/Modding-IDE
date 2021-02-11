@@ -4,6 +4,8 @@ import io.github.railroad.config.Configs;
 import io.github.railroad.drp.DiscordRichPresenceManager;
 import io.github.railroad.objects.ConfirmWindow;
 import io.github.railroad.objects.RailroadTopMenu;
+import io.github.railroad.objects.SelectVersionWindow;
+import io.github.railroad.platform.PlatformType;
 import io.github.railroad.utility.UIUtils;
 import javafx.application.Application;
 import javafx.scene.Node;
