@@ -116,6 +116,9 @@ public interface Components {
         }
     }
 
+    /**
+     * @author temedy
+     */
     interface Stages extends Supplier<Stage> {
         private static Stages makeStage(Stage stage) {
             return () -> stage;
