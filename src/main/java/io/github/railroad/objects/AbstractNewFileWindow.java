@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 
 import static io.github.railroad.utility.Components.Buttons.makeButton;
+import static io.github.railroad.utility.Components.Stages.makeStage;
 import static java.nio.file.Files.createFile;
 import static java.nio.file.Paths.get;
 
@@ -59,13 +60,14 @@ public abstract class AbstractNewFileWindow {
     }
 
     public void makeWindow() {
-        final Stage window = new Stage();
-        window.centerOnScreen();
-        window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle(title);
-        window.setMinWidth(250);
-        window.setMinHeight(100);
-        window.setResizable(false);
+        final Stage window = makeStage()
+                .center()
+                .modality(Modality.APPLICATION_MODAL)
+                .title(title)
+                .minWidth(250)
+                .minHeight(100)
+                .resizable(false)
+                .get();
 
         pathName = new Label("File Path");
 
