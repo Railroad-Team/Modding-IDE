@@ -1,5 +1,7 @@
 package io.github.railroad.utility;
 
+import javafx.util.Pair;
+
 import java.nio.file.Path;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -24,8 +26,8 @@ public interface Templates {
                 ANNOTATION_NAME = "@interface";
 
         BiFunction<String, Pair<Path, String>, String> GENERATED = (type, pair) -> {
-            final Path path = pair.first;
-            final String label = pair.second;
+            final Path path = pair.getKey();
+            final String label = pair.getValue();
             if (path != null)
                 return format("%s %s \n\n %s %s %s %s", "package", path, "public", type, label, "{}");
             return format("%s %s %s %s", "public", type, label, "{}");
@@ -39,8 +41,15 @@ public interface Templates {
 
         static <Type> JavaTemplate<Type> createTemplate(String string, Function<Type, String> function) {
             return new JavaTemplate<>() {
-                @Override public String get() { return string; }
-                @Override public String apply(Type type) { return function.apply(type); }
+                @Override
+                public String get() {
+                    return string;
+                }
+
+                @Override
+                public String apply(Type type) {
+                    return function.apply(type);
+                }
             };
         }
     }
