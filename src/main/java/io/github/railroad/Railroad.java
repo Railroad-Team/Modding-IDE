@@ -1,6 +1,6 @@
 package io.github.railroad;
 
-import io.github.railroad.objects.RailroadTopMenu;
+import io.github.railroad.objects.TopMenu;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -16,7 +16,7 @@ public class Railroad extends Application {
 
     @Override
     public void start(Stage mainWindow) {
-        final RailroadTopMenu menu = new RailroadTopMenu();
+        final TopMenu menu = new TopMenu();
         menu.createMenu();
         createComponents(menu, mainWindow);
         final Image[] icons = new Image[2];

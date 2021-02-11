@@ -5,12 +5,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static io.github.railroad.utility.Components.Buttons.makeButton;
+import static io.github.railroad.utility.Components.Stages.makeStage;
+import static javafx.stage.Modality.APPLICATION_MODAL;
 
 /**
  * @author temedy
@@ -19,14 +20,7 @@ interface ConfirmWindow {
     static void displayWindow(String title, String message) {
         final AtomicBoolean result = new AtomicBoolean();
 
-        final Stage window = new Stage();
-        window.centerOnScreen();
-        window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle(title);
-        window.setMinWidth(250);
-        window.setMinHeight(100);
-        window.setResizable(false);
-
+        final Stage window = makeStage().center().modality(APPLICATION_MODAL).title(title).minWidth(250).minHeight(100).resizable(false).get();
         final Label label = new Label(message);
 
         final Button yes = makeButton("Yes").action(event -> result.set(true)).get();

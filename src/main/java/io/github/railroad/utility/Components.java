@@ -8,13 +8,17 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.Window;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public interface Components {
-    static ImageView createMenuGraphics(String imagePath) {
-        return new ImageView(new Image(imagePath, 20, 20, true, true, true));
+    static ImageView createImage(String path) {
+        return new ImageView(new Image(path, 20, 20, true, true, true));
     }
 
     /**
@@ -108,6 +112,69 @@ public interface Components {
         }
 
         default void accept(Consumer<MenuItem> consumer) {
+            consumer.accept(get());
+        }
+    }
+
+    interface Stages extends Supplier<Stage> {
+        private static Stages makeStage(Stage stage) {
+            return () -> stage;
+        }
+
+        default Stages center() {
+            accept(Window::centerOnScreen);
+            return this;
+        }
+
+        default Stages modality(Modality modality) {
+            accept(stage -> stage.initModality(modality));
+            return this;
+        }
+
+        default Stages title(Object text) {
+            accept(stage -> stage.setTitle(text.toString()));
+            return this;
+        }
+
+        default Stages resizable(boolean value) {
+            accept(stage -> stage.setResizable(value));
+            return this;
+        }
+
+        default Stages minWidth(int width) {
+            accept(stage -> stage.setMinWidth(width));
+            return this;
+        }
+
+        default Stages minHeight(int height) {
+            accept(stage -> stage.setMinHeight(height));
+            return this;
+        }
+
+        default Stages maxWidth(int width) {
+            accept(stage -> stage.setMaxWidth(width));
+            return this;
+        }
+
+        default Stages maxHeight(int height) {
+            accept(stage -> stage.setMaxHeight(height));
+            return this;
+        }
+
+        default Stages maximized() {
+            accept(stage -> stage.setMaximized(true));
+            return this;
+        }
+
+        static Stages makeStage() {
+            return makeStage(new Stage());
+        }
+
+        static Stages makeStage(StageStyle style) {
+            return makeStage(new Stage(style));
+        }
+
+        default void accept(Consumer<Stage> consumer) {
             consumer.accept(get());
         }
     }

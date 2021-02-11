@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import static io.github.railroad.utility.Components.Buttons.makeButton;
 import static java.nio.file.Files.*;
 import static java.nio.file.Paths.get;
+import static java.util.concurrent.ForkJoinPool.commonPool;
 
 public final class CreateNewJavaFile extends AbstractNewFileWindow {
 
@@ -52,15 +53,20 @@ public final class CreateNewJavaFile extends AbstractNewFileWindow {
                 throw new RuntimeException("Input error");
             }
 
-            try {
-                final Path path = get(filePath);
-                if (!exists(path)) createFile(path);
-                writeString(path, type.apply(path));
-                window.close();
+            commonPool().execute(() -> {
+                try {
+                    final Path path = get(filePath);
+                    if (!exists(path)) createFile(path);
+                    writeString(path, type.apply(path));
 
-            } catch (IOException reason) {
-                throw new RuntimeException(reason);
-            }
+                    synchronized (window) {
+                        window.close();
+                    }
+                } catch (IOException reason) {
+                    throw new RuntimeException(reason);
+                }
+            });
+
         }).get();
     }
 }
