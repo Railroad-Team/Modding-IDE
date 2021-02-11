@@ -36,9 +36,9 @@ public interface Templates {
         JavaTemplate<Pair<Path, String>> ENUM = pair -> GENERATE.apply(ENUM_NAME, pair);
         JavaTemplate<Pair<Path, String>> RECORD = pair -> GENERATE.apply(RECORD_NAME, pair);
         JavaTemplate<Pair<Path, String>> ANNOTATION = pair -> GENERATE.apply(ANNOTATION_NAME, pair);
+    }
 
-        interface JsonTemplate<Type> extends Function<Type, String> {
-            JsonTemplate<Object> EMPTY = $ -> "{}";
-        }
+    interface JsonTemplate<Type> extends Function<Type, String> {
+        JsonTemplate<Object> EMPTY = $ -> "{}";
     }
 }
