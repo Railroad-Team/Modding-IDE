@@ -93,7 +93,7 @@ public class SyntaxHandler extends Application {
 		SyntaxObject syntax = Configs.INSTANCE.syntax.getByExt(ext);
 		Matcher matcher = syntax.getCompiled().matcher(text);
 
-		scene.getStylesheets().add("/assets/" + syntax.getPath() + ".css");
+		scene.getStylesheets().add("/assets/" + syntax.getPath() + ".css"); // This CAN throw ConcurrentModificationException. Should probably do this when initialising.
 
 		int lastKwEnd = 0;
 		StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
