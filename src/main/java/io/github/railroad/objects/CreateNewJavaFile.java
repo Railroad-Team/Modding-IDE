@@ -15,15 +15,11 @@ import static java.util.concurrent.ForkJoinPool.commonPool;
 
 public final class CreateNewJavaFile extends AbstractNewFileWindow {
 
-    public final ClassType type;
-
-    public CreateNewJavaFile(String title, String message, ClassType type) {
+    public CreateNewJavaFile(String title, String message) {
         super(title, message);
-        this.type = type;
     }
 
-    @Override
-    public boolean fileDialogBox(Stage window) {
+    @Override public boolean fileDialogBox(Stage window) {
         final FileChooser fileChooser = new FileChooser();
         final FileChooser.ExtensionFilter javaFilter = new FileChooser.ExtensionFilter("Java Files", "*.java");
 
@@ -41,8 +37,7 @@ public final class CreateNewJavaFile extends AbstractNewFileWindow {
     //TODO: get rid of this
     private final Object saveLock = new Object();
 
-    @Override
-    protected Button saveFile(Stage window) {
+    @Override protected Button saveFile(Stage window) {
         return makeButton(message).action(event -> {
             synchronized (saveLock) {
                 if (filePath == null || filePath.equals("File Path")) {
@@ -55,7 +50,8 @@ public final class CreateNewJavaFile extends AbstractNewFileWindow {
                         synchronized (saveLock) {
                             final Path path = get(filePath);
                             if (!exists(path)) createFile(path);
-                            writeString(path, type.apply(path));
+                            //TODO: restore functionality
+                            //writeString(path, type.apply(path));
                             window.close();
                         }
                     } catch (IOException reason) {

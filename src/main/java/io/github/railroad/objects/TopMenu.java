@@ -5,7 +5,6 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 
-import static io.github.railroad.objects.ClassType.CLASS;
 import static io.github.railroad.utility.Components.MenuItems.makeMenuItem;
 import static io.github.railroad.utility.Components.createImage;
 
@@ -76,17 +75,17 @@ public final class TopMenu extends MenuBar {
 
         final MenuItem classItem = makeMenuItem("Class")
                 .graphic(createImage("/assets/img/class.png"))
-                .action(event -> new CreateNewJavaFile("Create New Class", "Done", CLASS))
+                .action(event -> new CreateNewJavaFile("Create New Class", "Done"))
                 .get();
 
         final MenuItem interfaceItem = makeMenuItem("Interface")
                 .graphic(createImage("/assets/img/interface.png"))
-                .action(event -> new CreateNewJavaFile("Create New Interface", "Done", ClassType.INTERFACE))
+                .action(event -> new CreateNewJavaFile("Create New Interface", "Done"))
                 .get();
 
         final MenuItem enumItem = makeMenuItem("Enum")
                 .graphic(createImage("/assets/img/enum.png"))
-                .action(event -> new CreateNewJavaFile("Create New Enum", "Done", ClassType.ENUM))
+                .action(event -> new CreateNewJavaFile("Create New Enum", "Done"))
                 .get();
 
         final MenuItem annotationItem = makeMenuItem("Annotation")
