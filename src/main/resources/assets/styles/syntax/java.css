@@ -13,10 +13,6 @@
     -fx-fill: darkgreen;
     -fx-font-weight: bold;
 }
-.brace {
-    -fx-fill: teal;
-    -fx-font-weight: bold;
-}
 
 .class {
     -fx-fill: blue;
@@ -32,6 +28,10 @@
 
 .literal {
     -fx-fill: orange;
+}
+
+.class {
+    -fx-fill: blue;
 }
 
 .comment {

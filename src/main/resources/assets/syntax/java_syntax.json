@@ -1,25 +1,26 @@
 {
 	"extension": "java",
+	"css_path": "styles/syntax/java",
 	"rules": [
 		{
 			"regex": "\\b(abstract|assert|boolean|break|byte|case|catch|char|class|const|continue|default|do|double|else|enum|extends|final|finally|float|for|goto|if|implements|import|instanceof|int|interface|long|native|new|package|private|protected|public|return|short|static|strictfp|super|switch|synchronized|this|throw|throws|transient|try|void|volatile|while)\\b",
-			"type": "KEYWORD"
+			"type": "keyword"
 		},
 		{
 			"regex": "\".*?\"",
-			"type": "STRING"
+			"type": "string"
 		},
 		{
 			"regex": "\\w+\\s*(?=\\s*\\()",
-			"type": "FUNCTION"
+			"type": "function"
 		},
 		{
 			"regex": "[+-]?([0-9]*[.])?[0-9LlFfDd]+",
-			"type": "NUMBER"
+			"type": "number"
 		},
 		{
 			"regex": "//[^\n]*|/\\*(.|\\R)*?\\*/",
-			"type": "COMMENT"
+			"type": "comment"
 		}
 	]
 }

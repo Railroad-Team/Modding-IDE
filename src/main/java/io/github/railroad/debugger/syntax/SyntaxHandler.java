@@ -22,17 +22,21 @@ import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 
 public class SyntaxHandler extends Application {
-	public static void main(String[] args) {
+	public static void boot(String[] args) {
 		launch(args); // TODO Remove this later
 	}
 
 	private CodeArea codeArea;
 	private ExecutorService executor;
 
-	@SuppressWarnings("unused")
-	// @SuppressWarnings Should be removed, usually if you have to use SuppressWarnings, you have something to fix :)
+	// Yes, static abuse. We will pass this in when implementing
+	private static Scene scene;
+	private static String ext;
+
+	@SuppressWarnings("unused") // We won't need this when actually implementing
 	@Override
 	public void start(Stage primaryStage) {
+		setExt("json");
 		executor = Executors.newSingleThreadExecutor();
 		codeArea = new CodeArea();
 		codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
@@ -50,9 +54,9 @@ public class SyntaxHandler extends Application {
 
 		codeArea.replaceText(0, 0, "");
 
-		Scene scene = new Scene(new StackPane(new VirtualizedScrollPane<>(codeArea)), 600, 400);
-		scene.getStylesheets().add("java-keywords.css"); // Make this support config files
-		primaryStage.setScene(scene);
+		Scene sceneObj = new Scene(new StackPane(new VirtualizedScrollPane<>(codeArea)), 600, 400);
+		scene = sceneObj;
+		primaryStage.setScene(sceneObj);
 		primaryStage.setTitle("Java Keywords Demo");
 		primaryStage.show();
 	}
@@ -78,24 +82,24 @@ public class SyntaxHandler extends Application {
 		codeArea.setStyleSpans(0, highlighting);
 	}
 
+	private static void setExt(String e) {
+		ext = e;
+	}
+
+	// This throws some kinda exception but it clearly doesnt affect anything
+	// TODO surround with a try catch or something, idk (or fix it)
 	private static StyleSpans<Collection<String>> computeHighlighting(String text) {
 
-		// TODO reference the main class
-		SyntaxObject syntax = new Configs().syntax.getByExt("java");
+		SyntaxObject syntax = Configs.INSTANCE.syntax.getByExt(ext);
 		Matcher matcher = syntax.getCompiled().matcher(text);
+
+		scene.getStylesheets().add("/assets/" + syntax.getPath() + ".css");
+
 		int lastKwEnd = 0;
 		StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
 		while (matcher.find()) {
-
-			// TODO make this automatic, to stop errors. All things need to be present in
-			// syntax config right now.
-			String styleClass = matcher.group("KEYWORD") != null ? "keyword"
-					: matcher.group("STRING") != null ? "string"
-							: matcher.group("FUNCTION") != null ? "function"
-									: matcher.group("NUMBER") != null ? "number"
-											: matcher.group("COMMENT") != null ? "comment"
-													: matcher.group("CLASS") != null ? "class" : null;
-			/* never happens */ assert styleClass != null;
+			String styleClass = syntax.getRegex().values().stream().filter(group -> matcher.group(group) != null)
+					.findFirst().orElse(null);
 
 			spansBuilder.add(Collections.emptyList(), matcher.start() - lastKwEnd);
 			spansBuilder.add(Collections.singleton(styleClass), matcher.end() - matcher.start());
