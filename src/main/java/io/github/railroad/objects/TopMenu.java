@@ -30,7 +30,6 @@ public final class TopMenu extends MenuBar {
     }
 
     public void createFileMenu(Menu fileMenu) {
-
         createFileNewMenu(fileMenu);
         createFileGenerateMenu(fileMenu);
         fileMenu.getItems().add(new SeparatorMenuItem());
@@ -40,22 +39,59 @@ public final class TopMenu extends MenuBar {
         final MenuItem save = makeMenuItem("Save").graphic(createImage("/assets/img/java_project.png")).get();
         final MenuItem saveAs = makeMenuItem("Save as").graphic(createImage("/assets/img/java_project.png")).get();
         final MenuItem export = makeMenuItem("Export file").graphic(createImage("/assets/img/java_project.png")).get();
+
         fileMenu.getItems().addAll(open, recent, new SeparatorMenuItem(), save, saveAs, export);
     }
 
     public void createFileNewMenu(Menu fileMenu) {
         final Menu newMenu = new Menu("New");
-        final MenuItem javaProject = makeMenuItem("Java project").graphic(createImage("/assets/img/java_project.png")).get();
-        final MenuItem project = makeMenuItem("Project").graphic(createImage("/assets/img/project.png")).get();
-        final MenuItem workingSet = makeMenuItem("Working set").graphic(createImage("/assets/img/working_set.png")).get();
-        final MenuItem packageItem = makeMenuItem("Package").graphic(createImage("/assets/img/package.png")).get();
-        final MenuItem sourceFolder = makeMenuItem("Source folder").graphic(createImage("/assets/img/source_folder.png")).get();
-        final MenuItem file = makeMenuItem("File").graphic(createImage("/assets/img/file.png")).action(event -> new CreateNewFileWindow("Create New File", "Done")).get();
-        final MenuItem folderItem = makeMenuItem("Folder").graphic(createImage("/assets/img/folder.png")).get();
-        final MenuItem classItem = makeMenuItem("Class").graphic(createImage("/assets/img/class.png")).action(event -> new CreateNewJavaFile("Create New Class", "Done", CLASS)).get();
-        final MenuItem interfaceItem = makeMenuItem("Interface").graphic(createImage("/assets/img/interface.png")).action(event -> new CreateNewJavaFile("Create New Interface", "Done", ClassType.INTERFACE)).get();
-        final MenuItem enumItem = makeMenuItem("Enum").graphic(createImage("/assets/img/enum.png")).action(event -> new CreateNewJavaFile("Create New Enum", "Done", ClassType.ENUM)).get();
-        final MenuItem annotationItem = makeMenuItem("Annotation").graphic(createImage("/assets/img/annotation.png")).get();
+        final MenuItem javaProject = makeMenuItem("Java project")
+                .graphic(createImage("/assets/img/java_project.png"))
+                .get();
+
+        final MenuItem project = makeMenuItem("Project")
+                .graphic(createImage("/assets/img/project.png"))
+                .get();
+
+        final MenuItem workingSet = makeMenuItem("Working set")
+                .graphic(createImage("/assets/img/working_set.png"))
+                .get();
+
+        final MenuItem packageItem = makeMenuItem("Package")
+                .graphic(createImage("/assets/img/package.png"))
+                .get();
+
+        final MenuItem sourceFolder = makeMenuItem("Source folder")
+                .graphic(createImage("/assets/img/source_folder.png"))
+                .get();
+
+        final MenuItem file = makeMenuItem("File")
+                .graphic(createImage("/assets/img/file.png"))
+                .action(event -> new CreateNewFileWindow("Create New File", "Done"))
+                .get();
+
+        final MenuItem folderItem = makeMenuItem("Folder")
+                .graphic(createImage("/assets/img/folder.png"))
+                .get();
+
+        final MenuItem classItem = makeMenuItem("Class")
+                .graphic(createImage("/assets/img/class.png"))
+                .action(event -> new CreateNewJavaFile("Create New Class", "Done", CLASS))
+                .get();
+
+        final MenuItem interfaceItem = makeMenuItem("Interface")
+                .graphic(createImage("/assets/img/interface.png"))
+                .action(event -> new CreateNewJavaFile("Create New Interface", "Done", ClassType.INTERFACE))
+                .get();
+
+        final MenuItem enumItem = makeMenuItem("Enum")
+                .graphic(createImage("/assets/img/enum.png"))
+                .action(event -> new CreateNewJavaFile("Create New Enum", "Done", ClassType.ENUM))
+                .get();
+
+        final MenuItem annotationItem = makeMenuItem("Annotation")
+                .graphic(createImage("/assets/img/annotation.png"))
+                .get();
 
         newMenu.getItems().addAll(javaProject, project, workingSet, new SeparatorMenuItem(),
                 sourceFolder, packageItem, file, folderItem, new SeparatorMenuItem(), classItem, interfaceItem, enumItem,
@@ -71,6 +107,7 @@ public final class TopMenu extends MenuBar {
         final MenuItem itemModel = makeMenuItem("Item model").graphic(createImage("/assets/img/java_project.png")).get();
         final MenuItem blockModel = makeMenuItem("Block model").graphic(createImage("/assets/img/java_project.png")).get();
         final MenuItem blockState = makeMenuItem("Block state").graphic(createImage("/assets/img/java_project.png")).get();
+
         generateMenu.getItems().addAll(forgeModItem, fabricModItem, new SeparatorMenuItem(), itemModel, blockModel, blockState);
         fileMenu.getItems().add(generateMenu);
     }
