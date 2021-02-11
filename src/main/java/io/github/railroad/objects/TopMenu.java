@@ -1,6 +1,5 @@
 package io.github.railroad.objects;
 
-import io.github.railroad.terminal.OpenTerminal;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -8,6 +7,7 @@ import javafx.scene.control.SeparatorMenuItem;
 
 import static io.github.railroad.utility.Components.MenuItems.makeMenuItem;
 import static io.github.railroad.utility.Components.createImage;
+import static io.github.railroad.utility.Terminal.openTerminal;
 
 // TODO make assets for all the menu items!
 //TODO: looks like mess
@@ -129,9 +129,9 @@ public final class TopMenu extends MenuBar {
 
     // TODO: Give a suitable location to open terminal
     public void createViewMenu(Menu viewMenu) {
-        MenuItem terminal = makeMenuItem("Open Terminal")
+        final MenuItem terminal = makeMenuItem("Open Terminal")
                 .graphic(createImage("/assets/img/java_project.png"))
-                .action(event -> OpenTerminal.openTerminal(null)).get();
+                .action(event -> openTerminal(null)).get();
 
         viewMenu.getItems().addAll(terminal);
     }
