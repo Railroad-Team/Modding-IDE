@@ -1,5 +1,7 @@
 package io.github.railroad.objects;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEPerspectiveTransformPeer;
+
 import io.github.railroad.config.LanguageConfig;
 import io.github.railroad.terminal.OpenTerminal;
 import io.github.railroad.utility.UIUtils;
@@ -39,7 +41,6 @@ public class RailroadTopMenu extends MenuBar {
 	public void createFileMenu(Menu fileMenu) {
 
 		this.createFileNewMenu(fileMenu);
-		this.createFileGenerateMenu(fileMenu);
 		fileMenu.getItems().add(new SeparatorMenuItem());
 
 		MenuItem openItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.open"))
@@ -63,26 +64,12 @@ public class RailroadTopMenu extends MenuBar {
 	public void createFileNewMenu(Menu fileMenu) {
 		Menu newMenu = new Menu(this.langConfig.get("menu.file.new"));
 
-		MenuItem javaProjectItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.javaproject"))
-				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
-
 		MenuItem projectItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.project"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/project.png")).build();
 
-		MenuItem javaWorkingSetItem = RailroadMenuItem.Builder
-				.create(this.langConfig.get("menu.file.new.javaworkingset"))
-				.setGraphic(UIUtils.createMenuGraphics("/assets/img/working_set.png")).build();
-
 		MenuItem packageItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.package"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/package.png")).build();
-
-		MenuItem sourceFolderItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.sourcefolder"))
-				.setGraphic(UIUtils.createMenuGraphics("/assets/img/source_folder.png")).build();
-
-		MenuItem file = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.file"))
-				.setGraphic(UIUtils.createMenuGraphics("/assets/img/file.png"))
-				.setActionEvent(event -> new CreateNewFileWindow("Create New File", "Done").makeWindow()).build();
-
+		
 		MenuItem folderItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.folder"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/folder.png")).build();
 
@@ -103,36 +90,38 @@ public class RailroadTopMenu extends MenuBar {
 
 		MenuItem annotationItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.annotation"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/annotation.png")).build();
+		
+		MenuItem jsonItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.json"))
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/json.png")).build();
+		
+		MenuItem fileItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.file"))
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/file.png"))
+				.setActionEvent(event -> new CreateNewFileWindow("Create New File", "Done").makeWindow()).build();
+		
+		MenuItem textureItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.texture"))
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/texture.png")).build();
 
-		newMenu.getItems().addAll(javaProjectItem, projectItem, javaWorkingSetItem, new SeparatorMenuItem(),
-				sourceFolderItem, packageItem, file, folderItem, new SeparatorMenuItem(), clazzItem, interfaceItem,
-				enumItem, annotationItem);
+		newMenu.getItems().addAll(projectItem, new SeparatorMenuItem(), packageItem, folderItem, new SeparatorMenuItem(), clazzItem, interfaceItem,
+				enumItem, annotationItem, new SeparatorMenuItem(), jsonItem, fileItem, new SeparatorMenuItem(), textureItem, createFileNewModelMenu());
 
 		fileMenu.getItems().add(newMenu);
 	}
+	
+	public Menu createFileNewModelMenu() {
+		Menu modelMenu = new Menu(this.langConfig.get("menu.file.new.model"));
+		
+		MenuItem itemModelItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.model.item"))
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/model.png")).build();
+		
+		MenuItem blockModelItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.model.block"))
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/model.png")).build();
+		
+		MenuItem entityModelItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.model.entity"))
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/model.png")).build();
 
-	public void createFileGenerateMenu(Menu fileMenu) {
-		Menu generateMenu = new Menu(this.langConfig.get("menu.file.generate"));
-
-		MenuItem forgeModItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.generate.forgemod"))
-				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
-
-		MenuItem fabricModItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.generate.fabricmod"))
-				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
-
-		MenuItem itemModel = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.generate.itemmodel"))
-				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
-
-		MenuItem blockModel = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.generate.blockmodel"))
-				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
-
-		MenuItem blockState = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.generate.blockstate"))
-				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
-
-		generateMenu.getItems().addAll(forgeModItem, fabricModItem, new SeparatorMenuItem(), itemModel, blockModel,
-				blockState);
-
-		fileMenu.getItems().add(generateMenu);
+		modelMenu.getItems().addAll(itemModelItem, blockModelItem, entityModelItem);
+		
+		return modelMenu;
 	}
 
 	public void createEditMenu(Menu editMenu) {

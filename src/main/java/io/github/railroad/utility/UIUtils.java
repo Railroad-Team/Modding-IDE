@@ -30,7 +30,14 @@ public class UIUtils {
     }
 
     public static ImageView createMenuGraphics(String imagePath) {
-        return new ImageView(new Image(imagePath, 20, 20, true, true, true));
+    	// TODO check if path exists rather than using a try catch
+    	try {
+    		 return new ImageView(new Image(imagePath, 20, 20, true, true, true));
+    	}
+    	catch(IllegalArgumentException e) {
+    		System.out.println(imagePath + " did not exist. Using empty image");
+    		return new ImageView();
+    	}
     }
 
     // TODO: Add some sort of config for these logo files.
