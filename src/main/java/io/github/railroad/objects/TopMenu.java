@@ -1,5 +1,6 @@
 package io.github.railroad.objects;
 
+import io.github.railroad.terminal.OpenTerminal;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -11,7 +12,6 @@ import static io.github.railroad.utility.Components.createImage;
 // TODO make assets for all the menu items!
 //TODO: looks like mess
 public final class TopMenu extends MenuBar {
-
     public void createMenu() {
         final Menu fileMenu = new Menu("File");
         createFileMenu(fileMenu);
@@ -24,6 +24,8 @@ public final class TopMenu extends MenuBar {
 
         final Menu runMenu = new Menu("Run");
         final Menu viewMenu = new Menu("View");
+        createViewMenu(viewMenu);
+
         final Menu helpMenu = new Menu("Help");
         getMenus().addAll(fileMenu, editMenu, searchMenu, runMenu, viewMenu, helpMenu);
     }
@@ -123,6 +125,15 @@ public final class TopMenu extends MenuBar {
 
         editMenu.getItems().addAll(undo, redo, new SeparatorMenuItem(), cut, copy, paste, new SeparatorMenuItem(), delete,
                 selectAll, new SeparatorMenuItem(), findReplace);
+    }
+
+    // TODO: Give a suitable location to open terminal
+    public void createViewMenu(Menu viewMenu) {
+        MenuItem terminal = makeMenuItem("Open Terminal")
+                .graphic(createImage("/assets/img/java_project.png"))
+                .action(event -> OpenTerminal.openTerminal(null)).get();
+
+        viewMenu.getItems().addAll(terminal);
     }
 
     public void createSearchMenu(Menu searchMenu) {

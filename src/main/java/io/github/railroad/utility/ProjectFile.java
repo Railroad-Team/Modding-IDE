@@ -29,7 +29,7 @@ public final class ProjectFile {
 
     public static void open(Stage stage, FileType type) {
         final Button finish = makeButton("Finish").action(event -> {
-
+            // TODO: Add something that should be done here
         }).get();
     }
 }
