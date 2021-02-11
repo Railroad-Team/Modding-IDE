@@ -1,7 +1,5 @@
 package io.github.railroad.objects;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEPerspectiveTransformPeer;
-
 import io.github.railroad.config.LanguageConfig;
 import io.github.railroad.terminal.OpenTerminal;
 import io.github.railroad.utility.UIUtils;
