@@ -25,8 +25,8 @@ public interface Components {
             return () -> button;
         }
 
-        static Buttons makeButton(String text) {
-            return makeButton(new Button(text));
+        static Buttons makeButton(Object text) {
+            return makeButton(new Button(text.toString()));
         }
 
         default Buttons action(EventHandler<ActionEvent> event) {
