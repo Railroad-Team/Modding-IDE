@@ -26,8 +26,7 @@ public interface Templates {
         BiFunction<String, Pair<Path, String>, String> GENERATED = (type, pair) -> {
             final Path path = pair.first;
             final String label = pair.second;
-            if (path != null)
-                return format("%s %s \n\n %s %s %s %s", "package", path, "public", type, label, "{}");
+            if (path != null) return format("%s %s \n\n %s %s %s %s", "package", path, "public", type, label, "{}");
             return format("%s %s %s %s", "public", type, label, "{}");
         };
 
@@ -46,6 +45,6 @@ public interface Templates {
     }
 
     interface JsonTemplate<Type> extends Function<Type, String> {
-        JsonTemplate<Void> EMPTY = type -> "{}";
+        JsonTemplate<Object> EMPTY = $ -> "{}";
     }
 }
