@@ -48,5 +48,18 @@
 	"menu.help": "Help",
 	
 	"dialog.quit": "Quit",
-	"dialog.quit.prompt": "Are you sure you want to quit?"
+	"dialog.quit.prompt": "Are you sure you want to quit?",
+	
+	"dialog.new_project": "New Project",
+	"dialog.new_project.name": "Project Name",
+	"dialog.new_project.type": "Project Type",
+	"dialog.new_project.forge_mod": "Forge Mod",
+	"dialog.new_project.fabric_mod": "Fabric Mod",
+	"dialog.new_project.java_project": "Java Project",
+	
+	"dialog.option.yes": "Yes",
+	"dialog.option.no": "No",
+	"dialog.option.ok": "Ok",
+	"dialog.option.cancel": "Cancel",
+	"dialog.option.create": "Create"
 }
