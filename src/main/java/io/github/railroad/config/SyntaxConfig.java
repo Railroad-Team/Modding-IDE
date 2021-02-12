@@ -1,26 +1,31 @@
 package io.github.railroad.config;
 
-import io.github.railroad.Railroad;
-import io.github.railroad.debugger.syntax.EnumSyntaxType;
-import io.github.railroad.debugger.syntax.SyntaxObject;
-import io.github.railroad.utility.FileUtils;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import java.io.File;
-import java.util.*;
+import io.github.railroad.Railroad;
+import io.github.railroad.debugger.syntax.SyntaxObject;
+import io.github.railroad.utility.FileUtils;
 
 public class SyntaxConfig extends AbstractConfig {
 
 	public List<SyntaxObject> languages = new ArrayList<SyntaxObject>();
 
 	@SuppressWarnings("serial")
-	public static final SyntaxObject EMPTY = new SyntaxObject("null", new HashMap<String, EnumSyntaxType>() {
-		{
-			put("(?s).*", EnumSyntaxType.ELSE);
-		}
-	});
+	public static final SyntaxObject EMPTY = new SyntaxObject("styles/syntax/none", "null",
+			new HashMap<String, String>() {
+				{
+					put("(?s).*", "empty");
+				}
+			});
 
 	@Override
 	public String getName() {
@@ -46,13 +51,13 @@ public class SyntaxConfig extends AbstractConfig {
 				JSONObject obj = new JSONObject(tokenizer);
 				JSONArray rules = obj.getJSONArray("rules");
 
-				Map<String, EnumSyntaxType> ruleMap = new HashMap<String, EnumSyntaxType>();
+				Map<String, String> ruleMap = new HashMap<String, String>();
 				for (int j = 0; j < rules.length(); j++) {
 					JSONObject rule = rules.getJSONObject(j);
-					ruleMap.put(rule.getString("regex"), EnumSyntaxType.valueOf(rule.getString("type")));
+					ruleMap.put(rule.getString("regex"), rule.getString("type"));
 				}
 
-				languages.add(new SyntaxObject(obj.getString("extension"), ruleMap));
+				languages.add(new SyntaxObject(obj.getString("css_path"), obj.getString("extension"), ruleMap));
 			}
 		}
 	}

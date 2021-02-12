@@ -1,13 +1,11 @@
 package io.github.railroad.utility;
-
-import javafx.concurrent.Task;
-
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import javafx.concurrent.Task;
 
 public class DownloadUtils {
 

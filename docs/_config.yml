@@ -1,0 +1,12 @@
+# The title
+title: RailRoad IDE
+
+# Description, Needs to change lol
+description: An IDE For Modders, By Modders
+
+# Logo isn't here, yet
+# logo: logofilegoeshere.png
+
+# Leave this. If you want to change colours, use css.
+theme: jekyll-theme-minimal
+show_downloads: true

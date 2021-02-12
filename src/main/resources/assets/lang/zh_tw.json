@@ -1,5 +1,5 @@
 {
-	"window.title": "RailRoad IDE",
+	"window.title": "Railroad IDE",
 	"menu.file": "檔案",
 	"menu.file.new": "新增檔案",
 	"menu.file.new.javaproject": "Java專案",
@@ -22,6 +22,6 @@
 	"menu.run": "啟動",
 	"menu.window": "視窗",
 	"menu.help": "說明",
-	"dialog.quit": "離開",
-	"dialog.quit.prompt": "您確定要離開？"
+	"dialog.quit": "退出",
+	"dialog.quit.prompt": "您確定要退出嗎？"
 }
