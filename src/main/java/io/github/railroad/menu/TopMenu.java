@@ -1,4 +1,4 @@
-package io.github.railroad.objects;
+package io.github.railroad.menu;
 
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -66,7 +66,7 @@ public final class TopMenu extends MenuBar {
                 .graphic(createImage("/assets/img/source_folder.png"))
                 .get();
 
-        final MenuItem file = makeMenuItem("File")
+       /* final MenuItem file = makeMenuItem("File")
                 .graphic(createImage("/assets/img/file.png"))
                 .action(event -> new NewFileWindow("Create New File", "Done", ""))
                 .get();
@@ -89,13 +89,13 @@ public final class TopMenu extends MenuBar {
                 .graphic(createImage("/assets/img/enum.png"))
                 .action(event -> new CreateNewJavaFile("Create New Enum", "Done"))
                 .get();
-
+*/
         final MenuItem annotationItem = makeMenuItem("Annotation")
                 .graphic(createImage("/assets/img/annotation.png"))
                 .get();
 
         newMenu.getItems().addAll(javaProject, project, workingSet, new SeparatorMenuItem(),
-                sourceFolder, packageItem, file, folderItem, new SeparatorMenuItem(), classItem, interfaceItem, enumItem,
+                sourceFolder, packageItem, new SeparatorMenuItem(),
                 annotationItem);
 
         fileMenu.getItems().add(newMenu);

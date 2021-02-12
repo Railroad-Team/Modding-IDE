@@ -1,6 +1,6 @@
 package io.github.railroad;
 
-import io.github.railroad.objects.TopMenu;
+import io.github.railroad.menu.TopMenu;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;

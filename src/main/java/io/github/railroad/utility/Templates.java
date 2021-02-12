@@ -31,11 +31,12 @@ public interface Templates {
                 INTERFACE_NAME = "interface",
                 ANNOTATION_NAME = "@interface";
 
-        JavaTemplate<Pair<Path, String>> CLASS = pair -> GENERATE.apply(CLASS_NAME, pair);
-        JavaTemplate<Pair<Path, String>> INTERFACE = pair -> GENERATE.apply(INTERFACE_NAME, pair);
-        JavaTemplate<Pair<Path, String>> ENUM = pair -> GENERATE.apply(ENUM_NAME, pair);
-        JavaTemplate<Pair<Path, String>> RECORD = pair -> GENERATE.apply(RECORD_NAME, pair);
-        JavaTemplate<Pair<Path, String>> ANNOTATION = pair -> GENERATE.apply(ANNOTATION_NAME, pair);
+        JavaTemplate<Pair<Path, String>>
+                CLASS = pair -> GENERATE.apply(CLASS_NAME, pair),
+                INTERFACE = pair -> GENERATE.apply(INTERFACE_NAME, pair),
+                ENUM = pair -> GENERATE.apply(ENUM_NAME, pair),
+                RECORD = pair -> GENERATE.apply(RECORD_NAME, pair),
+                ANNOTATION = pair -> GENERATE.apply(ANNOTATION_NAME, pair);
     }
 
     /**
