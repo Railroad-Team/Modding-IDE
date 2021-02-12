@@ -66,7 +66,7 @@ public final class TopMenu extends MenuBar {
                 .graphic(createImage("/assets/img/source_folder.png"))
                 .get();
 
-       /* final MenuItem file = makeMenuItem("File")
+      /*  final MenuItem file = makeMenuItem("File")
                 .graphic(createImage("/assets/img/file.png"))
                 .action(event -> new NewFileWindow("Create New File", "Done", ""))
                 .get();
