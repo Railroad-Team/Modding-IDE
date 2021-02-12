@@ -5,8 +5,6 @@ import java.util.Optional;
 import io.github.railroad.config.Configs;
 import io.github.railroad.utility.UIUtils;
 import javafx.application.Platform;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
@@ -19,10 +17,8 @@ import javafx.util.Pair;
 
 public class NewProjectDialog {
 
-	// TODO make this not static.
-	// WHY IS IT STATIC? WHY!?!
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static boolean display() {
+	public NewProjectDialog() {
 		// Create the custom dialog.
 		Dialog<Pair<String, String>> dialog = new Dialog<>();
 		dialog.setTitle(Configs.INSTANCE.lang.get("dialog.new_project"));
@@ -74,8 +70,7 @@ public class NewProjectDialog {
 		Optional<Pair<String, String>> result = dialog.showAndWait();
 
 		result.ifPresent(usernamePassword -> {
-			System.out.println("Username=" + usernamePassword.getKey() + ", Password=" + usernamePassword.getValue());
+			System.out.println("asd");
 		});
-		return false;
 	}
 }

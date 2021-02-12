@@ -65,7 +65,7 @@ public class RailroadTopMenu extends MenuBar {
 
 		MenuItem projectItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.project"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/project.png")).setActionEvent(event -> {
-					NewProjectDialog.display();
+					new NewProjectDialog();
 				}).build();
 
 		MenuItem packageItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.package"))
