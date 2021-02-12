@@ -1,12 +1,21 @@
 package io.github.railroad.utility;
 
-import javafx.stage.FileChooser;
-import org.jetbrains.annotations.NotNull;
-
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
+import org.jetbrains.annotations.NotNull;
+
+import javafx.stage.FileChooser;
 
 public class FileUtils {
 
@@ -51,6 +60,31 @@ public class FileUtils {
 
 	public static List<File> getSubFolders(@NotNull File file) {
 		return Arrays.asList(file.listFiles(File::isDirectory));
+	}
+
+	public static String getFile(String url, int numBytes) {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		InputStream is = null;
+		try {
+			is = getStream(url);
+			byte[] byteChunk = new byte[numBytes];
+			int n;
+
+			while ((n = is.read(byteChunk)) > 0) {
+				baos.write(byteChunk, 0, n);
+			}
+
+			return new String(baos.toByteArray());
+		} catch (IOException e) {
+			System.err.printf("Failed while reading bytes from %s: %s", url, e.getMessage());
+			e.printStackTrace();
+		}
+
+		return "";
+	}
+
+	private static InputStream getStream(String urlStr) throws IOException {
+		return new URL(urlStr).openStream();
 	}
 
 	public static class Folder {

@@ -25,6 +25,8 @@ public class UIUtils {
 			Configs.INSTANCE.lang.get("dialog.option.cancel"), ButtonData.CANCEL_CLOSE);
 	public static final ButtonType BUTTON_TYPE_CREATE = new ButtonType(
 			Configs.INSTANCE.lang.get("dialog.option.create"), ButtonData.OK_DONE);
+	public static final ButtonType BUTTON_TYPE_NEXT = new ButtonType(
+			Configs.INSTANCE.lang.get("dialog.option.next"), ButtonData.OK_DONE);
 
 	public static Stage setupWindow(Stage window, String title, Scene startScene, Image[] logos) {
 		window.setTitle(title);

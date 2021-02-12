@@ -56,10 +56,15 @@
 	"dialog.new_project.forge_mod": "Forge Mod",
 	"dialog.new_project.fabric_mod": "Fabric Mod",
 	"dialog.new_project.java_project": "Java Project",
+	"dialog.new_forge": "New Forge Project",
+	"dialog.new_forge.mod_id": "Mod ID",
+	"dialog.new_forge.version": "Minecraft Version",
+	"dialog.new_forge.forge_version": "Forge Version",
 	
 	"dialog.option.yes": "Yes",
 	"dialog.option.no": "No",
 	"dialog.option.ok": "Ok",
 	"dialog.option.cancel": "Cancel",
-	"dialog.option.create": "Create"
+	"dialog.option.create": "Create",
+	"dialog.option.next": "Next"
 }

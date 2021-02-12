@@ -51,7 +51,6 @@ public class NewProjectDialog {
 		projectName.textProperty().addListener((observable, oldValue, newValue) -> {
 			createButton.setDisable(newValue.trim().isEmpty());
 		});
-		
 
 		dialog.getDialogPane().setContent(grid);
 
@@ -67,10 +66,12 @@ public class NewProjectDialog {
 			return null;
 		});
 
+		 // This is a bad way of doing it. Too bad!
 		Optional<Pair<String, String>> result = dialog.showAndWait();
-
-		result.ifPresent(usernamePassword -> {
-			System.out.println("asd");
+		result.ifPresent(op -> {
+			if (op.getValue() == Configs.INSTANCE.lang.get("dialog.new_project.forge_mod")) {
+				NewForgeProjectDialog.newDialogA(op.getKey());
+			}
 		});
 	}
 }
