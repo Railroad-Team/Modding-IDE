@@ -131,7 +131,7 @@ public final class TopMenu extends MenuBar {
     public void createViewMenu(Menu viewMenu) {
         final MenuItem terminal = makeMenuItem("Open Terminal")
                 .graphic(createImage("/assets/img/java_project.png"))
-                .action(event -> openTerminal(null)).get();
+                .action(event -> openTerminal()).get();
 
         viewMenu.getItems().addAll(terminal);
     }

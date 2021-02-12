@@ -1,10 +1,7 @@
 package io.github.railroad.utility;
 
-import java.nio.file.Path;
-
 import static com.sun.javafx.util.Utils.*;
 import static java.lang.Runtime.getRuntime;
-import static java.lang.String.format;
 
 /**
  * Util class to open windows, linux or mac terminal
@@ -13,15 +10,15 @@ import static java.lang.String.format;
  */
 public interface Terminal {
 
-    String WINDOWS = "cmd.exe /c start %s %s",
+    String WINDOWS = "cmd.exe /c start",
             LINUX = "bash -c start %s %s",
             MAC = "/bin/bash -c start %s %s";
 
-    static void openTerminal(Path file) {
+    static void openTerminal() {
         try {
-            if (isWindows()) getRuntime().exec(format(WINDOWS, null, file.toFile()));
-            else if (isUnix()) getRuntime().exec(format(LINUX, null, file.toFile()));
-            else if (isMac()) getRuntime().exec(format(MAC, null, file.toFile()));
+            if (isWindows()) getRuntime().exec(WINDOWS);
+            else if (isUnix()) getRuntime().exec(LINUX);
+            else if (isMac()) getRuntime().exec(MAC);
         } catch (Exception exception) {
             throw new RuntimeException("Exception opening a terminal", exception);
         }
