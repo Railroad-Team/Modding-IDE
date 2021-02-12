@@ -1,43 +1,27 @@
 package io.github.railroad.objects;
 
 import javafx.scene.control.Button;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
 import static io.github.railroad.utility.Components.Buttons.makeButton;
-import static java.nio.file.Files.*;
+import static java.nio.file.Files.createFile;
+import static java.nio.file.Files.exists;
 import static java.nio.file.Paths.get;
 import static java.util.concurrent.ForkJoinPool.commonPool;
 
-public final class CreateNewJavaFile extends AbstractNewFileWindow {
-
+public final class CreateNewJavaFile extends NewFileWindow {
     public CreateNewJavaFile(String title, String message) {
-        super(title, message);
-    }
-
-    @Override public boolean fileDialogBox(Stage window) {
-        final FileChooser fileChooser = new FileChooser();
-        final FileChooser.ExtensionFilter javaFilter = new FileChooser.ExtensionFilter("Java Files", "*.java");
-
-        fileChooser.getExtensionFilters().add(javaFilter);
-        final File file = fileChooser.showSaveDialog(window);
-        if (file != null) {
-            filePath = file.getAbsolutePath();
-            pathName.setText(filePath);
-        }
-
-        fileChooser.setInitialDirectory(new File(""));
-        return false;
+        super(title, message, "*.java");
     }
 
     //TODO: get rid of this
     private final Object saveLock = new Object();
 
-    @Override protected Button saveFile(Stage window) {
+    @Override
+    protected Button saveFile(Stage window) {
         return makeButton(message).action(event -> {
             synchronized (saveLock) {
                 if (filePath == null || filePath.equals("File Path")) {

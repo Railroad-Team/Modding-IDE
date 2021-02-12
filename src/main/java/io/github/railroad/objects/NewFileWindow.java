@@ -18,21 +18,33 @@ import static java.nio.file.Files.createFile;
 import static java.nio.file.Paths.get;
 
 //TODO: refactor this
-public abstract class AbstractNewFileWindow {
-    public String filePath;
-    public Label pathName;
+
+public class NewFileWindow {
     public final String title;
     public final String message;
+    /**
+     * template: *.<file extension\
+     */
+    public String filePath;
+    public Label pathName;
+    public String fileExtension;
 
-    public AbstractNewFileWindow(String title, String message) {
+    public NewFileWindow(String title, String message, String fileExtension) {
         this.title = title;
         this.message = message;
+        this.fileExtension = fileExtension;
     }
 
     public boolean fileDialogBox(Stage window) {
         final FileChooser fileChooser = new FileChooser();
 
+        final FileChooser.ExtensionFilter fileFilter = new FileChooser.ExtensionFilter(
+                String.format("%s Files", fileExtension),
+                fileExtension);
+
+        fileChooser.getExtensionFilters().add(fileFilter);
         final File file = fileChooser.showSaveDialog(window);
+
         if (file != null) {
             filePath = file.getAbsolutePath();
             pathName.setText(filePath);
