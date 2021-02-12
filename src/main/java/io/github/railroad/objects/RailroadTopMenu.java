@@ -1,16 +1,22 @@
 package io.github.railroad.objects;
 
 import io.github.railroad.config.LanguageConfig;
+<<<<<<< Updated upstream
 import io.github.railroad.terminal.OpenTerminal;
+=======
+import io.github.railroad.layout.LayoutManager;
+>>>>>>> Stashed changes
 import io.github.railroad.utility.UIUtils;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.layout.Pane;
 
-// TODO make assets for all the menu items!
+// TODO: make assets for all the menu items!
 public class RailroadTopMenu extends MenuBar {
 	private final LanguageConfig langConfig;
+	public Pane primaryNode;
 
 	public RailroadTopMenu(LanguageConfig langConfigIn, Menu... menus) {
 		super(menus);
@@ -37,7 +43,6 @@ public class RailroadTopMenu extends MenuBar {
 	}
 
 	public void createFileMenu(Menu fileMenu) {
-
 		this.createFileNewMenu(fileMenu);
 		this.createFileGenerateMenu(fileMenu);
 		fileMenu.getItems().add(new SeparatorMenuItem());
@@ -69,8 +74,7 @@ public class RailroadTopMenu extends MenuBar {
 		MenuItem projectItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.project"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/project.png")).build();
 
-		MenuItem javaWorkingSetItem = RailroadMenuItem.Builder
-				.create(this.langConfig.get("menu.file.new.javaworkingset"))
+		MenuItem javaWorkingSetItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.javaworkingset"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/working_set.png")).build();
 
 		MenuItem packageItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.package"))
@@ -88,25 +92,24 @@ public class RailroadTopMenu extends MenuBar {
 
 		MenuItem clazzItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.class"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/class.png"))
-				.setActionEvent(event -> new CreateNewJavaFile("Create New Class", "Done", JavaClassTypes.CLASS))
-				.build();
+				.setActionEvent(event -> new CreateNewJavaFile("Create New Class", "Done", JavaClassTypes.CLASS)).build();
 
 		MenuItem interfaceItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.interface"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/interface.png"))
-				.setActionEvent(
-						event -> new CreateNewJavaFile("Create New Interface", "Done", JavaClassTypes.INTERFACE))
+				.setActionEvent(event -> new CreateNewJavaFile("Create New Interface", "Done", JavaClassTypes.INTERFACE))
 				.build();
 
 		MenuItem enumItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.enum"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/enum.png"))
-				.setActionEvent(event -> new CreateNewJavaFile("Create New Enum", "Done", JavaClassTypes.ENUM).makeWindow()).build();
+				.setActionEvent(event -> new CreateNewJavaFile("Create New Enum", "Done", JavaClassTypes.ENUM).makeWindow())
+				.build();
 
 		MenuItem annotationItem = RailroadMenuItem.Builder.create(this.langConfig.get("menu.file.new.annotation"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/annotation.png")).build();
 
 		newMenu.getItems().addAll(javaProjectItem, projectItem, javaWorkingSetItem, new SeparatorMenuItem(),
-				sourceFolderItem, packageItem, file, folderItem, new SeparatorMenuItem(), clazzItem, interfaceItem,
-				enumItem, annotationItem);
+				sourceFolderItem, packageItem, file, folderItem, new SeparatorMenuItem(), clazzItem, interfaceItem, enumItem,
+				annotationItem);
 
 		fileMenu.getItems().add(newMenu);
 	}
@@ -160,8 +163,8 @@ public class RailroadTopMenu extends MenuBar {
 		MenuItem findReplace = RailroadMenuItem.Builder.create(this.langConfig.get("menu.edit.findReplace"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
 
-		editMenu.getItems().addAll(undo, redo, new SeparatorMenuItem(), cut, copy, paste, new SeparatorMenuItem(),
-				delete, selectAll, new SeparatorMenuItem(), findReplace);
+		editMenu.getItems().addAll(undo, redo, new SeparatorMenuItem(), cut, copy, paste, new SeparatorMenuItem(), delete,
+				selectAll, new SeparatorMenuItem(), findReplace);
 	}
 
 	public void createSearchMenu(Menu searchMenu) {
@@ -171,7 +174,10 @@ public class RailroadTopMenu extends MenuBar {
 		Menu textMenu = new Menu(this.langConfig.get("menu.search.text"));
 
 		MenuItem workspace = RailroadMenuItem.Builder.create(this.langConfig.get("menu.search.text.workspace"))
-				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();
+				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).setActionEvent(event -> {
+					LayoutManager manager = new LayoutManager(this.langConfig, this.primaryNode);
+					manager.save();
+				}).build();
 
 		MenuItem project = RailroadMenuItem.Builder.create(this.langConfig.get("menu.search.text.project"))
 				.setGraphic(UIUtils.createMenuGraphics("/assets/img/java_project.png")).build();

@@ -10,14 +10,17 @@ import io.github.railroad.utility.UIUtils;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Railroad extends Application {
 
 	private Scene mainScene;
 	private Configs config;
+	public Node primaryNode;
 
 	public static void boot(String[] args) {
 		launch(args);
@@ -48,9 +51,12 @@ public class Railroad extends Application {
 
 	// TODO: Start filling out some of these other menus.
 	public void createComponents(Node topMenu, Stage window) {
-		BorderPane borderPane = new BorderPane();
-		borderPane.setTop(topMenu);
-		this.mainScene = new Scene(borderPane);
+		VBox primary = new VBox();
+		if (topMenu instanceof RailroadTopMenu) {
+			((RailroadTopMenu) topMenu).primaryNode = primary;
+		}
+		primary.getChildren().addAll(topMenu, new MenuBar(new Menu("Run")));
+		this.mainScene = new Scene(primary);
 	}
 
 	public Configs getConfig() {
