@@ -2,8 +2,10 @@ package io.github.railroad.moddedVersionFetcher.forge;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.ByteBuffer;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -28,7 +30,7 @@ public class ForgeVersionHelper {
 	 * @return A list of the forge versions
 	 * @throws IOException meaning it couldn't find the forge maven.
 	 */
-	public List<String> getAllForgeVersions() throws IOException {
+	public List<String> getAllForgeVersions() {
 		return getAllForgeVersions(".*?-(.*?)");
 	}
 
@@ -40,30 +42,19 @@ public class ForgeVersionHelper {
 	 * @return A list of the forge versions
 	 * @throws IOException meaning it couldn't find the forge maven.
 	 */
-	public List<String> getAllForgeVersionsForMinecraft(String mcVersion) throws IOException {
+	public List<String> getAllForgeVersionsForMinecraft(String mcVersion) {
 		return getAllForgeVersions(mcVersion + "-(.*?)");
 	}
 
-	private List<String> getAllForgeVersions(String regex) throws IOException {
-		InputStreamReader reader = getStreamReader(FORGE_MAVEN);
-		if (reader != null) {
-			final int bufferSize = 102400;
-			final char[] buffer = new char[bufferSize];
-			final StringBuilder out = new StringBuilder();
-			int charsRead;
-			while ((charsRead = reader.read(buffer, 0, buffer.length)) > 0) {
-				out.append(buffer, 0, charsRead);
-			}
-			Pattern pattern = Pattern.compile("<version>" + regex + "</version>"); // Yes regex, I use it too much now.
-			Matcher matcher = pattern.matcher(out.toString());
+	private List<String> getAllForgeVersions(String regex) {
+		Pattern pattern = Pattern.compile("<version>" + regex + "</version>"); // Yes regex, I use it too much now.
+		Matcher matcher = pattern.matcher(getFile(FORGE_MAVEN, 524288));
 
-			List<String> versions = new ArrayList<String>();
-			while (matcher.find()) {
-				versions.add(matcher.group(1));
-			}
-			return versions;
+		List<String> versions = new ArrayList<String>();
+		while (matcher.find()) {
+			versions.add(matcher.group(1));
 		}
-		throw new IOException("Forge Maven not Found");
+		return versions;
 	}
 
 	/**
@@ -75,21 +66,25 @@ public class ForgeVersionHelper {
 	 * @return A string containing the version number
 	 * @throws IOException meaning it couldn't find the forge promotion.
 	 */
-	public String getPromotionVersion(String version, boolean recommended) throws IOException {
-		InputStreamReader reader = getStreamReader(FORGE_PROMOTIONS);
-		if (reader != null) {
-			JSONObject promos = new JSONObject(new JSONTokener(reader)).getJSONObject("promos");
-			return promos.getString(version + "-" + (recommended ? "recommended" : "latest"));
-		}
-		throw new IOException("Forge Promotion not Found");
+	public String getPromotionVersion(String version, boolean recommended) {
+		JSONObject promos = new JSONObject(new JSONTokener(getFile(FORGE_PROMOTIONS, 4096))).getJSONObject("promos");
+		return promos.getString(version + "-" + (recommended ? "recommended" : "latest"));
 	}
 
-	private static InputStreamReader getStreamReader(String urlStr) throws IOException {
-		return getStream(urlStr) != null ? new InputStreamReader(getStream(urlStr)) : null;
+	private String getFile(String url, int numBytes) {
+		try (final ReadableByteChannel channel = Channels.newChannel(getStream(url))) {
+			final ByteBuffer buffer = ByteBuffer.allocate(numBytes); // TODO stop crashing. its getting pretty bad.
+			channel.read(buffer);
+			buffer.flip();
+			final byte[] bytes = new byte[buffer.limit()];
+			buffer.get(bytes);
+			return new String(bytes);
+		} catch (Exception reason) {
+			throw new RuntimeException("Failed to read from a stream", reason);
+		}
 	}
 
 	private static InputStream getStream(String urlStr) throws IOException {
 		return new URL(urlStr).openStream();
-
 	}
 }
