@@ -14,6 +14,12 @@
 	"menu.file.new.interface": "Interfaz",
 	"menu.file.new.enum": "Enum",
 	"menu.file.new.annotation": "Anotación",
+	"menu.file.generate": "Generar",
+	"menu.file.generate.forgemod": "Forge Mod",
+	"menu.file.generate.fabricmod": "Fabric Mod",
+	"menu.file.generate.itemmodel": "Modelo de artículo",
+	"menu.file.generate.blockmodel": "Modelo de bloque",
+	"menu.file.generate.blockstate": "Estado de bloque",
 	"menu.file.open": "Abierto Archivo",
 	
 	"menu.edit": "Editar",
