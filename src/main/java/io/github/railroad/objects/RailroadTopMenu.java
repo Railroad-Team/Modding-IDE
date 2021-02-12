@@ -1,11 +1,8 @@
 package io.github.railroad.objects;
 
 import io.github.railroad.config.LanguageConfig;
-<<<<<<< Updated upstream
-import io.github.railroad.terminal.OpenTerminal;
-=======
 import io.github.railroad.layout.LayoutManager;
->>>>>>> Stashed changes
+import io.github.railroad.terminal.OpenTerminal;
 import io.github.railroad.utility.UIUtils;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
