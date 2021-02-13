@@ -18,6 +18,7 @@ public class Railroad extends Application {
 
 	private Scene mainScene;
 	private Configs config;
+	public static boolean darkMode = true;
 
 	public static void boot(String[] args) {
 		launch(args);
@@ -30,6 +31,11 @@ public class Railroad extends Application {
 		Image[] icons = new Image[2];
 		UIUtils.getIcons(icons);
 		Stage window = UIUtils.setupWindow(mainWindow, this.config.lang.get("window.title"), this.mainScene, icons);
+		if (darkMode) {
+			mainScene.getStylesheets().add("assets/styles/mode/darkmode.css");
+		} else {
+			mainScene.getStylesheets().add("assets/styles/mode/lightmode.css");
+		}
 		window.setOnCloseRequest(event -> {
 			event.consume();
 			this.onClose(window);
