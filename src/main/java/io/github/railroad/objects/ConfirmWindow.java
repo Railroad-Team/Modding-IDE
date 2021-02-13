@@ -12,6 +12,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import static io.github.railroad.Railroad.darkMode;
+
 // TODO: Come up with a cleaner way of doing this. This code was rushed.
 public class ConfirmWindow {
 
@@ -44,6 +46,11 @@ public class ConfirmWindow {
 		layout.setAlignment(Pos.CENTER);
 
 		Scene scene = new Scene(layout);
+		if (darkMode) {
+			scene.getStylesheets().add("assets/styles/mode/darkmode.css");
+		} else {
+			scene.getStylesheets().add("assets/styles/mode/lightmode.css");
+		}
 		window.setScene(scene);
 		window.showAndWait();
 		result = ANSWER.get(window);
