@@ -11,6 +11,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import io.github.railroad.platform.PlatformType;
+import io.github.railroad.platform.forge.ForgeVersion;
 
 public class Railroad extends Application {
 
