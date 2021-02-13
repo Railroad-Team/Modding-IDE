@@ -4,8 +4,11 @@ import java.io.File;
 
 import io.github.railroad.config.LanguageConfig;
 import io.github.railroad.objects.RailroadSplitPane;
+import io.github.railroad.objects.RailroadTabLabel;
 import io.github.railroad.objects.RailroadTabPane;
 import io.github.railroad.objects.RailroadTextEditor;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.Pane;
@@ -19,16 +22,20 @@ public class LayoutManager {
 	private final Pane primaryNode;
 	private LanguageConfig langConfig;
 	private static final File TEST_LAYOUT = new File("/assets/test_layout/test.layout");
+	private ObjectProperty<Tab> draggingTab;
 
 	public LayoutManager(LanguageConfig langConfig, Pane primaryNode) {
 		this.langConfig = langConfig;
 		this.primaryNode = primaryNode;
-		Tab testTab = new Tab("test");
+		this.draggingTab = new SimpleObjectProperty<>();
+
+		Tab testTab = new Tab();
+		final RailroadTabLabel testLabel = new RailroadTabLabel(testTab, "test");
+		testTab.setGraphic(testLabel);
 		testTab.setContent(new RailroadTextEditor());
 		RailroadTabPane firstTabPane = new RailroadTabPane(this.primaryNode, testTab);
 		addToPane(this.primaryNode, firstTabPane);
-
-		this.addTabbedPane(firstTabPane);
+		addTabbedPane(firstTabPane, new RailroadTabPane(this.primaryNode));
 	}
 
 	/**
@@ -39,22 +46,19 @@ public class LayoutManager {
 	 * @return The new tab pane.
 	 *
 	 */
-	public RailroadTabPane addTabbedPane(RailroadTabPane selectedPane) {
+	public static void addTabbedPane(RailroadTabPane selectedPane, RailroadTabPane sourcePane) {
 		// get parent of selectedpane
 		// add SplitPane to parent
 		// add selectedPane to parent
 		// add new tabbed Pane to parent
 		RailroadSplitPane newSplit = new RailroadSplitPane();
-		RailroadTabPane pane = new RailroadTabPane(newSplit);
-		newSplit.getItems().add(pane);
-		newSplit.getItems().add(selectedPane);
+		newSplit.getItems().addAll(selectedPane, sourcePane);
 		Region parent = (Region) selectedPane.getRealParent();
 		addToPane(parent, newSplit);
 		removeFromPane(parent, selectedPane);
-		return pane;
 	}
 
-	public void addToPane(Region pane, Node node) {
+	public static void addToPane(Region pane, Node node) {
 		if (pane instanceof VBox) {
 			((VBox) pane).getChildren().add(node);
 		} else if (pane instanceof RailroadSplitPane) {
@@ -62,7 +66,7 @@ public class LayoutManager {
 		}
 	}
 
-	public void removeFromPane(Region pane, Node node) {
+	public static void removeFromPane(Region pane, Node node) {
 		if (pane instanceof VBox) {
 			((VBox) pane).getChildren().remove(node);
 		} else if (pane instanceof RailroadSplitPane) {
@@ -93,7 +97,7 @@ public class LayoutManager {
 	public boolean load(File file) {
 		if (file == null)
 			return false;
-		
+		return true;
 	}
 
 	public boolean save() {
