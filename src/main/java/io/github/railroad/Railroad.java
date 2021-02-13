@@ -4,6 +4,8 @@ import io.github.railroad.config.Configs;
 import io.github.railroad.drp.DiscordRichPresenceManager;
 import io.github.railroad.objects.ConfirmWindow;
 import io.github.railroad.objects.RailroadTopMenu;
+import io.github.railroad.objects.SelectVersionWindow;
+import io.github.railroad.platform.PlatformType;
 import io.github.railroad.utility.UIUtils;
 import javafx.application.Application;
 import javafx.scene.Node;
@@ -11,8 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import io.github.railroad.platform.PlatformType;
-import io.github.railroad.platform.forge.ForgeVersion;
 
 public class Railroad extends Application {
 
