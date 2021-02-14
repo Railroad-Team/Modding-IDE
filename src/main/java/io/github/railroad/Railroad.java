@@ -51,13 +51,8 @@ public class Railroad extends Application {
 
         window.setOnCloseRequest(event -> {
             event.consume();
-            onClose(window);
+            displayQuitWindow(window, "Quit", "Are you sure you want to quit?");
         });
-    }
-
-    private void onClose(Stage window) {
-        final boolean shouldClose = displayQuitWindow("Quit", "Are you sure you want to quit?");
-        if (shouldClose) window.close();
     }
 
     // TODO: Start filling out some of these other menus.

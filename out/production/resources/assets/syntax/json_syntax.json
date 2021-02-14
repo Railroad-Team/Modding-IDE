@@ -1,0 +1,14 @@
+{
+	"extension": "json",
+	"css_path": "styles/syntax/json",
+	"rules": [
+		{
+			"regex": "\"(\\\\.|[^\"])+\"(?=\\s*:)",
+			"type": "key"
+		},
+		{
+			"regex": "(null|true|false|-?\\d+\\.?\\d*|\"(\\\\.|[^\"])+\")(?=\\s*[,}\\]])",
+			"type": "value"
+		}
+	]
+}
