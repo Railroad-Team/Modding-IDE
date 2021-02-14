@@ -5,7 +5,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 
-import static io.github.railroad.utility.Components.MenuItems.makeMenuItem;
+import static io.github.railroad.utility.Components.MenuItemFactory.makeMenuItem;
 import static io.github.railroad.utility.Components.createImage;
 import static io.github.railroad.utility.Terminal.openTerminal;
 

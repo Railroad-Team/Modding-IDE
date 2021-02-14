@@ -15,10 +15,10 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
-import static io.github.railroad.utility.Components.Buttons.makeButton;
-import static io.github.railroad.utility.Components.HBoxes.makeHBox;
-import static io.github.railroad.utility.Components.Stages.makeStage;
-import static io.github.railroad.utility.Components.VBoxes.makeVBox;
+import static io.github.railroad.utility.Components.ButtonFactory.makeButton;
+import static io.github.railroad.utility.Components.HBoxFactory.makeHBox;
+import static io.github.railroad.utility.Components.StageFactory.makeStage;
+import static io.github.railroad.utility.Components.VBoxFactory.makeVBox;
 
 public class SelectVersionWindow {
 
