@@ -8,7 +8,13 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.io.InputStream;
+
+import static io.github.railroad.objects.ConfirmQuitWindow.displayQuitWindow;
+import static io.github.railroad.utility.Components.Stages.convertToBuilder;
+
 public class Railroad extends Application {
+    public static boolean darkMode = true;
 
     public Scene mainScene;
 
@@ -32,13 +38,17 @@ public class Railroad extends Application {
                 e.printStackTrace();
             }
         }
-        stage.setTitle("Title");
-        stage.setScene(mainScene);
-        stage.setMaximized(true);
-        stage.getIcons().setAll(icons);
-        stage.centerOnScreen();
-        stage.show();
-        final Stage window = stage;
+
+        Stage window = convertToBuilder(stage)
+                .title("Railroad IDE")
+                .scene(this.mainScene)
+                .icons(icons)
+                .center()
+                .show().get();
+
+        if (darkMode) mainScene.getStylesheets().add("assets/styles/mode/darkmode.css");
+        else mainScene.getStylesheets().add("assets/styles/mode/lightmode.css");
+
         window.setOnCloseRequest(event -> {
             event.consume();
             onClose(window);
@@ -46,10 +56,8 @@ public class Railroad extends Application {
     }
 
     private void onClose(Stage window) {
-	/*	final boolean shouldClose = ConfirmWindow.displayWindow(config.language.get("dialog.quit"),
-	//			config.language.get("dialog.quit.prompt"));
-	if (shouldClose)*/
-        window.close();
+        final boolean shouldClose = displayQuitWindow("Quit", "Are you sure you want to quit?");
+        if (shouldClose) window.close();
     }
 
     // TODO: Start filling out some of these other menus.

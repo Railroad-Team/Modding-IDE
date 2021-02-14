@@ -15,10 +15,10 @@ import java.util.stream.Collectors;
 
 /**
  * @author ChAoS
- *
- * Class ForgeClass can be used as a list of forge version fetching result,
- * you can only get it by using method {@code downloadVersion()}.
- *
+ * <p>
+ * Class ForgeClass can be used as a list of forge version fetching result, you can only get it by using method {@code
+ * downloadVersion()}.
+ * <p>
  * TODO: Sorted version list still unavailable until {@code SemanticVersion.parse(String value)} is fully handled.
  */
 public class ForgeVersion {
@@ -51,9 +51,8 @@ public class ForgeVersion {
         InputStreamReader stream = null;
 
         try {
-            URL url = new URL("https://files.minecraftforge.net/maven/net/minecraftforge/forge/maven-metadata.xml");
             ArrayList<String> result = new ArrayList<>();
-            stream = new InputStreamReader(url.openStream());
+            stream = new InputStreamReader(new URL("https://files.minecraftforge.net/maven/net/minecraftforge/forge/maven-metadata.xml").openStream());
 
             XMLInputFactory XMLFactory = XMLInputFactory.newInstance();
             XMLEventReader reader = XMLFactory.createXMLEventReader(stream);
@@ -61,25 +60,21 @@ public class ForgeVersion {
             while (reader.hasNext()) {
                 XMLEvent event = reader.nextEvent();
 
-                if (!event.isStartElement())
-                    continue;
+                if (!event.isStartElement()) continue;
 
                 StartElement start = event.asStartElement();
                 String name = start.getName().getLocalPart();
 
-                if (!name.equals("version"))
-                    continue;
+                if (!name.equals("version")) continue;
 
                 XMLEvent versionEvent = reader.nextEvent();
 
-                if (!versionEvent.isCharacters())
-                    continue;
+                if (!versionEvent.isCharacters()) continue;
 
                 String version = versionEvent.asCharacters().getData();
                 int index = version.indexOf('-');
 
-                if (index == -1)
-                    continue;
+                if (index == -1) continue;
 
                 result.add(version);
             }

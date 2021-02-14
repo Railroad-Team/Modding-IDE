@@ -3,11 +3,16 @@ package io.github.railroad.utility;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -169,8 +174,27 @@ public interface Components {
             return this;
         }
 
+        static Stages convertToBuilder(Stage stage) {
+            return makeStage(stage);
+        }
+
+        default Stages scene(Scene scene) {
+            accept(stage -> stage.setScene(scene));
+            return this;
+        }
+
+        default Stages icons(Image... logos) {
+            accept(stage -> stage.getIcons().addAll(logos));
+            return this;
+        }
+
         static Stages makeStage() {
             return makeStage(new Stage());
+        }
+
+        default Stages show() {
+            accept(Stage::show);
+            return this;
         }
 
         static Stages makeStage(StageStyle style) {
@@ -178,6 +202,46 @@ public interface Components {
         }
 
         default void accept(Consumer<Stage> consumer) {
+            consumer.accept(get());
+        }
+    }
+
+    interface VBoxes extends Supplier<VBox> {
+        static VBoxes makeVBox(int spacing) {
+            return () -> new VBox(spacing);
+        }
+
+        default VBoxes children(Node... children) {
+            accept(box -> box.getChildren().addAll(children));
+            return this;
+        }
+
+        default VBoxes alignment(Pos alignment) {
+            accept(box -> box.setAlignment(alignment));
+            return this;
+        }
+
+        default void accept(Consumer<VBox> consumer) {
+            consumer.accept(get());
+        }
+    }
+
+    interface HBoxes extends Supplier<HBox> {
+        static HBoxes makeHBox(int spacing) {
+            return () -> new HBox(spacing);
+        }
+
+        default HBoxes children(Node... children) {
+            accept(box -> box.getChildren().addAll(children));
+            return this;
+        }
+
+        default HBoxes alignment(Pos alignment) {
+            accept(box -> box.setAlignment(alignment));
+            return this;
+        }
+
+        default void accept(Consumer<HBox> consumer) {
             consumer.accept(get());
         }
     }
