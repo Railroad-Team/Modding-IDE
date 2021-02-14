@@ -8,8 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-import java.io.InputStream;
-
 public class Railroad extends Application {
 
     public Scene mainScene;
