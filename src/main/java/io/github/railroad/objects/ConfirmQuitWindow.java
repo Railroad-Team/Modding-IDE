@@ -9,9 +9,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import static io.github.railroad.Railroad.darkMode;
-import static io.github.railroad.utility.Components.Buttons.makeButton;
-import static io.github.railroad.utility.Components.Stages.makeStage;
-import static io.github.railroad.utility.Components.VBoxes.makeVBox;
+import static io.github.railroad.utility.Components.ButtonFactory.makeButton;
+import static io.github.railroad.utility.Components.StageFactory.makeStage;
+import static io.github.railroad.utility.Components.VBoxFactory.makeVBox;
 
 public interface ConfirmQuitWindow {
     static void displayQuitWindow(Stage windowToClose, String title, String message) {

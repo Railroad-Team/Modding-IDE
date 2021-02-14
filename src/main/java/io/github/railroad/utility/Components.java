@@ -29,16 +29,16 @@ public interface Components {
     /**
      * @author temedy
      */
-    interface Buttons extends Supplier<Button> {
-        private static Buttons makeButton(Button button) {
+    interface ButtonFactory extends Supplier<Button> {
+        private static ButtonFactory makeButton(Button button) {
             return () -> button;
         }
 
-        static Buttons makeButton(Object text) {
+        static ButtonFactory makeButton(Object text) {
             return makeButton(new Button(text.toString()));
         }
 
-        default Buttons action(EventHandler<ActionEvent> event) {
+        default ButtonFactory action(EventHandler<ActionEvent> event) {
             accept(button -> button.setOnAction(event));
             return this;
         }
@@ -51,67 +51,67 @@ public interface Components {
     /**
      * @author TheOnlyTails
      */
-    interface MenuItems extends Supplier<MenuItem> {
-        private static MenuItems makeMenuItem(MenuItem item) {
+    interface MenuItemFactory extends Supplier<MenuItem> {
+        private static MenuItemFactory makeMenuItem(MenuItem item) {
             item.setId(item.getText());
             return () -> item;
         }
 
-        static MenuItems makeMenuItem(Object text) {
+        static MenuItemFactory makeMenuItem(Object text) {
             return makeMenuItem(new MenuItem(text.toString()));
         }
 
-        default MenuItems visible(boolean visible) {
+        default MenuItemFactory visible(boolean visible) {
             accept(item -> item.setVisible(visible));
             return this;
         }
 
-        default MenuItems userData(Object data) {
+        default MenuItemFactory userData(Object data) {
             accept(item -> item.setUserData(data));
             return this;
         }
 
-        default MenuItems accelerationKey(KeyCombination combination) {
+        default MenuItemFactory accelerationKey(KeyCombination combination) {
             accept(item -> item.setAccelerator(combination));
             return this;
         }
 
-        default MenuItems disable() {
+        default MenuItemFactory disable() {
             accept(item -> item.setDisable(true));
             return this;
         }
 
-        default MenuItems parseText() {
+        default MenuItemFactory parseText() {
             accept(item -> item.setMnemonicParsing(true));
             return this;
         }
 
-        default MenuItems parseText(boolean parse) {
+        default MenuItemFactory parseText(boolean parse) {
             accept(item -> item.setMnemonicParsing(parse));
             return this;
         }
 
-        default MenuItems graphic(ImageView graphic) {
+        default MenuItemFactory graphic(ImageView graphic) {
             accept(item -> item.setGraphic(graphic));
             return this;
         }
 
-        default MenuItems style(String style) {
+        default MenuItemFactory style(String style) {
             accept(item -> item.setStyle(style));
             return this;
         }
 
-        default MenuItems text(String text) {
+        default MenuItemFactory text(String text) {
             accept(item -> item.setText(text));
             return this;
         }
 
-        default MenuItems action(EventHandler<ActionEvent> action) {
+        default MenuItemFactory action(EventHandler<ActionEvent> action) {
             accept(item -> item.setOnAction(action));
             return this;
         }
 
-        default MenuItems menuValidation(EventHandler<Event> handler) {
+        default MenuItemFactory menuValidation(EventHandler<Event> handler) {
             accept(item -> item.setOnMenuValidation(handler));
             return this;
         }
@@ -124,81 +124,81 @@ public interface Components {
     /**
      * @author temedy
      */
-    interface Stages extends Supplier<Stage> {
-        private static Stages makeStage(Stage stage) {
+    interface StageFactory extends Supplier<Stage> {
+        private static StageFactory makeStage(Stage stage) {
             return () -> stage;
         }
 
-        default Stages center() {
+        static StageFactory convertToBuilder(Stage stage) {
+            return makeStage(stage);
+        }
+
+        static StageFactory makeStage() {
+            return makeStage(new Stage());
+        }
+
+        static StageFactory makeStage(StageStyle style) {
+            return makeStage(new Stage(style));
+        }
+
+        default StageFactory center() {
             accept(Window::centerOnScreen);
             return this;
         }
 
-        default Stages modality(Modality modality) {
+        default StageFactory modality(Modality modality) {
             accept(stage -> stage.initModality(modality));
             return this;
         }
 
-        default Stages title(Object text) {
+        default StageFactory title(Object text) {
             accept(stage -> stage.setTitle(text.toString()));
             return this;
         }
 
-        default Stages resizable(boolean value) {
+        default StageFactory resizable(boolean value) {
             accept(stage -> stage.setResizable(value));
             return this;
         }
 
-        default Stages minWidth(int width) {
+        default StageFactory minWidth(int width) {
             accept(stage -> stage.setMinWidth(width));
             return this;
         }
 
-        default Stages minHeight(int height) {
+        default StageFactory minHeight(int height) {
             accept(stage -> stage.setMinHeight(height));
             return this;
         }
 
-        default Stages maxWidth(int width) {
+        default StageFactory maxWidth(int width) {
             accept(stage -> stage.setMaxWidth(width));
             return this;
         }
 
-        default Stages maxHeight(int height) {
+        default StageFactory maxHeight(int height) {
             accept(stage -> stage.setMaxHeight(height));
             return this;
         }
 
-        default Stages maximized() {
+        default StageFactory maximized() {
             accept(stage -> stage.setMaximized(true));
             return this;
         }
 
-        static Stages convertToBuilder(Stage stage) {
-            return makeStage(stage);
-        }
-
-        default Stages scene(Scene scene) {
+        default StageFactory scene(Scene scene) {
             accept(stage -> stage.setScene(scene));
             return this;
         }
 
-        default Stages icons(Image... logos) {
+        default StageFactory icons(Image... logos) {
             accept(stage -> stage.getIcons().addAll(logos));
             return this;
         }
 
-        static Stages makeStage() {
-            return makeStage(new Stage());
-        }
-
-        default Stages show() {
+        default StageFactory show() {
             accept(Stage::show);
             return this;
-        }
-
-        static Stages makeStage(StageStyle style) {
-            return makeStage(new Stage(style));
         }
 
         default void accept(Consumer<Stage> consumer) {
@@ -206,17 +206,17 @@ public interface Components {
         }
     }
 
-    interface VBoxes extends Supplier<VBox> {
-        static VBoxes makeVBox(int spacing) {
+    interface VBoxFactory extends Supplier<VBox> {
+        static VBoxFactory makeVBox(int spacing) {
             return () -> new VBox(spacing);
         }
 
-        default VBoxes children(Node... children) {
+        default VBoxFactory children(Node... children) {
             accept(box -> box.getChildren().addAll(children));
             return this;
         }
 
-        default VBoxes alignment(Pos alignment) {
+        default VBoxFactory alignment(Pos alignment) {
             accept(box -> box.setAlignment(alignment));
             return this;
         }
@@ -226,17 +226,17 @@ public interface Components {
         }
     }
 
-    interface HBoxes extends Supplier<HBox> {
-        static HBoxes makeHBox(int spacing) {
+    interface HBoxFactory extends Supplier<HBox> {
+        static HBoxFactory makeHBox(int spacing) {
             return () -> new HBox(spacing);
         }
 
-        default HBoxes children(Node... children) {
+        default HBoxFactory children(Node... children) {
             accept(box -> box.getChildren().addAll(children));
             return this;
         }
 
-        default HBoxes alignment(Pos alignment) {
+        default HBoxFactory alignment(Pos alignment) {
             accept(box -> box.setAlignment(alignment));
             return this;
         }

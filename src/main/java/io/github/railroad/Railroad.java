@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import java.io.InputStream;
 
 import static io.github.railroad.objects.ConfirmQuitWindow.displayQuitWindow;
-import static io.github.railroad.utility.Components.Stages.convertToBuilder;
+import static io.github.railroad.utility.Components.StageFactory.convertToBuilder;
 
 public class Railroad extends Application {
     public static boolean darkMode = true;
@@ -24,7 +24,7 @@ public class Railroad extends Application {
         menu.createMenu();
         createComponents(menu, stage);
         final Image[] icons = new Image[2];
-        // Return value never used
+
         final InputStream logo16 = Railroad.class.getResourceAsStream("/assets/img/logo16.png");
         final InputStream logo32 = Railroad.class.getResourceAsStream("/assets/img/logo32.png");
 
