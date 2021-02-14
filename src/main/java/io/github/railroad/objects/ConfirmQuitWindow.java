@@ -13,6 +13,9 @@ import static io.github.railroad.utility.Components.ButtonFactory.makeButton;
 import static io.github.railroad.utility.Components.StageFactory.makeStage;
 import static io.github.railroad.utility.Components.VBoxFactory.makeVBox;
 
+/**
+ * @author TheOnlyTails
+ */
 public interface ConfirmQuitWindow {
     static void displayQuitWindow(Stage windowToClose, String title, String message) {
         Stage window = makeStage()

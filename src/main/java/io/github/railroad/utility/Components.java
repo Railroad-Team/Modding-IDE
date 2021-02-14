@@ -206,6 +206,9 @@ public interface Components {
         }
     }
 
+    /**
+     * @author TheOnlyTails
+     */
     interface VBoxFactory extends Supplier<VBox> {
         static VBoxFactory makeVBox(int spacing) {
             return () -> new VBox(spacing);
@@ -226,6 +229,9 @@ public interface Components {
         }
     }
 
+    /**
+     * @author TheOnlyTails
+     */
     interface HBoxFactory extends Supplier<HBox> {
         static HBoxFactory makeHBox(int spacing) {
             return () -> new HBox(spacing);
