@@ -1,6 +1,5 @@
 package io.github.railroad;
 
-import com.google.gson.Gson;
 import io.github.railroad.menu.TopMenu;
 import javafx.application.Application;
 import javafx.scene.Node;
@@ -9,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import static io.github.railroad.lang.LangManger.ENGLISH;
@@ -18,8 +18,6 @@ import static io.github.railroad.utility.Components.StageFactory.convertToBuilde
 
 public class Railroad extends Application {
     public static boolean darkMode = true;
-    public static final Gson GSON = new Gson();
-
     public Scene mainScene;
 
     @Override
@@ -38,7 +36,7 @@ public class Railroad extends Application {
                 icons[1] = new Image(logo32);
                 logo16.close();
                 logo32.close();
-            } catch (Exception e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
