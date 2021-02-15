@@ -1,5 +1,6 @@
 package io.github.railroad;
 
+import com.google.gson.Gson;
 import io.github.railroad.menu.TopMenu;
 import javafx.application.Application;
 import javafx.scene.Node;
@@ -10,11 +11,14 @@ import javafx.stage.Stage;
 
 import java.io.InputStream;
 
+import static io.github.railroad.lang.LangManger.ENGLISH;
+import static io.github.railroad.lang.LangManger.getLocalization;
 import static io.github.railroad.objects.ConfirmQuitWindow.displayQuitWindow;
 import static io.github.railroad.utility.Components.StageFactory.convertToBuilder;
 
 public class Railroad extends Application {
     public static boolean darkMode = true;
+    public static final Gson GSON = new Gson();
 
     public Scene mainScene;
 
@@ -40,10 +44,11 @@ public class Railroad extends Application {
         }
 
         Stage window = convertToBuilder(stage)
-                .title("Railroad IDE")
+                .title(getLocalization("window.title", ENGLISH))
                 .scene(this.mainScene)
                 .icons(icons)
                 .center()
+                .maximized()
                 .show().get();
 
         if (darkMode) mainScene.getStylesheets().add("assets/styles/mode/darkmode.css");
@@ -51,7 +56,9 @@ public class Railroad extends Application {
 
         window.setOnCloseRequest(event -> {
             event.consume();
-            displayQuitWindow(window, "Quit", "Are you sure you want to quit?");
+            displayQuitWindow(window,
+                    getLocalization("dialog.quit", ENGLISH),
+                    getLocalization("dialog.quit.prompt", ENGLISH));
         });
     }
 
