@@ -210,8 +210,12 @@ public interface Components {
      * @author TheOnlyTails
      */
     interface VBoxFactory extends Supplier<VBox> {
+        private static VBoxFactory makeVBox(VBox vBox) {
+            return () -> vBox;
+        }
+
         static VBoxFactory makeVBox(int spacing) {
-            return () -> new VBox(spacing);
+            return makeVBox(new VBox(spacing));
         }
 
         default VBoxFactory children(Node... children) {
@@ -233,8 +237,12 @@ public interface Components {
      * @author TheOnlyTails
      */
     interface HBoxFactory extends Supplier<HBox> {
+        private static HBoxFactory makeHBox(HBox hBox) {
+            return () -> hBox;
+        }
+
         static HBoxFactory makeHBox(int spacing) {
-            return () -> new HBox(spacing);
+            return makeHBox(new HBox(spacing));
         }
 
         default HBoxFactory children(Node... children) {
