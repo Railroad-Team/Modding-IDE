@@ -11,7 +11,7 @@ public interface LangManger {
     ResourceBundle ENGLISH = ResourceBundle.getBundle("assets.lang.en", Locale.ENGLISH);
     ResourceBundle ITALIAN = ResourceBundle.getBundle("assets.lang.it", new Locale("it"));
     ResourceBundle SPANISH = ResourceBundle.getBundle("assets.lang.es", new Locale("es"));
-    ResourceBundle TAIWAN_CHINESE = ResourceBundle.getBundle("assets.lang.zh", new Locale("zh"));
+    ResourceBundle CHINESE = ResourceBundle.getBundle("assets.lang.zh", new Locale("zh"));
 
     static String getLocalization(String key, ResourceBundle bundle) {
         try {
