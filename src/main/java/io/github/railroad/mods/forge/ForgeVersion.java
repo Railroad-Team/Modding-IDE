@@ -1,4 +1,4 @@
-package io.github.railroad.platform.forge;
+package io.github.railroad.mods.forge;
 
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;

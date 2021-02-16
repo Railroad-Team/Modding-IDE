@@ -1,7 +1,7 @@
 package io.github.railroad.objects;
 
-import io.github.railroad.platform.PlatformType;
-import io.github.railroad.platform.forge.ForgeVersion;
+import io.github.railroad.mods.PlatformType;
+import io.github.railroad.mods.forge.ForgeVersion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;

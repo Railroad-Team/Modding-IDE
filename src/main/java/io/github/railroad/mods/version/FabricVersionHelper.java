@@ -11,11 +11,6 @@ import org.json.JSONObject;
 
 public interface FabricVersionHelper {
 
-	public static void main(String[] args) {
-//		System.out.println(getStringFromUrl(ForgeVersionHelper.FORGE_PROMOTIONS, 4096));
-		FabricVersionHelper.getFabricBuilderInfo("1.16.4");
-	}
-
 	static final String MC_VERSIONS_URL = "https://meta.fabricmc.net/v1/versions/game";
 	static final String FABRIC_BUILD_URL = "https://meta.fabricmc.net/v1/versions/loader/";
 	static final String FAPI_URL = "https://maven.fabricmc.net/net/fabricmc/fabric-api/fabric-api/maven-metadata.xml";
