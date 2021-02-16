@@ -30,13 +30,6 @@ public interface FabricVersionHelper {
 	}
 
 	static List<FabricBuilderVersionInfo> getFabricBuilderInfo(String version) {
-		try {
-			FileWriter myWriter = new FileWriter("filename.txt");
-			myWriter.write(getStringFromUrl(FABRIC_BUILD_URL + version, 131072));
-			myWriter.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		JSONArray array = new JSONArray(getStringFromUrl(FABRIC_BUILD_URL + version, 131072));
 		List<FabricBuilderVersionInfo> versions = new ArrayList<FabricBuilderVersionInfo>();
 		for (int i = 0, size = array.length(); i < size; i++) {
