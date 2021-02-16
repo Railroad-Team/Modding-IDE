@@ -232,7 +232,7 @@ public class FabricMod {
 
 		// Getting the version info for gradle.properties
 		JSONObject properties = getFabricVersionInfo(version);
-		String fabricAPI = getFabricApiVersion();
+		String fabricAPI = getFabricApiVersion(version);
 
 		// Setting properties in gradle.properties
 		prop.setProperty("org.gradle.jvmargs", "-Xmx2G");
@@ -263,7 +263,7 @@ public class FabricMod {
 		return properties;
 	}
 
-	public static String getFabricApiVersion() {
+	public static String getFabricApiVersion(String version) {
 		String fabricVersion = "0.30.2+1.17";
 
 		URL url;
@@ -272,8 +272,8 @@ public class FabricMod {
 			BufferedReader read = new BufferedReader(new InputStreamReader(url.openStream()));
 			String inputLine;
 			while ((inputLine = read.readLine()) != null)
-				if (inputLine.contains("release")) {
-					fabricVersion = inputLine.replace(" ", "").replace("<release>", "").replace("</release>", "");
+				if (inputLine.contains(version)) {
+					fabricVersion = inputLine.replace(" ", "").replace("<version>", "").replace("</version>", "");
 					read.close();
 				}
 		} catch (IOException e) {
