@@ -10,6 +10,9 @@ import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.io.IOUtils;
 
+/**
+ * @author Cy4Shot
+ */
 public interface VersionUtils {
 
 	static String getStringFromUrl(String url, int c) {

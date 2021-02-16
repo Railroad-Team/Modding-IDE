@@ -9,6 +9,10 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+
+/**
+ * @author Cy4Shot, Sak
+ */
 public interface FabricVersionHelper {
 
 	static final String MC_VERSIONS_URL = "https://meta.fabricmc.net/v1/versions/game";

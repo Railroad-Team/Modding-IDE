@@ -10,6 +10,9 @@ import java.util.regex.Pattern;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+/**
+ * @author Cy4Shot
+ */
 public interface ForgeVersionHelper {
 
 	static final String FORGE_MAVEN = "https://files.minecraftforge.net/maven/net/minecraftforge/forge/maven-metadata.xml";
