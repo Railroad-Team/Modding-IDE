@@ -1,5 +1,13 @@
 package io.github.railroad;
 
+import static io.github.railroad.lang.LangManger.ENGLISH;
+import static io.github.railroad.lang.LangManger.getLocalization;
+import static io.github.railroad.objects.ConfirmQuitWindow.displayQuitWindow;
+import static io.github.railroad.utility.Components.StageFactory.convertToBuilder;
+
+import java.io.IOException;
+import java.io.InputStream;
+
 import io.github.railroad.menu.TopMenu;
 import javafx.application.Application;
 import javafx.scene.Node;
@@ -7,14 +15,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.io.InputStream;
-
-import static io.github.railroad.lang.LangManger.ENGLISH;
-import static io.github.railroad.lang.LangManger.getLocalization;
-import static io.github.railroad.objects.ConfirmQuitWindow.displayQuitWindow;
-import static io.github.railroad.utility.Components.StageFactory.convertToBuilder;
 
 public class Railroad extends Application {
     public static boolean darkMode = true;
