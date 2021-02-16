@@ -1,8 +1,5 @@
 package io.github.railroad.utility;
 
-import javafx.util.Pair;
-
-import java.nio.file.Path;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -17,12 +14,12 @@ public interface Templates {
      * @param <Type> the type of the template
      * @author Temedy
      */
+    // TODO: add back the package
     interface JavaTemplate<Type> extends Function<Type, String> {
-        BiFunction<String, Pair<Path, String>, String> GENERATE = (type, pair) -> {
-            final Path path = pair.getKey();
-            final String label = pair.getValue();
-            if (path != null) return format("%s %s \n\n %s %s %s %s", "package", path, "public", type, label, "{}");
-            return format("%s %s %s %s", "public", type, label, "{}");
+        BiFunction<String, String, String> GENERATE = (type, label) -> {
+            // final Path path = pair.getKey();
+            // if (path != null) return format("%s %s; \n\n %s %s %s %s", "package", path, "public", type, label, "{}");
+            return format("%s %s %s {\n\t\n}", "public", type, label);
         };
 
         String CLASS_NAME = "class",
@@ -31,12 +28,12 @@ public interface Templates {
                 INTERFACE_NAME = "interface",
                 ANNOTATION_NAME = "@interface";
 
-        JavaTemplate<Pair<Path, String>>
-                CLASS = pair -> GENERATE.apply(CLASS_NAME, pair),
-                INTERFACE = pair -> GENERATE.apply(INTERFACE_NAME, pair),
-                ENUM = pair -> GENERATE.apply(ENUM_NAME, pair),
-                RECORD = pair -> GENERATE.apply(RECORD_NAME, pair),
-                ANNOTATION = pair -> GENERATE.apply(ANNOTATION_NAME, pair);
+        JavaTemplate<String>
+                CLASS = label -> GENERATE.apply(CLASS_NAME, label),
+                INTERFACE = label -> GENERATE.apply(INTERFACE_NAME, label),
+                ENUM = label -> GENERATE.apply(ENUM_NAME, label),
+                RECORD = label -> GENERATE.apply(RECORD_NAME, label),
+                ANNOTATION = label -> GENERATE.apply(ANNOTATION_NAME, label);
     }
 
     /**
