@@ -11,7 +11,7 @@ import java.io.IOException;
 
 import static io.github.railroad.utility.Components.StageFactory.makeStage;
 
-public interface Actions {
+public interface FileChoosers {
     static void createNewGenericFile() {
         var fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File(""));

@@ -6,10 +6,10 @@ import javafx.scene.control.SeparatorMenuItem;
 
 import static io.github.railroad.lang.LangManger.ENGLISH;
 import static io.github.railroad.lang.LangManger.getLocalization;
-import static io.github.railroad.utility.Actions.createNewGenericFile;
-import static io.github.railroad.utility.Actions.createNewJavaFile;
 import static io.github.railroad.utility.Components.MenuItemFactory.makeMenuItem;
 import static io.github.railroad.utility.Components.createImage;
+import static io.github.railroad.utility.FileChoosers.createNewGenericFile;
+import static io.github.railroad.utility.FileChoosers.createNewJavaFile;
 import static io.github.railroad.utility.Templates.JavaTemplate.*;
 import static io.github.railroad.utility.Terminal.openTerminal;
 
