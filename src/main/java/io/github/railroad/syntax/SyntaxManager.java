@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public interface SyntaxManager {
-    SyntaxObject EMPTY = new SyntaxObject("styles/syntax/none", "null", new HashMap<>() {
+    SyntaxObject EMPTY = SyntaxObject.load("styles/syntax/none", "null", new HashMap<>() {
         {
             put("(?s).*", "empty");
         }
@@ -37,7 +37,7 @@ public interface SyntaxManager {
                             .collect(Collectors.toMap(rule -> rule.getString("regex"),
                                     rule -> rule.getString("type"), (a, b) -> b));
 
-                    languages.add(new SyntaxObject(obj.getString("css_path"), obj.getString("extension"), ruleMap));
+                    languages.add(SyntaxObject.load(obj.getString("css_path"), obj.getString("extension"), ruleMap));
                 }
             });
         }

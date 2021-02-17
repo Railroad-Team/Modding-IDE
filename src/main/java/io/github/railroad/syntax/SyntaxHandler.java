@@ -79,7 +79,7 @@ public class SyntaxHandler extends Application {
 		int lastKwEnd = 0;
 		StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
 		while (matcher.find()) {
-			String styleClass = syntax.regex.values().stream()
+			String styleClass = syntax.expressions.values().stream()
 					.filter(group -> matcher.group(group) != null)
 					.findFirst()
 					.orElse(null);
