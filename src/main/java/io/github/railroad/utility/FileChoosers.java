@@ -45,9 +45,11 @@ public interface FileChoosers {
 
         if (file != null) {
             try {
-                var fileWriter = new FileWriter(file);
-                fileWriter.write(type.apply(FilenameUtils.removeExtension(file.getName())));
-                fileWriter.close();
+                if (FilenameUtils.getExtension(file.getName()).equals(".java")) {
+                    var fileWriter = new FileWriter(file);
+                    fileWriter.write(type.apply(FilenameUtils.removeExtension(file.getName())));
+                    fileWriter.close();
+                }
             } catch (IOException e) {
                 System.err.println("fileWriter threw an IOException in createNewJavaFile.");
             } finally {

@@ -1,94 +1,87 @@
 package io.github.railroad.mods.version;
 
-import static io.github.railroad.mods.version.VersionUtils.getStringFromUrl;
-
-import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import static io.github.railroad.mods.version.VersionUtils.getStringFromUrl;
+import static javax.xml.xpath.XPathFactory.newInstance;
 
 /**
- * @author Cy4Shot, Sak
+ * @author Cy4Shot, Sak, TheOnlyTails
  */
 public interface FabricVersionHelper {
+    String MC_VERSIONS_URL = "https://meta.fabricmc.net/v1/versions/game";
+    String FABRIC_LOADER_URL = "https://meta.fabricmc.net/v1/versions/loader/";
+    String FABRIC_API_URL = "https://maven.fabricmc.net/net/fabricmc/fabric-api/fabric-api/maven-metadata.xml";
 
-	static final String MC_VERSIONS_URL = "https://meta.fabricmc.net/v1/versions/game";
-	static final String FABRIC_BUILD_URL = "https://meta.fabricmc.net/v1/versions/loader/";
-	static final String FAPI_URL = "https://maven.fabricmc.net/net/fabricmc/fabric-api/fabric-api/maven-metadata.xml";
+    static List<McVersion> getFabricMcVersions() {
+        var array = new JSONArray(getStringFromUrl(MC_VERSIONS_URL));
 
-	static List<FabricGameVersionInfo> getAllFabricVersions() {
-		JSONArray array = new JSONArray(getStringFromUrl(MC_VERSIONS_URL, 16384));
-		List<FabricGameVersionInfo> versions = new ArrayList<FabricGameVersionInfo>();
-		for (int i = 0, size = array.length(); i < size; i++) {
-			versions.add(new FabricGameVersionInfo(array.getJSONObject(i)));
-		}
+        return IntStream.range(0, array.length())
+                .mapToObj(i -> new McVersion(array.getJSONObject(i)))
+                .collect(Collectors.toList());
+    }
 
-		return versions;
-	}
+    static List<FabricBuildVersion> getFabricLoaderVersions(String mcVersion) {
+        var array = new JSONArray(getStringFromUrl(FABRIC_LOADER_URL + mcVersion));
 
-	static List<FabricBuilderVersionInfo> getFabricBuilderInfo(String version) {
-		JSONArray array = new JSONArray(getStringFromUrl(FABRIC_BUILD_URL + version, 131072));
-		List<FabricBuilderVersionInfo> versions = new ArrayList<FabricBuilderVersionInfo>();
-		for (int i = 0, size = array.length(); i < size; i++) {
-			versions.add(new FabricBuilderVersionInfo(array.getJSONObject(i)));
-		}
+        return IntStream.range(0, array.length())
+                .mapToObj(i -> new FabricBuildVersion(array.getJSONObject(i)))
+                .collect(Collectors.toList());
+    }
 
-		return versions;
-	}
+    static String getFabricAPIVersions() {
+        try {
+            var doc = DocumentBuilderFactory.newInstance()
+                    .newDocumentBuilder()
+                    .parse(FABRIC_API_URL);
 
-	// TODO get fabric API version
-//	public static String getFAPIVersion() {
-//		InputStream stream = getStream(FAPI_URL);
-//		if (stream != null) {
-//			try {
-//				Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(stream);
-//
-//				XPathExpression expr = javax.xml.xpath.XPathFactory.newInstance().newXPath()
-//						.compile("/metadata/versioning/latest/text()");
-//				return expr.evaluate(doc);
-//			} catch (SAXException | XPathExpressionException | ParserConfigurationException | IOException e) {
-//				System.out.println("Failed to resolve FAPI " + e);
-//			}
-//		}
-//		return null;
-//	}
+            return newInstance()
+                    .newXPath()
+                    .compile("/metadata/versioning/versions")
+                    .evaluate(doc);
 
-	static class FabricGameVersionInfo {
-		public String version;
-		public boolean stable;
+        } catch (SAXException | XPathExpressionException | ParserConfigurationException | IOException e) {
+            System.err.println("Failed to resolve Fabric API version" + e);
+        }
 
-		public FabricGameVersionInfo(JSONObject json) {
-			this.version = json.getString("version");
-			this.stable = json.getBoolean("stable");
-		}
-	}
+        return null;
+    }
 
-	static class FabricBuilderVersionInfo {
-		public FabricBuilderPartInfo loader;
-		public FabricBuilderPartInfo mappings;
+    class McVersion {
+        public String version;
+        public boolean stable;
 
-		public FabricBuilderVersionInfo(JSONObject json) {
-			this.loader = new FabricBuilderPartInfo(json.getJSONObject("loader"));
-			this.mappings = new FabricBuilderPartInfo(json.getJSONObject("mappings"));
-		}
-	}
+        public McVersion(JSONObject json) {
+            this.version = json.getString("version");
+            this.stable = json.getBoolean("stable");
+        }
 
-	static class FabricBuilderPartInfo {
-		public String separator;
-		public String maven;
-		public String version;
-		public int build;
-		public boolean stable;
+        @Override
+        public String toString() {
+            return version;
+        }
+    }
 
-		public FabricBuilderPartInfo(JSONObject json) {
-			this.version = json.getString("version");
-			this.maven = json.getString("maven");
-			this.separator = json.getString("separator");
-			this.build = json.getInt("build");
-			this.stable = json.getBoolean("stable");
-		}
-	}
+    class FabricBuildVersion {
+        public final String loaderVersion;
+        public final String mappingsVersion;
+
+        public FabricBuildVersion(JSONObject json) {
+            var loader = json.getJSONObject("loader");
+            var mappings = json.getJSONObject("mappings");
+
+            this.loaderVersion = loader.getString("version");
+            this.mappingsVersion = mappings.getString("version");
+        }
+    }
 }

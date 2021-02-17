@@ -1,10 +1,7 @@
 package io.github.railroad.mods.forge;
 
-import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.events.StartElement;
-import javax.xml.stream.events.XMLEvent;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -47,45 +44,48 @@ public class ForgeVersion {
         sortedMinecraftVersions = unsortedMinecraftVersions;
     }
 
-    public static ForgeVersion downloadVersions() throws IOException {
-        InputStreamReader stream = null;
+    public static ForgeVersion downloadVersions() {
+        try (var stream = new InputStreamReader(
+                new URL("https://files.minecraftforge.net/maven/net/minecraftforge/forge/maven-metadata.xml")
+                        .openStream())) {
+            var result = new ArrayList<String>();
 
-        try {
-            ArrayList<String> result = new ArrayList<>();
-            stream = new InputStreamReader(new URL("https://files.minecraftforge.net/maven/net/minecraftforge/forge/maven-metadata.xml").openStream());
-
-            XMLInputFactory XMLFactory = XMLInputFactory.newInstance();
-            XMLEventReader reader = XMLFactory.createXMLEventReader(stream);
+            var xmlFactory = XMLInputFactory.newInstance();
+            var reader = xmlFactory.createXMLEventReader(stream);
 
             while (reader.hasNext()) {
-                XMLEvent event = reader.nextEvent();
+                var event = reader.nextEvent();
 
                 if (!event.isStartElement()) continue;
 
-                StartElement start = event.asStartElement();
-                String name = start.getName().getLocalPart();
+                var start = event.asStartElement();
+                var name = start.getName().getLocalPart();
 
                 if (!name.equals("version")) continue;
 
-                XMLEvent versionEvent = reader.nextEvent();
+                var versionEvent = reader.nextEvent();
 
                 if (!versionEvent.isCharacters()) continue;
 
-                String version = versionEvent.asCharacters().getData();
-                int index = version.indexOf('-');
+                var version = versionEvent.asCharacters().getData();
 
-                if (index == -1) continue;
+                if (version.indexOf('-') == -1) continue;
 
                 result.add(version);
             }
 
             return new ForgeVersion(result);
+
         } catch (IOException | XMLStreamException e) {
             e.printStackTrace();
-        } finally {
-            stream.close();
         }
 
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return "sortedVersion=" + sortedVersion + "\n" +
+               "sortedMinecraftVersions=" + sortedMinecraftVersions;
     }
 }
