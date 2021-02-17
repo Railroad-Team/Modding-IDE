@@ -4,16 +4,27 @@ import static com.sun.javafx.util.Utils.*;
 import static java.lang.Runtime.getRuntime;
 
 /**
- * Util class to open windows, linux or mac terminal
+ * Opens the terminal.
  *
- * @author saksham4106
+ * @author saksham4106, temedy
  */
 public interface Terminal {
-
+    /**
+     * the command that opens the terminal in windows
+     */
     String WINDOWS = "cmd.exe /c start",
-            LINUX = "bash -c start %s %s",
-            MAC = "/bin/bash -c start %s %s";
+    /**
+     * the command that opens the terminal in linux
+     */
+    LINUX = "bash -c start %s %s",
+    /**
+     * the command that opens the terminal in mac
+     */
+    MAC = "/bin/bash -c start %s %s";
 
+    /**
+     * Opens the terminal.
+     */
     static void openTerminal() {
         try {
             if (isWindows()) getRuntime().exec(WINDOWS);

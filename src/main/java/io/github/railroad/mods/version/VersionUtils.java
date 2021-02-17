@@ -17,13 +17,19 @@ import static java.util.stream.Collectors.joining;
  * @author Cy4Shot
  */
 public interface VersionUtils {
-    static String getStringFromUrl(String locator) {
-        try (final ReadableByteChannel channel = newChannel(new URL(locator).openStream())) {
+    /**
+     * Gets a string from a {@link URL}.
+     *
+     * @param URL the URL.
+     * @return get string returned from the URL.
+     * @author Cy4shot, TheOnlyTails
+     */
+    static String getStringFromUrl(URL URL) {
+        try (final ReadableByteChannel channel = newChannel(new URL(URL.toString()).openStream())) {
             try (InputStream stream = newInputStream(channel)) {
                 return new BufferedReader(new InputStreamReader(stream, UTF_8))
                         .lines()
                         .collect(joining("\n"));
-
             }
         } catch (IOException reason) {
             throw new RuntimeException("Failed to GET from a resource locator", reason);

@@ -1,7 +1,7 @@
 package io.github.railroad.objects;
 
 import io.github.railroad.mods.PlatformType;
-import io.github.railroad.mods.forge.ForgeVersion;
+import io.github.railroad.mods.forge.ForgeVersionsManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -20,14 +20,19 @@ import static io.github.railroad.utility.Components.HBoxFactory.makeHBox;
 import static io.github.railroad.utility.Components.StageFactory.makeStage;
 import static io.github.railroad.utility.Components.VBoxFactory.makeVBox;
 
+/**
+ * Displays the version selector window for workspace setup process.
+ *
+ * @author ChAos
+ */
 public class SelectVersionWindow {
 
     /**
-     * @param title Title of the selector screen
-     * @param type  platform to be fetched and display on view list
-     * @author ChAoS
-     * <p>
-     * Display the version selector window for workspace setup process.
+     * Displays the version selector window for workspace setup process.
+     *
+     * @param title Title of the selector screen.
+     * @param type  platform to be fetched and display on view list.
+     * @author ChAos
      */
     public static void displayWindow(String title, PlatformType type) {
         Stage window = makeStage()
@@ -42,7 +47,7 @@ public class SelectVersionWindow {
             ObservableList<String> versionList = FXCollections.emptyObservableList();
 
             switch (type) {
-                case FORGE -> versionList = FXCollections.observableList(Objects.requireNonNull(ForgeVersion.downloadVersions()).versions);
+                case FORGE -> versionList = FXCollections.observableList(Objects.requireNonNull(ForgeVersionsManager.downloadVersions()).versions);
                 case FABRIC -> {
                 }
             }

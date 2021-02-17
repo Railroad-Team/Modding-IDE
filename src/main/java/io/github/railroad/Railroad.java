@@ -1,13 +1,5 @@
 package io.github.railroad;
 
-import static io.github.railroad.lang.LangManger.ENGLISH;
-import static io.github.railroad.lang.LangManger.getLocalization;
-import static io.github.railroad.objects.ConfirmQuitWindow.displayQuitWindow;
-import static io.github.railroad.utility.Components.StageFactory.convertToBuilder;
-
-import java.io.IOException;
-import java.io.InputStream;
-
 import io.github.railroad.menu.TopMenu;
 import javafx.application.Application;
 import javafx.scene.Node;
@@ -16,8 +8,25 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import static io.github.railroad.lang.LangManager.ENGLISH;
+import static io.github.railroad.lang.LangManager.getLocalization;
+import static io.github.railroad.objects.ConfirmQuitWindow.displayQuitWindow;
+import static io.github.railroad.utility.Components.StageFactory.makeStage;
+
+/**
+ * The main class of the program.
+ */
 public class Railroad extends Application {
+    /**
+     * whether the program is in dark mode or not.
+     */
     public static boolean darkMode = true;
+    /**
+     * The main scene of the project.
+     */
     public Scene mainScene;
 
     @Override
@@ -41,7 +50,7 @@ public class Railroad extends Application {
             }
         }
 
-        Stage window = convertToBuilder(stage)
+        Stage window = makeStage(stage)
                 .title(getLocalization("window.title", ENGLISH))
                 .scene(this.mainScene)
                 .icons(icons)
@@ -54,13 +63,15 @@ public class Railroad extends Application {
 
         window.setOnCloseRequest(event -> {
             event.consume();
-            displayQuitWindow(window,
-                    getLocalization("dialog.quit", ENGLISH),
-                    getLocalization("dialog.quit.prompt", ENGLISH));
+            displayQuitWindow(window);
         });
     }
 
     // TODO: Start filling out some of these other menus.
+
+    /**
+     * Creates the GUI components of the application.
+     */
     public void createComponents(Node topMenu, Stage window) {
         final BorderPane borderPane = new BorderPane();
         borderPane.setTop(topMenu);

@@ -4,8 +4,8 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.SeparatorMenuItem;
 
-import static io.github.railroad.lang.LangManger.ENGLISH;
-import static io.github.railroad.lang.LangManger.getLocalization;
+import static io.github.railroad.lang.LangManager.ENGLISH;
+import static io.github.railroad.lang.LangManager.getLocalization;
 import static io.github.railroad.utility.Components.MenuItemFactory.makeMenuItem;
 import static io.github.railroad.utility.Components.createImage;
 import static io.github.railroad.utility.FileChoosers.createNewGenericFile;
@@ -13,9 +13,17 @@ import static io.github.railroad.utility.FileChoosers.createNewJavaFile;
 import static io.github.railroad.utility.Templates.JavaTemplate.*;
 import static io.github.railroad.utility.Terminal.openTerminal;
 
-// TODO make assets for all the menu items!
-//TODO: looks like mess
+/**
+ * Creates all of the items of the top menu.
+ *
+ * @author TheOnlyTails
+ */
 public final class TopMenu extends MenuBar {
+    /**
+     * Creates the top menu and adds all of the submenus.
+     *
+     * @author TheOnlyTails
+     */
     public void createMenu() {
         final var fileMenu = new Menu(getLocalization("menu.file", ENGLISH));
         createFileMenu(fileMenu);
@@ -34,6 +42,12 @@ public final class TopMenu extends MenuBar {
         getMenus().addAll(fileMenu, editMenu, searchMenu, runMenu, viewMenu, helpMenu);
     }
 
+    /**
+     * Creates the file submenu and all of its submenus.
+     *
+     * @param fileMenu the object that contains the file submenu.
+     * @author TheOnlyTails
+     */
     public void createFileMenu(Menu fileMenu) {
         createFileNewMenu(fileMenu);
         createFileGenerateMenu(fileMenu);
@@ -57,6 +71,12 @@ public final class TopMenu extends MenuBar {
         fileMenu.getItems().addAll(open, recent, new SeparatorMenuItem(), save, saveAs, export);
     }
 
+    /**
+     * Creates the new file submenu and all of its submenus.
+     *
+     * @param fileMenu the object that contains the new file submenu.
+     * @author TheOnlyTails
+     */
     public void createFileNewMenu(Menu fileMenu) {
         final var newMenu = new Menu(getLocalization("menu.file.new", ENGLISH));
         final var javaProject = makeMenuItem(getLocalization("menu.file.new.java_project", ENGLISH))
@@ -109,12 +129,18 @@ public final class TopMenu extends MenuBar {
                 .get();
 
         newMenu.getItems().addAll(javaProject, project, workingSet, new SeparatorMenuItem(),
-                source, packageItem, file, new SeparatorMenuItem(),
+                source, packageItem, file, folderItem, new SeparatorMenuItem(),
                 classItem, interfaceItem, enumItem, annotationItem);
 
         fileMenu.getItems().add(newMenu);
     }
 
+    /**
+     * Creates the generate file submenu and all of its submenus.
+     *
+     * @param fileMenu the object that contains the generate file submenu.
+     * @author TheOnlyTails
+     */
     public void createFileGenerateMenu(Menu fileMenu) {
         final var generateMenu = new Menu(getLocalization("menu.file.generate", ENGLISH));
         final var forgeMod = makeMenuItem(getLocalization("menu.file.generate.forge_mod", ENGLISH))
@@ -136,6 +162,12 @@ public final class TopMenu extends MenuBar {
         fileMenu.getItems().add(generateMenu);
     }
 
+    /**
+     * Creates the edit submenu and all of its submenus.
+     *
+     * @param editMenu the object that contains the edit submenu.
+     * @author TheOnlyTails
+     */
     public void createEditMenu(Menu editMenu) {
         final var undo = makeMenuItem(getLocalization("menu.edit.undo", ENGLISH))
                 .graphic(createImage("/assets/img/java_project.png")).get();
@@ -165,7 +197,12 @@ public final class TopMenu extends MenuBar {
                 selectAll, new SeparatorMenuItem(), findReplace);
     }
 
-    // TODO: Give a suitable location to open terminal
+    /**
+     * Creates the view submenu and all of its submenus.
+     *
+     * @param viewMenu the object that contains the view submenu.
+     * @author TheOnlyTails
+     */
     public void createViewMenu(Menu viewMenu) {
         final var terminal = makeMenuItem("Open Terminal")
                 .graphic(createImage("/assets/img/java_project.png"))
@@ -174,6 +211,12 @@ public final class TopMenu extends MenuBar {
         viewMenu.getItems().addAll(terminal);
     }
 
+    /**
+     * Creates the search submenu and all of its submenus.
+     *
+     * @param searchMenu the object that contains the search submenu.
+     * @author TheOnlyTails
+     */
     public void createSearchMenu(Menu searchMenu) {
         final var search = makeMenuItem(getLocalization("menu.search.search", ENGLISH))
                 .graphic(createImage("/assets/img/java_project.png")).get();

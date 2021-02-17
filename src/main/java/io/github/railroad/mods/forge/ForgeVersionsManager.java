@@ -11,20 +11,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * Manages the forge versions.
+ *
  * @author ChAoS
- * <p>
- * Class ForgeClass can be used as a list of forge version fetching result, you can only get it by using method {@code
- * downloadVersion()}.
- * <p>
- * TODO: Sorted version list still unavailable until {@code SemanticVersion.parse(String value)} is fully handled.
  */
-public class ForgeVersion {
+public class ForgeVersionsManager {
     public final List<String> versions;
     public final List<String> sortedVersion;
     public final List<String> unsortedMinecraftVersions;
     public final List<String> sortedMinecraftVersions;
 
-    private ForgeVersion(List<String> versions) {
+    private ForgeVersionsManager(List<String> versions) {
         this.versions = versions;
         unsortedMinecraftVersions = versions.stream()
                 .map(str -> {
@@ -44,7 +41,13 @@ public class ForgeVersion {
         sortedMinecraftVersions = unsortedMinecraftVersions;
     }
 
-    public static ForgeVersion downloadVersions() {
+    /**
+     * Gets a list of all forge versions from
+     * <a href=https://files.minecraftforge.net/maven/net/minecraftforge/forge/maven-metadata.xml>here</a>.
+     *
+     * @return a {@link ForgeVersionsManager} object with all of the versions retrieved.
+     */
+    public static ForgeVersionsManager downloadVersions() {
         try (var stream = new InputStreamReader(
                 new URL("https://files.minecraftforge.net/maven/net/minecraftforge/forge/maven-metadata.xml")
                         .openStream())) {
@@ -74,7 +77,7 @@ public class ForgeVersion {
                 result.add(version);
             }
 
-            return new ForgeVersion(result);
+            return new ForgeVersionsManager(result);
 
         } catch (IOException | XMLStreamException e) {
             e.printStackTrace();

@@ -7,24 +7,34 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import static io.github.railroad.Railroad.darkMode;
+import static io.github.railroad.lang.LangManager.ENGLISH;
+import static io.github.railroad.lang.LangManager.getLocalization;
 import static io.github.railroad.utility.Components.ButtonFactory.makeButton;
 import static io.github.railroad.utility.Components.StageFactory.makeStage;
 import static io.github.railroad.utility.Components.VBoxFactory.makeVBox;
 
 /**
+ * Creates the quit confirmation window.
+ *
  * @author TheOnlyTails
  */
 public interface ConfirmQuitWindow {
-    static void displayQuitWindow(Stage windowToClose, String title, String message) {
+    /**
+     * Creates the quit confirmation window.
+     *
+     * @param windowToClose the window to be closed if clicked "Yes".
+     * @author TheOnlyTails
+     */
+    static void displayQuitWindow(Stage windowToClose) {
         var window = makeStage()
                 .center()
                 .modality(Modality.APPLICATION_MODAL)
-                .title(title)
+                .title(getLocalization("dialog.quit", ENGLISH))
                 .minWidth(250)
                 .minHeight(100)
                 .resizable(false).get();
 
-        var label = new Label(message);
+        var label = new Label(getLocalization("dialog.quit.prompt", ENGLISH));
 
         var yesButton = makeButton("Yes").action(event -> {
             windowToClose.close();

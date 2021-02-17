@@ -1,5 +1,6 @@
 package io.github.railroad.utility;
 
+import io.github.railroad.utility.Templates.JavaTemplate;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
@@ -11,7 +12,15 @@ import java.io.IOException;
 
 import static io.github.railroad.utility.Components.StageFactory.makeStage;
 
+/**
+ * Creates file choosing/creating menus.
+ *
+ * @author TheOnlyTails
+ */
 public interface FileChoosers {
+    /**
+     * Creates a file creation menu with no extension filter.
+     */
     static void createNewGenericFile() {
         var fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File(""));
@@ -29,7 +38,15 @@ public interface FileChoosers {
         window.close();
     }
 
-    static void createNewJavaFile(Templates.JavaTemplate<String> type, String typeName) {
+    /**
+     * Creates a file creation menu with a Java file extension filter, and applies the template of the {@link
+     * JavaTemplate} to the created file.
+     *
+     * @param type     The type of Java object (Class, Interface, Enum, Annotation) created, including what template to
+     *                 apply to the created file.
+     * @param typeName the name of the Java object type created.
+     */
+    static void createNewJavaFile(JavaTemplate<String> type, String typeName) {
         var fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new ExtensionFilter("Java Files", "*.java"));
 
@@ -57,17 +74,4 @@ public interface FileChoosers {
             }
         }
     }
-
-    // private static String getPackageName(File root, File current) {
-    //     var src = root.getAbsolutePath();
-    //     var cur = current.getAbsolutePath();
-    //
-    //     var prefix = cur.indexOf(src);
-    //     var result = cur.substring(prefix + src.length()).replace("\\", "/");
-    //
-    //     result = result.replace("/", ".");
-    //     if (result.startsWith(".")) result = result.substring(1);
-    //
-    //     return result;
-    // }
 }
