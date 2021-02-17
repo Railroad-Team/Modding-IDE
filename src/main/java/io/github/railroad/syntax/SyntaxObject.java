@@ -13,14 +13,13 @@ public class SyntaxObject {
         this.extension = extension;
         this.regex = regex;
         this.path = path;
-        compile();
-    }
 
-    public void compile() {
         StringBuilder builder = new StringBuilder();
-        for (Map.Entry<String, String> e : this.regex.entrySet()) {
-            builder.append("|(?<").append(e.getValue()).append(">").append(e.getKey()).append(")");
-        }
+
+        this.regex.forEach((key, value) ->
+                builder.append("|(?<").append(value).append(">").append(key).append(")")
+        );
+
         this.compiled = Pattern.compile(builder.substring(1)); // Remove first "|"
     }
 }

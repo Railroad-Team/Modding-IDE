@@ -23,9 +23,12 @@ import java.util.regex.Matcher;
 import static io.github.railroad.syntax.SyntaxManager.getLanguageFromExtension;
 import static io.github.railroad.syntax.SyntaxManager.initSyntax;
 
+/**
+ *
+ */
 public class SyntaxHandler extends Application {
-	private CodeArea codeArea;
-	private ExecutorService executor;
+	private final CodeArea codeArea = new CodeArea();
+	private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
 	// Yes, static abuse. We will pass this in when implementing
 	private static Scene scene;
@@ -33,11 +36,14 @@ public class SyntaxHandler extends Application {
 	@SuppressWarnings("unused") // We won't need this when actually implementing
 	@Override
 	public void start(Stage primaryStage) {
-		executor = Executors.newSingleThreadExecutor();
-		codeArea = new CodeArea();
 		codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
-		Subscription cleanupWhenDone = codeArea.multiPlainChanges().successionEnds(Duration.ofMillis(500))
-				.supplyTask(this::computeHighlightingAsync).awaitLatest(codeArea.multiPlainChanges()).filterMap(t -> {
+
+		Subscription cleanupWhenDone = codeArea
+				.multiPlainChanges()
+				.successionEnds(Duration.ofMillis(500))
+				.supplyTask(this::computeHighlightingAsync)
+				.awaitLatest(codeArea.multiPlainChanges())
+				.filterMap(t -> {
 					if (t.isSuccess()) {
 						return Optional.of(t.get());
 					} else {
