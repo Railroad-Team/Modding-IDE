@@ -1,7 +1,10 @@
 package io.github.railroad.mods.forge;
 
+import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.events.StartElement;
+import javax.xml.stream.events.XMLEvent;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -51,26 +54,27 @@ public class ForgeVersionsManager {
         try (var stream = new InputStreamReader(
                 new URL("https://files.minecraftforge.net/maven/net/minecraftforge/forge/maven-metadata.xml")
                         .openStream())) {
+
             var result = new ArrayList<String>();
 
-            var xmlFactory = XMLInputFactory.newInstance();
-            var reader = xmlFactory.createXMLEventReader(stream);
+            XMLInputFactory xmlFactory = XMLInputFactory.newInstance();
+            XMLEventReader reader = xmlFactory.createXMLEventReader(stream);
 
             while (reader.hasNext()) {
                 var event = reader.nextEvent();
 
                 if (!event.isStartElement()) continue;
 
-                var start = event.asStartElement();
-                var name = start.getName().getLocalPart();
+                StartElement start = event.asStartElement();
+                String name = start.getName().getLocalPart();
 
                 if (!name.equals("version")) continue;
 
-                var versionEvent = reader.nextEvent();
+                XMLEvent versionEvent = reader.nextEvent();
 
                 if (!versionEvent.isCharacters()) continue;
 
-                var version = versionEvent.asCharacters().getData();
+                String version = versionEvent.asCharacters().getData();
 
                 if (version.indexOf('-') == -1) continue;
 

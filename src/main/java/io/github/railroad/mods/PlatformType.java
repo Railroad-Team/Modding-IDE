@@ -1,13 +1,15 @@
 package io.github.railroad.mods;
 
+import java.util.function.Supplier;
+
 /**
  * Modding platform types.
  * <p>
- * TODO: replace this with an interface.
+ * If we need more stuff here in the future, we can support it. for now, we're just returning the name.
  *
- * @author ChAoS
+ * @author ChAoS, TheOnlyTails
  */
-public enum PlatformType {
-    FORGE,
-    FABRIC
+public interface PlatformType extends Supplier<String> {
+    PlatformType FORGE = () -> "forge";
+    PlatformType FABRIC = () -> "forge";
 }

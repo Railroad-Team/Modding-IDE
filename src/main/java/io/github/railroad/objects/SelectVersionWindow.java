@@ -46,10 +46,10 @@ public class SelectVersionWindow {
         try {
             ObservableList<String> versionList = FXCollections.emptyObservableList();
 
-            switch (type) {
-                case FORGE -> versionList = FXCollections.observableList(Objects.requireNonNull(ForgeVersionsManager.downloadVersions()).versions);
-                case FABRIC -> {
-                }
+            if (type == PlatformType.FORGE) {
+                versionList = FXCollections.observableList(Objects.requireNonNull(ForgeVersionsManager.downloadVersions()).versions);
+            } else if (type == PlatformType.FABRIC) {
+                // TODO: add something here
             }
 
             ListView<String> listView = new ListView<>(versionList);
@@ -59,7 +59,7 @@ public class SelectVersionWindow {
             Button cancelButton = makeButton("Cancel").action(event -> window.close()).get();
 
             Button confirmButton = makeButton("Confirm").action(event -> {
-                        // TODO: Pass the selected version to a set of workspace setup configurations.
+                // TODO: Pass the selected version to a set of workspace setup configurations.
                         window.close();
                     }
             ).get();
