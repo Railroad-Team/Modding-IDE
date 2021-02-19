@@ -11,7 +11,6 @@ import static io.github.railroad.utility.Components.createImage;
 import static io.github.railroad.utility.FileChoosers.createNewGenericFile;
 import static io.github.railroad.utility.FileChoosers.createNewJavaFile;
 import static io.github.railroad.utility.Templates.JavaTemplate.*;
-import static io.github.railroad.utility.Terminal.openTerminal;
 
 /**
  * Creates all of the items of the top menu.
@@ -204,11 +203,7 @@ public final class TopMenu extends MenuBar {
      * @author TheOnlyTails
      */
     public void createViewMenu(Menu viewMenu) {
-        final var terminal = makeMenuItem("Open Terminal")
-                .graphic(createImage("/assets/img/java_project.png"))
-                .action(event -> openTerminal()).get();
 
-        viewMenu.getItems().addAll(terminal);
     }
 
     /**
