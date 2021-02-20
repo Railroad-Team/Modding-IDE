@@ -3,6 +3,7 @@ package io.github.railroad.menu;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.image.ImageView;
 
 import static io.github.railroad.lang.LangManager.ENGLISH;
 import static io.github.railroad.lang.LangManager.getLocalization;
@@ -18,6 +19,18 @@ import static io.github.railroad.utility.Templates.JavaTemplate.*;
  * @author TheOnlyTails
  */
 public final class TopMenu extends MenuBar {
+    private final ImageView javaProjectIcon = createImage("/assets/img/java_project.png");
+    private final ImageView projectIcon = createImage("/assets/img/project.png");
+    private final ImageView annotationIcon = createImage("/assets/img/annotation.png");
+    private final ImageView enumIcon = createImage("/assets/img/enum.png");
+    private final ImageView interfaceIcon = createImage("/assets/img/interface.png");
+    private final ImageView workingSetIcon = createImage("/assets/img/working_set.png");
+    private final ImageView packageIcon = createImage("/assets/img/package.png");
+    private final ImageView sourceFolderIcon = createImage("/assets/img/source_folder.png");
+    private final ImageView fileIcon = createImage("/assets/img/file.png");
+    private final ImageView folderIcon = createImage("/assets/img/folder.png");
+    private final ImageView classIcon = createImage("/assets/img/class.png");
+
     /**
      * Creates the top menu and adds all of the submenus.
      *
@@ -38,7 +51,8 @@ public final class TopMenu extends MenuBar {
         createViewMenu(viewMenu);
 
         final var helpMenu = new Menu(getLocalization("menu.help", ENGLISH));
-        getMenus().addAll(fileMenu, editMenu, searchMenu, runMenu, viewMenu, helpMenu);
+
+        this.getMenus().addAll(fileMenu, editMenu, searchMenu, runMenu, viewMenu, helpMenu);
     }
 
     /**
@@ -53,19 +67,19 @@ public final class TopMenu extends MenuBar {
         fileMenu.getItems().add(new SeparatorMenuItem());
 
         final var open = makeMenuItem(getLocalization("menu.file.open", ENGLISH))
-                .graphic(createImage("/assets/img/java_project.png")).get();
+                .graphic(javaProjectIcon).get();
 
         final var recent = makeMenuItem(getLocalization("menu.file.open_recent", ENGLISH))
-                .graphic(createImage("/assets/img/java_project.png")).get();
+                .graphic(javaProjectIcon).get();
 
         final var save = makeMenuItem(getLocalization("menu.file.save", ENGLISH))
-                .graphic(createImage("/assets/img/java_project.png")).get();
+                .graphic(javaProjectIcon).get();
 
         final var saveAs = makeMenuItem(getLocalization("menu.file.save_as", ENGLISH))
-                .graphic(createImage("/assets/img/java_project.png")).get();
+                .graphic(javaProjectIcon).get();
 
         final var export = makeMenuItem(getLocalization("menu.file.export", ENGLISH))
-                .graphic(createImage("/assets/img/java_project.png")).get();
+                .graphic(javaProjectIcon).get();
 
         fileMenu.getItems().addAll(open, recent, new SeparatorMenuItem(), save, saveAs, export);
     }
@@ -79,51 +93,51 @@ public final class TopMenu extends MenuBar {
     public void createFileNewMenu(Menu fileMenu) {
         final var newMenu = new Menu(getLocalization("menu.file.new", ENGLISH));
         final var javaProject = makeMenuItem(getLocalization("menu.file.new.java_project", ENGLISH))
-                .graphic(createImage("/assets/img/java_project.png"))
+                .graphic(javaProjectIcon)
                 .get();
 
         final var project = makeMenuItem(getLocalization("menu.file.new.project", ENGLISH))
-                .graphic(createImage("/assets/img/project.png"))
+                .graphic(projectIcon)
                 .get();
 
         final var workingSet = makeMenuItem(getLocalization("menu.file.new.java_working_set", ENGLISH))
-                .graphic(createImage("/assets/img/working_set.png"))
+                .graphic(workingSetIcon)
                 .get();
 
         final var packageItem = makeMenuItem(getLocalization("menu.file.new.package", ENGLISH))
-                .graphic(createImage("/assets/img/package.png"))
+                .graphic(packageIcon)
                 .get();
 
         final var source = makeMenuItem(getLocalization("menu.file.new.source_folder", ENGLISH))
-                .graphic(createImage("/assets/img/source_folder.png"))
+                .graphic(sourceFolderIcon)
                 .get();
 
         final var file = makeMenuItem(getLocalization("menu.file.new.file", ENGLISH))
-                .graphic(createImage("/assets/img/file.png"))
+                .graphic(fileIcon)
                 .action(event -> createNewGenericFile())
                 .get();
 
         final var folderItem = makeMenuItem(getLocalization("menu.file.new.folder", ENGLISH))
-                .graphic(createImage("/assets/img/folder.png"))
+                .graphic(folderIcon)
                 .get();
 
         final var classItem = makeMenuItem(getLocalization("menu.file.new.class", ENGLISH))
-                .graphic(createImage("/assets/img/class.png"))
+                .graphic(classIcon)
                 .action(event -> createNewJavaFile(CLASS, CLASS_NAME))
                 .get();
 
         final var interfaceItem = makeMenuItem(getLocalization("menu.file.new.interface", ENGLISH))
-                .graphic(createImage("/assets/img/interface.png"))
+                .graphic(interfaceIcon)
                 .action(event -> createNewJavaFile(INTERFACE, INTERFACE_NAME))
                 .get();
 
         final var enumItem = makeMenuItem(getLocalization("menu.file.new.enum", ENGLISH))
-                .graphic(createImage("/assets/img/enum.png"))
+                .graphic(enumIcon)
                 .action(event -> createNewJavaFile(ENUM, ENUM_NAME))
                 .get();
 
         final var annotationItem = makeMenuItem(getLocalization("menu.file.new.annotation", ENGLISH))
-                .graphic(createImage("/assets/img/annotation.png"))
+                .graphic(annotationIcon)
                 .action(event -> createNewJavaFile(ANNOTATION, ANNOTATION_NAME))
                 .get();
 
@@ -143,19 +157,19 @@ public final class TopMenu extends MenuBar {
     public void createFileGenerateMenu(Menu fileMenu) {
         final var generateMenu = new Menu(getLocalization("menu.file.generate", ENGLISH));
         final var forgeMod = makeMenuItem(getLocalization("menu.file.generate.forge_mod", ENGLISH))
-                .graphic(createImage("/assets/img/java_project.png")).get();
+                .graphic(javaProjectIcon).get();
 
         final var fabricMod = makeMenuItem(getLocalization("menu.file.generate.fabric_mod", ENGLISH))
-                .graphic(createImage("/assets/img/java_project.png")).get();
+                .graphic(javaProjectIcon).get();
 
         final var itemModel = makeMenuItem(getLocalization("menu.file.generate.item_model", ENGLISH))
-                .graphic(createImage("/assets/img/java_project.png")).get();
+                .graphic(javaProjectIcon).get();
 
         final var blockModel = makeMenuItem(getLocalization("menu.file.generate.block_model", ENGLISH))
-                .graphic(createImage("/assets/img/java_project.png")).get();
+                .graphic(javaProjectIcon).get();
 
         final var blockState = makeMenuItem(getLocalization("menu.file.generate.block_state", ENGLISH))
-                .graphic(createImage("/assets/img/java_project.png")).get();
+                .graphic(javaProjectIcon).get();
 
         generateMenu.getItems().addAll(forgeMod, fabricMod, new SeparatorMenuItem(), itemModel, blockModel, blockState);
         fileMenu.getItems().add(generateMenu);
@@ -169,28 +183,28 @@ public final class TopMenu extends MenuBar {
      */
     public void createEditMenu(Menu editMenu) {
         final var undo = makeMenuItem(getLocalization("menu.edit.undo", ENGLISH))
-                .graphic(createImage("/assets/img/java_project.png")).get();
+                .graphic(javaProjectIcon).get();
 
         final var redo = makeMenuItem(getLocalization("menu.edit.redo", ENGLISH))
-                .graphic(createImage("/assets/img/java_project.png")).get();
+                .graphic(javaProjectIcon).get();
 
         final var cut = makeMenuItem(getLocalization("menu.edit.cut", ENGLISH))
-                .graphic(createImage("/assets/img/java_project.png")).get();
+                .graphic(javaProjectIcon).get();
 
         final var copy = makeMenuItem(getLocalization("menu.edit.copy", ENGLISH))
-                .graphic(createImage("/assets/img/java_project.png")).get();
+                .graphic(javaProjectIcon).get();
 
         final var paste = makeMenuItem(getLocalization("menu.edit.paste", ENGLISH))
-                .graphic(createImage("/assets/img/java_project.png")).get();
+                .graphic(javaProjectIcon).get();
 
         final var delete = makeMenuItem(getLocalization("menu.edit.delete", ENGLISH))
-                .graphic(createImage("/assets/img/java_project.png")).get();
+                .graphic(javaProjectIcon).get();
 
         final var selectAll = makeMenuItem(getLocalization("menu.edit.select_all", ENGLISH))
-                .graphic(createImage("/assets/img/java_project.png")).get();
+                .graphic(javaProjectIcon).get();
 
         final var findReplace = makeMenuItem(getLocalization("menu.edit.find_replace", ENGLISH))
-                .graphic(createImage("/assets/img/java_project.png")).get();
+                .graphic(javaProjectIcon).get();
 
         editMenu.getItems().addAll(undo, redo, new SeparatorMenuItem(), cut, copy, paste, new SeparatorMenuItem(), delete,
                 selectAll, new SeparatorMenuItem(), findReplace);
@@ -203,7 +217,7 @@ public final class TopMenu extends MenuBar {
      * @author TheOnlyTails
      */
     public void createViewMenu(Menu viewMenu) {
-
+        // TODO: create the view menu items.
     }
 
     /**
@@ -214,18 +228,18 @@ public final class TopMenu extends MenuBar {
      */
     public void createSearchMenu(Menu searchMenu) {
         final var search = makeMenuItem(getLocalization("menu.search.search", ENGLISH))
-                .graphic(createImage("/assets/img/java_project.png")).get();
+                .graphic(javaProjectIcon).get();
 
         final var textMenu = new Menu(getLocalization("menu.search.text", ENGLISH));
 
         final var workspace = makeMenuItem(getLocalization("menu.search.text.workspace", ENGLISH))
-                .graphic(createImage("/assets/img/java_project.png")).get();
+                .graphic(javaProjectIcon).get();
 
         final var project = makeMenuItem(getLocalization("menu.search.text.project", ENGLISH))
-                .graphic(createImage("/assets/img/java_project.png")).get();
+                .graphic(javaProjectIcon).get();
 
         final var file = makeMenuItem(getLocalization("menu.search.text.file", ENGLISH))
-                .graphic(createImage("/assets/img/java_project.png")).get();
+                .graphic(javaProjectIcon).get();
 
         searchMenu.getItems().addAll(search, new SeparatorMenuItem(), textMenu);
         textMenu.getItems().addAll(workspace, project, file);
