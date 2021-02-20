@@ -23,6 +23,8 @@ import java.util.Collection;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+import static java.lang.String.format;
+
 /**
  * All kinds of builders for JavaFX components.
  *
@@ -30,7 +32,7 @@ import java.util.function.Supplier;
  */
 public interface Components {
     static ImageView createImage(String path) {
-        return new ImageView(new Image(path, 20, 20, true, true, true));
+        return new ImageView(new Image(format("/assets/img/%s.png", path), 20, 20, true, true, true));
     }
 
     /**
