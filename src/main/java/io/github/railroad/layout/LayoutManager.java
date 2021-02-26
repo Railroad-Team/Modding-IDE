@@ -7,35 +7,38 @@ import io.github.railroad.objects.RailroadSplitPane;
 import io.github.railroad.objects.RailroadTabLabel;
 import io.github.railroad.objects.RailroadTabPane;
 import io.github.railroad.objects.RailroadTextEditor;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
-public class LayoutManager {
+//REMOVE BEFORE YOU ADD LMAO
+public class LayoutManager { // AKA THE PAIN TRAIN
 
 	private final Pane primaryNode;
 	private LanguageConfig langConfig;
 	private static final File TEST_LAYOUT = new File("/assets/test_layout/test.layout");
-	private ObjectProperty<Tab> draggingTab;
 
 	public LayoutManager(LanguageConfig langConfig, Pane primaryNode) {
 		this.langConfig = langConfig;
 		this.primaryNode = primaryNode;
-		this.draggingTab = new SimpleObjectProperty<>();
 
 		Tab testTab = new Tab();
-		final RailroadTabLabel testLabel = new RailroadTabLabel(testTab, "test");
+		Tab testTab2 = new Tab();
+		Tab testTab3 = new Tab();
+		final RailroadTabLabel testLabel = new RailroadTabLabel(testTab, "debug");
+		final RailroadTabLabel testLabel2 = new RailroadTabLabel(testTab2, "explorer");
+		final RailroadTabLabel testLabel3 = new RailroadTabLabel(testTab3, "editor");
 		testTab.setGraphic(testLabel);
+		testTab2.setGraphic(testLabel2);
+		testTab3.setGraphic(testLabel3);
 		testTab.setContent(new RailroadTextEditor());
-		RailroadTabPane firstTabPane = new RailroadTabPane(this.primaryNode, testTab);
+		RailroadTabPane firstTabPane = new RailroadTabPane(this.primaryNode, testTab, testTab2, testTab3);
 		addToPane(this.primaryNode, firstTabPane);
-		addTabbedPane(firstTabPane, new RailroadTabPane(this.primaryNode));
 	}
 
 	/**
@@ -46,37 +49,83 @@ public class LayoutManager {
 	 * @return The new tab pane.
 	 *
 	 */
-	public static void addTabbedPane(RailroadTabPane selectedPane, RailroadTabPane sourcePane) {
-		// get parent of selectedpane
-		// add SplitPane to parent
-		// add selectedPane to parent
-		// add new tabbed Pane to parent
-		RailroadSplitPane newSplit = new RailroadSplitPane();
-		newSplit.getItems().addAll(selectedPane, sourcePane);
-		Region parent = (Region) selectedPane.getRealParent();
-		addToPane(parent, newSplit);
-		removeFromPane(parent, selectedPane);
+	public static RailroadTabPane splitTabPane(RailroadTabPane destinationPane, Tab sourceTab, Orientation orientation) {
+		// masterParent
+		Node parent = destinationPane.getRealParent();
+
+		// new child replacing the destination (imposter child)
+		RailroadSplitPane newSplitChild = new RailroadSplitPane();
+		newSplitChild.setOrientation(orientation);
+
+		TabPane sourceTabPane = sourceTab.getTabPane();
+
+		// sourceTab newborn abducted from the sourceTabPane
+		sourceTabPane.getTabs().remove(sourceTab);
+
+		// destinationPane(original child) becomes child of the new split child
+		destinationPane.setRealParent(newSplitChild);
+
+		// puppet parent becomes the bag that the imposter uses to abduct the source tab
+		RailroadTabPane newTabPane = new RailroadTabPane(newSplitChild, sourceTab);
+
+		// destinationPane is removed from the master parent
+		removeFromPane(parent, destinationPane);
+
+		// destinationPane and the bag(newTabPane) become children of the imposter
+		newSplitChild.getItems().addAll(destinationPane, newTabPane);
+
+		// imposter becomes child of master parent
+		addToPane(parent, newSplitChild);
+		newSplitChild.setRealParent(parent);
+
+		if (sourceTabPane instanceof RailroadTabPane) {
+			removeTabPane((RailroadTabPane) sourceTabPane);
+		}
+
+		return newTabPane;
 	}
 
-	public static void addToPane(Region pane, Node node) {
-		if (pane instanceof VBox) {
-			((VBox) pane).getChildren().add(node);
-		} else if (pane instanceof RailroadSplitPane) {
-			((RailroadSplitPane) pane).getItems().add(node);
+	public static void removeTabPane(RailroadTabPane sourceTabPane) {
+		// when moving 1 tab in smaller split into other side of smaller split,
+		// everything dies(fatal heart attack)
+		if (sourceTabPane.getTabs().isEmpty()) {
+			Node parent = sourceTabPane.getRealParent();
+			if (parent instanceof RailroadSplitPane) {
+				// splitParent == imposter
+				RailroadSplitPane splitParent = ((RailroadSplitPane) parent);
+				for (Node child : splitParent.getItems()) {
+					if (child != sourceTabPane) {
+						splitParent.getItems().clear();
+						Node masterParent = splitParent.getRealParent();
+						removeFromPane(masterParent, splitParent);
+						addToPane(masterParent, child);
+						if (child instanceof RailroadTabPane) {
+							((RailroadTabPane) child).setRealParent(masterParent);
+						}
+					}
+				}
+			}
 		}
 	}
 
-	public static void removeFromPane(Region pane, Node node) {
-		if (pane instanceof VBox) {
-			((VBox) pane).getChildren().remove(node);
-		} else if (pane instanceof RailroadSplitPane) {
-			((RailroadSplitPane) pane).getItems().remove(node);
+	public static void addToPane(Node parent, Node node) {
+		if (parent instanceof VBox) {
+			((VBox) parent).getChildren().add(node);
+		} else if (parent instanceof RailroadSplitPane) {
+			((RailroadSplitPane) parent).getItems().add(node);
+		} else {
+			System.out.println("Somehow not VBox or RailroadSplitPane when adding!");
 		}
 	}
 
-	public boolean removeTabbedPane(Pane pane) {
-		// This will be the opposite of addTabbedPane basically
-		return true;
+	public static void removeFromPane(Node parent, Node node) {
+		if (parent instanceof VBox) {
+			((VBox) parent).getChildren().remove(node);
+		} else if (parent instanceof RailroadSplitPane) {
+			((RailroadSplitPane) parent).getItems().remove(node);
+		} else {
+			System.out.println("Somehow not VBox or RailroadSplitPane when removing!");
+		}
 	}
 
 	/**

@@ -19,19 +19,18 @@ public class RailroadTabLabel extends Label {
 			db.setContent(clipboardContent);
 			event.consume();
 		});
-
-		this.setOnDragDropped(event -> {
-			final Dragboard db = event.getDragboard();
-			if (db.hasString() && db.getString().equals("railroad.tab")
-					&& event.getGestureSource() instanceof RailroadTabLabel) {
-				System.out.println("same tab");
-				final Tab sourceTab = ((RailroadTabLabel) event.getGestureSource()).getTab();
-				sourceTab.getTabPane().getTabs().remove(sourceTab);
-				this.getTab().getTabPane().getTabs().add(sourceTab);
-				event.setDropCompleted(true);
-				event.consume();
-			}
-		});
+//
+//		this.setOnDragDropped(event -> {
+//			final Dragboard db = event.getDragboard();
+//			if (db.hasString() && db.getString().equals("railroad.tab")
+//					&& event.getGestureSource() instanceof RailroadTabLabel) {
+//				final Tab sourceTab = ((RailroadTabLabel) event.getGestureSource()).getTab();
+//				sourceTab.getTabPane().getTabs().remove(sourceTab);
+//				this.getTab().getTabPane().getTabs().add(sourceTab);
+//				event.setDropCompleted(true);
+//				event.consume();
+//			}
+//		});
 	}
 
 	public Tab getTab() {

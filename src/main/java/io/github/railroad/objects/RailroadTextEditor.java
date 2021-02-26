@@ -12,6 +12,6 @@ public class RailroadTextEditor extends TextArea implements Saveable {
 
 	@Override
 	public void loadData() {
-
+		Saveable.super.loadData();
 	}
 }
