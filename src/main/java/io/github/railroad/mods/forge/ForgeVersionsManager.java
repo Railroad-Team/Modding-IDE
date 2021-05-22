@@ -1,10 +1,5 @@
 package io.github.railroad.mods.forge;
 
-import javax.xml.stream.XMLEventReader;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.events.StartElement;
-import javax.xml.stream.events.XMLEvent;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -12,6 +7,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.xml.XMLConstants;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.events.XMLEvent;
 
 /**
  * Manages the forge versions.
@@ -57,15 +57,17 @@ public class ForgeVersionsManager {
 
             var result = new ArrayList<String>();
 
-            XMLInputFactory xmlFactory = XMLInputFactory.newInstance();
-            XMLEventReader reader = xmlFactory.createXMLEventReader(stream);
+            var xmlFactory = XMLInputFactory.newInstance();
+            xmlFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            xmlFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+            var reader = xmlFactory.createXMLEventReader(stream);
 
             while (reader.hasNext()) {
                 var event = reader.nextEvent();
 
                 if (!event.isStartElement()) continue;
 
-                StartElement start = event.asStartElement();
+                var start = event.asStartElement();
                 String name = start.getName().getLocalPart();
 
                 if (!name.equals("version")) continue;

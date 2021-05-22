@@ -17,10 +17,12 @@ import static io.github.railroad.mods.version.VersionUtils.getStringFromUrl;
  * @author Cy4Shot, TheOnlyTails
  */
 public interface ForgeVersionHelper {
+	
     /**
      * The URL for a list of all forge versions.
      */
     String FORGE_VERSIONS = "https://files.minecraftforge.net/maven/net/minecraftforge/forge/maven-metadata.xml";
+    
     /**
      * The URL for a list of all significant (recommended or latest) forge versions for each MC version.
      */

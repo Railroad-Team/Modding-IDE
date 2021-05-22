@@ -1,9 +1,9 @@
 package io.github.railroad.utility;
 
-import java.util.function.BiFunction;
-import java.util.function.Function;
-
 import static java.lang.String.format;
+
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
 
 /**
  * @author Temedy
@@ -22,8 +22,8 @@ public interface Templates {
         /**
          * A function that takes the type of Java object and the name of the file, and returns a finished template.
          */
-        BiFunction<String, String, String> GENERATE = (type, label) ->
-                format("%s %s %s {\n\t\n}", "public", type, label);
+        BinaryOperator<String> GENERATE = (type, label) ->
+                format("%s %s %s {%n\t%n}", "public", type, label);
 
         /**
          * the {@code class} keyword
@@ -78,6 +78,6 @@ public interface Templates {
         /**
          * The template for an empty JSON file.
          */
-        JsonTemplate<Object> EMPTY = $ -> "{\n\t\n}";
+        JsonTemplate<Object> EMPTY = label -> "{\n\t\n}";
     }
 }

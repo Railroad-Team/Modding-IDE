@@ -11,5 +11,5 @@ import java.util.function.Supplier;
  */
 public interface PlatformType extends Supplier<String> {
     PlatformType FORGE = () -> "forge";
-    PlatformType FABRIC = () -> "forge";
+    PlatformType FABRIC = () -> "fabric";
 }

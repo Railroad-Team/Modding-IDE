@@ -23,7 +23,7 @@ public class Railroad extends Application {
     /**
      * whether the program is in dark mode or not.
      */
-    public static boolean darkMode = true;
+    public static final boolean DARK_MODE = true;
     /**
      * The main scene of the project.
      */
@@ -31,10 +31,10 @@ public class Railroad extends Application {
 
     @Override
     public void start(Stage stage) {
-        final TopMenu menu = new TopMenu();
+        final var menu = new TopMenu();
         menu.createMenu();
         createComponents(menu, stage);
-        final Image[] icons = new Image[2];
+        final var icons = new Image[2];
 
         final InputStream logo16 = Railroad.class.getResourceAsStream("/assets/img/logo16.png");
         final InputStream logo32 = Railroad.class.getResourceAsStream("/assets/img/logo32.png");
@@ -58,7 +58,7 @@ public class Railroad extends Application {
                 .maximized()
                 .show().get();
 
-        if (darkMode) mainScene.getStylesheets().add("assets/styles/mode/darkmode.css");
+        if (DARK_MODE) mainScene.getStylesheets().add("assets/styles/mode/darkmode.css");
         else mainScene.getStylesheets().add("assets/styles/mode/lightmode.css");
 
         window.setOnCloseRequest(event -> {
@@ -73,7 +73,7 @@ public class Railroad extends Application {
      * Creates the GUI components of the application.
      */
     public void createComponents(Node topMenu, Stage window) {
-        final BorderPane borderPane = new BorderPane();
+        final var borderPane = new BorderPane();
         borderPane.setTop(topMenu);
         mainScene = new Scene(borderPane);
     }

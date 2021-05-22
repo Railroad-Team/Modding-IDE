@@ -1,17 +1,17 @@
 package io.github.railroad.objects;
 
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-
-import static io.github.railroad.Railroad.darkMode;
+import static io.github.railroad.Railroad.DARK_MODE;
 import static io.github.railroad.lang.LangManager.ENGLISH;
 import static io.github.railroad.lang.LangManager.getLocalization;
 import static io.github.railroad.utility.Components.ButtonFactory.makeButton;
 import static io.github.railroad.utility.Components.StageFactory.makeStage;
 import static io.github.railroad.utility.Components.VBoxFactory.makeVBox;
+
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  * Creates the quit confirmation window.
@@ -49,7 +49,7 @@ public interface ConfirmQuitWindow {
 
         var scene = new Scene(layout);
 
-        if (darkMode) scene.getStylesheets().add("assets/styles/mode/darkmode.css");
+        if (DARK_MODE) scene.getStylesheets().add("assets/styles/mode/darkmode.css");
         else scene.getStylesheets().add("assets/styles/mode/lightmode.css");
 
         window.setScene(scene);

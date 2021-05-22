@@ -1,16 +1,7 @@
 package io.github.railroad.syntax;
 
-import javafx.application.Application;
-import javafx.concurrent.Task;
-import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-import org.fxmisc.flowless.VirtualizedScrollPane;
-import org.fxmisc.richtext.CodeArea;
-import org.fxmisc.richtext.LineNumberFactory;
-import org.fxmisc.richtext.model.StyleSpans;
-import org.fxmisc.richtext.model.StyleSpansBuilder;
-import org.reactfx.Subscription;
+import static io.github.railroad.syntax.SyntaxManager.getLanguageFromExtension;
+import static io.github.railroad.syntax.SyntaxManager.initSyntax;
 
 import java.time.Duration;
 import java.util.Collection;
@@ -18,10 +9,19 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.regex.Matcher;
 
-import static io.github.railroad.syntax.SyntaxManager.getLanguageFromExtension;
-import static io.github.railroad.syntax.SyntaxManager.initSyntax;
+import org.fxmisc.flowless.VirtualizedScrollPane;
+import org.fxmisc.richtext.CodeArea;
+import org.fxmisc.richtext.LineNumberFactory;
+import org.fxmisc.richtext.model.StyleSpans;
+import org.fxmisc.richtext.model.StyleSpansBuilder;
+import org.reactfx.Subscription;
+
+import javafx.application.Application;
+import javafx.concurrent.Task;
+import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 /**
  *
@@ -33,7 +33,7 @@ public class SyntaxHandler extends Application {
 	// Yes, static abuse. We will pass this in when implementing
 	private static Scene scene;
 
-	@SuppressWarnings("unused") // We won't need this when actually implementing
+	@SuppressWarnings({ "unused", "static-access" }) // We won't need this when actually implementing
 	@Override
 	public void start(Stage primaryStage) {
 		codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
@@ -56,8 +56,8 @@ public class SyntaxHandler extends Application {
 
 		codeArea.replaceText(0, 0, "");
 
-		Scene sceneObj = new Scene(new StackPane(new VirtualizedScrollPane<>(codeArea)), 600, 400);
-		scene = sceneObj;
+		var sceneObj = new Scene(new StackPane(new VirtualizedScrollPane<>(codeArea)), 600, 400);
+		this.scene = sceneObj;
 		primaryStage.setScene(sceneObj);
 		primaryStage.setTitle("Java Keywords Demo");
 		primaryStage.show();
@@ -68,15 +68,13 @@ public class SyntaxHandler extends Application {
 		executor.shutdown();
 	}
 
-	// This throws some kinda exception but it clearly doesnt affect anything
-	// TODO surround with a try catch or something, idk (or fix it)
 	private static StyleSpans<Collection<String>> computeHighlighting(String text) {
 		SyntaxObject syntax = getLanguageFromExtension("java", initSyntax());
-		Matcher matcher = syntax.compiled.matcher(text);
+		var matcher = syntax.compiled.matcher(text);
 
 		scene.getStylesheets().add("/assets/" + syntax.path + ".css"); // This CAN throw ConcurrentModificationException. Should probably do this when initialising.
 
-		int lastKwEnd = 0;
+		var lastKwEnd = 0;
 		StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
 		while (matcher.find()) {
 			String styleClass = syntax.expressions.values().stream()

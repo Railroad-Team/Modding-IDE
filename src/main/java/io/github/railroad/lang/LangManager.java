@@ -42,7 +42,7 @@ public interface LangManager {
              */
             return bundle.getString(key);
         } catch (MissingResourceException e) {
-            System.err.printf("Localization key %s was not found.\n", key);
+            System.err.printf("Localization key %s was not found.%n", key);
             return key;
         }
     }

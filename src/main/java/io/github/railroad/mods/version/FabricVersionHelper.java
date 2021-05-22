@@ -1,12 +1,8 @@
 package io.github.railroad.mods.version;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.xml.sax.SAXException;
+import static io.github.railroad.mods.version.VersionUtils.getStringFromUrl;
+import static javax.xml.xpath.XPathFactory.newInstance;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -15,8 +11,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static io.github.railroad.mods.version.VersionUtils.getStringFromUrl;
-import static javax.xml.xpath.XPathFactory.newInstance;
+import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.xml.sax.SAXException;
 
 /**
  * Utility methods to retrieve versions for fabric modding.
@@ -28,10 +30,12 @@ public interface FabricVersionHelper {
      * The URL for a list of all fabric-supported MC versions.
      */
     String MC_VERSIONS_URL = "https://meta.fabricmc.net/v1/versions/game";
+    
     /**
      * The URL for a list of all fabric-loader and yarn mappings versions.
      */
     String FABRIC_LOADER_URL = "https://meta.fabricmc.net/v1/versions/loader/";
+    
     /**
      * The URL for a list of all fabric API versions.
      */
@@ -83,9 +87,10 @@ public interface FabricVersionHelper {
      */
     static String getFabricAPIVersions() {
         try {
-            var doc = DocumentBuilderFactory.newInstance()
-                    .newDocumentBuilder()
-                    .parse(FABRIC_API_URL);
+            var docFactory = DocumentBuilderFactory.newInstance();
+            docFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, ""); 
+            docFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+            var doc = docFactory.newDocumentBuilder().parse(FABRIC_API_URL);
 
             return newInstance()
                     .newXPath()

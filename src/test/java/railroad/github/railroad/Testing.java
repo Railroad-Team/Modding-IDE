@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class Testing {
+class Testing {
     @Test
     void getAllForgeVersions() {
         System.out.println(ForgeVersionHelper.getAllForgeVersions());
