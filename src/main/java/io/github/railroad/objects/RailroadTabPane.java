@@ -6,7 +6,6 @@ import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 
 public class RailroadTabPane extends TabPane implements Saveable {
@@ -18,7 +17,7 @@ public class RailroadTabPane extends TabPane implements Saveable {
 		this.realParent = parent;
 
 		this.setOnDragOver(event -> {
-			final Dragboard db = event.getDragboard();
+			final var db = event.getDragboard();
 			if (db.hasString() && db.getString().equals("railroad.tab")
 					&& event.getGestureSource() instanceof RailroadTabLabel) {
 				event.acceptTransferModes(TransferMode.MOVE);
@@ -27,11 +26,11 @@ public class RailroadTabPane extends TabPane implements Saveable {
 		});
 
 		this.setOnDragDropped(event -> {
-			final Dragboard db = event.getDragboard();
+			final var db = event.getDragboard();
 			if (db.hasString() && db.getString().equals("railroad.tab")
 					&& event.getGestureSource() instanceof RailroadTabLabel) {
 //              if the dropped tabPane is a TabPane
-				final Tab sourceTab = ((RailroadTabLabel) event.getGestureSource()).getTab();
+				final Tab sourceTab = ((RailroadTabLabel) event.getGestureSource()).parent;
 				if (sourceTab.getTabPane() != this
 						|| (sourceTab.getTabPane() == this && sourceTab.getTabPane().getTabs().size() > 1)) {
 					LayoutManager.splitTabPane(this, sourceTab, Orientation.HORIZONTAL);

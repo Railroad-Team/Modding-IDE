@@ -7,18 +7,19 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 
 public class RailroadTabLabel extends Label {
-	private Tab parent;
-
+	public Tab parent;
+	
 	public RailroadTabLabel(Tab parent, String text) {
 		super(text);
 		this.parent = parent;
 		this.setOnDragDetected(event -> {
 			final Dragboard db = this.startDragAndDrop(TransferMode.MOVE);
-			ClipboardContent clipboardContent = new ClipboardContent();
+			var clipboardContent = new ClipboardContent();
 			clipboardContent.putString("railroad.tab");
 			db.setContent(clipboardContent);
 			event.consume();
 		});
+		
 //
 //		this.setOnDragDropped(event -> {
 //			final Dragboard db = event.getDragboard();
@@ -31,9 +32,5 @@ public class RailroadTabLabel extends Label {
 //				event.consume();
 //			}
 //		});
-	}
-
-	public Tab getTab() {
-		return this.parent;
 	}
 }

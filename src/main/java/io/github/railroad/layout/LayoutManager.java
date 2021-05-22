@@ -10,7 +10,6 @@ import io.github.railroad.objects.RailroadTextEditor;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -27,17 +26,17 @@ public class LayoutManager { // AKA THE PAIN TRAIN
 		this.langConfig = langConfig;
 		this.primaryNode = primaryNode;
 
-		Tab testTab = new Tab();
-		Tab testTab2 = new Tab();
-		Tab testTab3 = new Tab();
-		final RailroadTabLabel testLabel = new RailroadTabLabel(testTab, "debug");
-		final RailroadTabLabel testLabel2 = new RailroadTabLabel(testTab2, "explorer");
-		final RailroadTabLabel testLabel3 = new RailroadTabLabel(testTab3, "editor");
+		var testTab = new Tab();
+		var testTab2 = new Tab();
+		var testTab3 = new Tab();
+		final var testLabel = new RailroadTabLabel(testTab, "debug");
+		final var testLabel2 = new RailroadTabLabel(testTab2, "explorer");
+		final var testLabel3 = new RailroadTabLabel(testTab3, "editor");
 		testTab.setGraphic(testLabel);
 		testTab2.setGraphic(testLabel2);
 		testTab3.setGraphic(testLabel3);
 		testTab.setContent(new RailroadTextEditor());
-		RailroadTabPane firstTabPane = new RailroadTabPane(this.primaryNode, testTab, testTab2, testTab3);
+		var firstTabPane = new RailroadTabPane(this.primaryNode, testTab, testTab2, testTab3);
 		addToPane(this.primaryNode, firstTabPane);
 	}
 
@@ -54,10 +53,10 @@ public class LayoutManager { // AKA THE PAIN TRAIN
 		Node parent = destinationPane.getRealParent();
 
 		// new child replacing the destination (imposter child)
-		RailroadSplitPane newSplitChild = new RailroadSplitPane();
+		var newSplitChild = new RailroadSplitPane();
 		newSplitChild.setOrientation(orientation);
 
-		TabPane sourceTabPane = sourceTab.getTabPane();
+		var sourceTabPane = sourceTab.getTabPane();
 
 		// sourceTab newborn abducted from the sourceTabPane
 		sourceTabPane.getTabs().remove(sourceTab);
@@ -66,7 +65,7 @@ public class LayoutManager { // AKA THE PAIN TRAIN
 		destinationPane.setRealParent(newSplitChild);
 
 		// puppet parent becomes the bag that the imposter uses to abduct the source tab
-		RailroadTabPane newTabPane = new RailroadTabPane(newSplitChild, sourceTab);
+		var newTabPane = new RailroadTabPane(newSplitChild, sourceTab);
 
 		// destinationPane is removed from the master parent
 		removeFromPane(parent, destinationPane);
@@ -112,6 +111,7 @@ public class LayoutManager { // AKA THE PAIN TRAIN
 		if (parent instanceof VBox) {
 			((VBox) parent).getChildren().add(node);
 		} else if (parent instanceof RailroadSplitPane) {
+			//TODO: Issue is here, not adding at correct index
 			((RailroadSplitPane) parent).getItems().add(node);
 		} else {
 			System.out.println("Somehow not VBox or RailroadSplitPane when adding!");
@@ -134,18 +134,18 @@ public class LayoutManager { // AKA THE PAIN TRAIN
 	 * @return The layout file that the user picked.
 	 */
 	public File openLoadLayoutDialog() throws SecurityException, NullPointerException, IllegalArgumentException {
-		FileChooser fileChooser = new FileChooser();
+		var fileChooser = new FileChooser();
 		fileChooser.setTitle(this.langConfig.get("layoutmanager.load_file"));
 		String desktopPath = System.getProperty("user.home") + "/Desktop";
 		fileChooser.setInitialDirectory(new File(desktopPath));
-		fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Layout", new String[] { "*.layout" }));
-		File layoutFile = fileChooser.showOpenDialog(null);
-		return layoutFile;
+		fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Layout", "*.layout"));
+		return fileChooser.showOpenDialog(null);
 	}
 
 	public boolean load(File file) {
 		if (file == null)
 			return false;
+		// TODO
 		return true;
 	}
 
